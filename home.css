@@ -1,0 +1,36 @@
+
+html, body {
+	height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	background-color: #99CCFF;
+}
+
+#logo {
+	display: flex;
+	align-items: center;
+}
+
+#link-to-switch-lang {
+	display: flex;
+	align-items: center;
+}
+
+#background-img {
+  padding: 0;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+#intro {
+	display: flex;
+	align-items: center;
+}
