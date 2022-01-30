@@ -34,3 +34,8 @@ header {
 	display: flex;
 	align-items: center;
 }
+
+#side-text {
+	display: flex;
+	align-items: center;
+}

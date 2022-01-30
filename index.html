@@ -1,31 +1,103 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 	<head>
 		<meta charset="UTF-8">
-		<title>Apartamentos Naturmar</title>
-		<link rel="icon" href="/icons/evergreen-tree.png">
-		<link rel="stylesheet" type="text/css" href="/home.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Apartamentos Naturmar Praia</title>
+		<link rel="icon" type="image/x-icon" href="/icons/beach2.png">
+		<link rel="stylesheet" type="text/css" href="/w3.css">
+		<style>
+			body {
+				font-family: sans-serif;
+			}
+			#top-bar {
+				padding-left: 5vw;
+				padding-right: 5vw;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				background-color: black;
+				color: white;
+			}
+			#logo {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#logo > img {
+				width: 20vw;
+				max-width: 512px;
+				margin-right: 2vw;
+			}
+			#logo > h1 {
+				font-family: cursive;
+				font-size: 1.7em;
+			}
+			#lang-switcher {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 1em;
+			}
+			#lang-switcher > img {
+				width: 10vw;
+			}
+			#nav-bar {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 0.9em;
+			}
+			#nav-bar > a {
+				background-color: lightslategrey;
+				padding: 1vw;
+				border: solid;
+				border-width: 1px;
+				border-color: black;
+				border-bottom-width: 2px;
+			}
+			#init-image {
+				width: 100%;
+			}
+			#intro {
+				padding: 1vw;
+				display: flex;
+				flex-direction: column-reverse;
+			}
+		</style>
 	</head>
 	<body>
-		<header>
+		<!-- Top Bar -->
+		<header id="top-bar">
 			<div id="logo">
-				<img src="/icons/evergreen-tree.png" width="150" height="150">
-				<p>Apartamentos<br>Naturmar</p>
+				<img src="/icons/beach2.png">
+				<h1>Apartamentos<br>Naturmar Praia</h1>
 			</div>
-			<nav>
-				<a>Início</a>
-				<a href="/apartamentos">Apartamentos</a>
-				<a href="/contactos">Contactos</a>
-			</nav>
-			<a id="link-to-switch-lang" href="/en/home">
-				<img src="/icons/united-kingdom-flag.svg" width="60" height="40">
+			<a id="lang-switcher" href="/en/home">
+				<img src="/icons/united-kingdom-flag.svg">
 				<p lang="en">English</p>
 			</a>
+			<nav id="nav-bar">
+				<a>INÍCIO</a>
+				<a href="/apartamentos">APARTAMENTOS</a>
+				<a href="/contactos">CONTACTOS</a>
+			</nav>
 		</header>
-		<img id="background-img" src="/pics/beach.jpg">
+
+		<!-- Rest -->
+		<img id="init-image" src="/pics/beach.jpg">
 		<div id="intro">
-			<img id="side-img" src="/pics/hotel.jpg">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus enim, convallis placerat quam quis, maximus elementum ligula. Nulla facilisi. Vestibulum vitae nisl aliquet, vestibulum lorem vitae, faucibus lacus. Suspendisse potenti. Nam elit ligula, dapibus vel tincidunt eu, commodo nec tortor. Praesent elementum sed lacus non fringilla. Vestibulum hendrerit quis felis non bibendum. Maecenas diam leo, viverra in commodo in, vestibulum non enim. Vestibulum sed tortor tincidunt, ultricies urna et, elementum justo. Integer et cursus erat, quis condimentum sem. Integer nulla lacus, vestibulum et iaculis ac, pellentesque ut nulla. Vivamus id tempus libero. Pellentesque ultricies, lorem vitae ornare auctor, erat erat mattis ligula, in dignissim erat lacus id arcu. Sed rutrum nisi sodales, viverra nulla id, mattis erat. In finibus ut eros eu posuere.<br><br>Fusce at vestibulum lacus. Etiam ipsum mi, aliquam sed nisi tempus, lacinia tincidunt metus. Curabitur fringilla nunc eros, eu bibendum eros porttitor condimentum. Vivamus vehicula mi non lobortis elementum. In maximus odio nec lacinia venenatis. Duis a dui elit. Donec ullamcorper lectus enim, id facilisis dui sollicitudin suscipit. Quisque sapien dolor, mollis vel nisi id, vehicula pellentesque elit. Cras ullamcorper, massa eu tempus interdum, lacus erat feugiat ligula, at dignissim orci lectus eget magna. Nullam molestie sem eget sem pharetra congue. Aliquam at felis eu risus sollicitudin eleifend in a purus. Proin maximus metus ut imperdiet ullamcorper. Cras ornare suscipit ultrices. Duis et orci sollicitudin, consequat nisi vel, dignissim ex. Aenean convallis mi eget tincidunt vestibulum.<br><br>Pellentesque iaculis ligula purus, at euismod sem tincidunt at. Nullam a tristique eros. Duis sit amet dignissim dolor, elementum sodales purus. Nunc lectus augue, gravida in facilisis non, tristique eget eros. Sed auctor accumsan tortor imperdiet gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut lacinia facilisis pharetra. Ut lacus urna, fringilla ac dui eget, fringilla euismod turpis. Vestibulum mi urna, fringilla tincidunt suscipit at, dictum id arcu. Nullam venenatis feugiat nulla, eu luctus urna ornare quis. Quisque vulputate risus nec velit auctor, at vestibulum nulla vulputate. Fusce et neque urna. Maecenas faucibus porttitor feugiat. Sed ante metus, gravida ut ultrices eget, congue vel lectus. Ut eu nibh lectus.</p>
+			<img src="/pics/hotel.jpg">
+			<div>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus enim, convallis placerat quam quis, maximus elementum ligula. Nulla facilisi. Vestibulum vitae nisl aliquet, vestibulum lorem vitae, faucibus lacus. Suspendisse potenti. Nam elit ligula, dapibus vel tincidunt eu, commodo nec tortor. Praesent elementum sed lacus non fringilla. Vestibulum hendrerit quis felis non bibendum. Maecenas diam leo, viverra in commodo in, vestibulum non enim. Vestibulum sed tortor tincidunt, ultricies urna et, elementum justo. Integer et cursus erat, quis condimentum sem. Integer nulla lacus, vestibulum et iaculis ac, pellentesque ut nulla. Vivamus id tempus libero. Pellentesque ultricies, lorem vitae ornare auctor, erat erat mattis ligula, in dignissim erat lacus id arcu. Sed rutrum nisi sodales, viverra nulla id, mattis erat. In finibus ut eros eu posuere.
+				</p><p>
+					Fusce at vestibulum lacus. Etiam ipsum mi, aliquam sed nisi tempus, lacinia tincidunt metus. Curabitur fringilla nunc eros, eu bibendum eros porttitor condimentum. Vivamus vehicula mi non lobortis elementum. In maximus odio nec lacinia venenatis. Duis a dui elit. Donec ullamcorper lectus enim, id facilisis dui sollicitudin suscipit. Quisque sapien dolor, mollis vel nisi id, vehicula pellentesque elit. Cras ullamcorper, massa eu tempus interdum, lacus erat feugiat ligula, at dignissim orci lectus eget magna. Nullam molestie sem eget sem pharetra congue. Aliquam at felis eu risus sollicitudin eleifend in a purus. Proin maximus metus ut imperdiet ullamcorper. Cras ornare suscipit ultrices. Duis et orci sollicitudin, consequat nisi vel, dignissim ex. Aenean convallis mi eget tincidunt vestibulum.
+				</p><p>
+					Pellentesque iaculis ligula purus, at euismod sem tincidunt at. Nullam a tristique eros. Duis sit amet dignissim dolor, elementum sodales purus. Nunc lectus augue, gravida in facilisis non, tristique eget eros. Sed auctor accumsan tortor imperdiet gravida. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut lacinia facilisis pharetra. Ut lacus urna, fringilla ac dui eget, fringilla euismod turpis. Vestibulum mi urna, fringilla tincidunt suscipit at, dictum id arcu. Nullam venenatis feugiat nulla, eu luctus urna ornare quis. Quisque vulputate risus nec velit auctor, at vestibulum nulla vulputate. Fusce et neque urna. Maecenas faucibus porttitor feugiat. Sed ante metus, gravida ut ultrices eget, congue vel lectus. Ut eu nibh lectus.
+				</p>
+			</div>
 		</div>
 	</body>
 </html>
