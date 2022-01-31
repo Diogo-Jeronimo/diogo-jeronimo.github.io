@@ -25,13 +25,15 @@
 				align-items: center;
 			}
 			#logo > img {
-				width: 20vw;
+				width: 18vw;
 				max-width: 512px;
-				margin-right: 2vw;
+				padding: 1vw;
+				padding-right: 2vw;
 			}
 			#logo > h1 {
 				font-family: cursive;
-				font-size: 1.7em;
+				font-size: 1.5em;
+				font-weight: bold;
 			}
 			#lang-switcher {
 				display: flex;
@@ -45,9 +47,13 @@
 			#nav-bar {
 				width: 100%;
 				display: flex;
+				flex-wrap: wrap-reverse;
 				justify-content: center;
 				align-items: center;
 				font-size: 0.9em;
+				border-bottom: solid;
+				border-bottom-width: 1px;
+				border-bottom-color: black;
 			}
 			#nav-bar > a {
 				background-color: lightslategrey;
@@ -55,13 +61,12 @@
 				border: solid;
 				border-width: 1px;
 				border-color: black;
-				border-bottom-width: 2px;
 			}
 			#init-image {
 				width: 100%;
 			}
 			#intro {
-				padding: 1vw;
+				padding: 2vw;
 				display: flex;
 				flex-direction: column-reverse;
 			}
