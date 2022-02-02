@@ -70,6 +70,50 @@
 				display: flex;
 				flex-direction: column-reverse;
 			}
+			#intro > img {
+				max-width: 800px;
+				max-height: 600px;
+			}
+			@media screen and (min-width: 600px) {
+				#logo {
+					order: 1;
+				}
+				#logo > img {
+					width: 5vw;
+					padding: 0.5vw;
+					padding-right: 1vw;
+				}
+				#nav-bar {
+					order: 2;
+					width: auto;
+				}
+				#nav-bar > a {
+					background-color: black;
+					padding: 0.5vw;
+					border: solid;
+					border-width: 1px;
+					border-color: black;
+				}
+				#nav-bar > a:hover {
+					background-color: dodgerblue;
+				}
+				#lang-switcher {
+					order: 3;
+				}
+				#lang-switcher > img {
+					width: 2vw;
+				}
+				#intro {
+					padding: 1vw;
+					flex-direction: row;
+					justify-content: center;
+					align-items: center;
+				}
+				#intro > img {
+					width: 50vw;
+					margin-right: 1vw;
+				}
+			}
 		</style>
 	</head>
 	<body>
