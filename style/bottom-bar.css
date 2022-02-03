@@ -1,0 +1,22 @@
+#bottom-bar {
+  background-color: black;
+  color: white;
+  display: flex;
+}
+#bottom-bar > ul, #bottom-bar h2 {
+  margin: 0;
+}
+#contacts-list {
+  list-style-type: none;
+}
+#contacts-list > li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.contact-icon {
+  width: 30px;
+  height: 30px;
+  padding-right: 5px;
+  filter: invert(100%);
+}
