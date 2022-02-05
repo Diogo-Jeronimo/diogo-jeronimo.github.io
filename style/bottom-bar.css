@@ -1,13 +1,24 @@
 #bottom-bar {
   background-color: black;
   color: white;
-  display: flex;
 }
-#bottom-bar > ul, #bottom-bar h2 {
+#bottom-bar > h2 {
   margin: 0;
+  padding-top: 10px;
+  padding-left: 6vw;
+  padding-bottom: 5px;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 #contacts-list {
   list-style-type: none;
+  margin: 0;
+  padding-left: 5vw;
+  padding-right: 1vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 #contacts-list > li {
   display: flex;
@@ -19,4 +30,7 @@
   height: 30px;
   padding-right: 5px;
   filter: invert(100%);
+}
+.contact-text {
+  font-size: 0.8em;
 }
