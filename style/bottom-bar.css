@@ -17,8 +17,8 @@
   padding-right: 5vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
 }
 #contacts-list > li {
