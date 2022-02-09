@@ -22,7 +22,7 @@
   padding-right: 2vw;
 }
 #logo > h1 {
-  font-family: cursive;
+  font-family: serif;
   font-size: 1.5em;
   font-weight: bold;
 }
@@ -58,7 +58,7 @@
     order: 1;
   }
   #logo > img {
-    width: 100px;
+    width: 70px;
     padding: 0.5vw;
     padding-right: 1vw;
   }
