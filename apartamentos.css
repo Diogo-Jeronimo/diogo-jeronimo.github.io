@@ -10,14 +10,21 @@ main {
 	padding: 2vw;
 	font-size: 1rem;
 }
-main td {
+#slideshow > img {
+	width: 100%;
+}
+#prices-table > caption {
+	font-size: 1.1rem;
+	font-weight: bold;
+}
+#prices-table td {
 	font-family: monospace;
 	text-align: center;
 }
-main th, main td {
+#prices-table th, #prices-table td {
 	padding: 1vw;
 }
-main table, main th, main td {
+#prices-table, #prices-table th, #prices-table td {
 	border-width: 1px;
 	border-style: solid;
 	border-color: black;

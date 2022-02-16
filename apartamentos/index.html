@@ -29,19 +29,23 @@
 
 		<!---->
 		<main>
-			<label for="type-select">Accommodation Type:
+			<label for="type-select">Tipo de Alojamento:
 				<select id="type-select">
 				 <option>T0</option>
 				 <option>T0+1</option>
 				 <option>T1</option>
-				 <option>T1S</option>
+				 <option>T1s</option>
 				 <option>T1+1</option>
 				 <option>T2</option>
-				 <option>T3</option>
 				</select>
 			</label>
 			<br>
-			<table>
+			<div id="slideshow">
+				<img src="/pics/hotel.jpg">
+			</div>
+			<br>
+			<table id="prices-table">
+				<caption>Preçário</caption>
 				<tr>
 					<th>Data</th><th>Preço por noite</th>
 				</tr><tr>
@@ -72,6 +76,13 @@
 					<td>Dez 30 - Jan 01</td><td>110€</td>
 				</tr>
 			</table>
+			<br>
+			<label for="check-in-date-picker">Data de check-in
+				<input type="date" id="check-in-date-picker">
+			</label>
+			<label for="check-out-date-picker">Data de check-out
+				<input type="date" id="check-out-date-picker">
+			</label>
 		</main>
 
 		<!-- Bottom Bar -->
