@@ -1,0 +1,25 @@
+body {
+	margin: 0;
+	font-family: sans-serif;
+}
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2vw;
+	font-size: 1rem;
+}
+main td {
+	font-family: monospace;
+	text-align: center;
+}
+main th, main td {
+	padding: 1vw;
+}
+main table, main th, main td {
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	border-collapse: collapse;
+}

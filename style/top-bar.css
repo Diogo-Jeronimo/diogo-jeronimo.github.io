@@ -49,9 +49,7 @@
 #nav-bar > a {
   background-color: lightslategrey;
   padding: 1vw;
-  border: solid;
-  border-width: 1px;
-  border-color: black;
+  margin: 1px;
 }
 @media screen and (min-width: 600px) {
   #logo {
