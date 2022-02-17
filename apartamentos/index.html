@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="/style/top-bar.css">
 		<link rel="stylesheet" type="text/css" href="/style/bottom-bar.css">
 		<link rel="stylesheet" type="text/css" href="/apartamentos.css">
+		<script src="/apartamentos.js" defer></script>
 	</head>
 	<body>
 		<!-- Top Bar -->
@@ -30,13 +31,13 @@
 		<!---->
 		<main>
 			<label for="type-select">Tipo de Alojamento:
-				<select id="type-select">
-				 <option>T0</option>
-				 <option>T0+1</option>
-				 <option>T1</option>
-				 <option>T1s</option>
-				 <option>T1+1</option>
-				 <option>T2</option>
+				<select id="type-select" onchange="notifySelectionChange();">
+				 <option id="T0">T0 (2 Pessoas)</option>
+				 <option id="T0+1">T0+1 (3 Pessoas)</option>
+				 <option id="T1">T1 (4 Pessoas)</option>
+				 <option id="T1s">T1s (4 Pessoas)</option>
+				 <option id="T1+1">T1+1 (6 Pessoas)</option>
+				 <option id="T2">T2 (6 Pessoas)</option>
 				</select>
 			</label>
 			<br>
@@ -77,12 +78,16 @@
 				</tr>
 			</table>
 			<br>
-			<label for="check-in-date-picker">Data de check-in
-				<input type="date" id="check-in-date-picker">
-			</label>
-			<label for="check-out-date-picker">Data de check-out
-				<input type="date" id="check-out-date-picker">
-			</label>
+			<section id = "price-calc">
+				<h2>Cálculo de Preço:</h2>
+				<label for="check-in-date-picker">Data de check-in
+					<input type="date" id="check-in-date-picker">
+				</label>
+				<label for="check-out-date-picker">Data de check-out
+					<input type="date" id="check-out-date-picker">
+				</label>
+				<p id="price-calc-result"></p>
+			</section>
 		</main>
 
 		<!-- Bottom Bar -->

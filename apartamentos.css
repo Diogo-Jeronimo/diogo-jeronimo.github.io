@@ -30,3 +30,12 @@ main {
 	border-color: black;
 	border-collapse: collapse;
 }
+#price-calc {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+#price-calc > h2 {
+	margin: 0;
+}
