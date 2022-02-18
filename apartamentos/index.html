@@ -31,7 +31,7 @@
 		<!---->
 		<main>
 			<label for="type-select">Tipo de Alojamento:
-				<select id="type-select" onchange="notifySelectionChange();">
+				<select id="type-select" onchange="selectionChange();">
 				 <option id="T0">T0 (2 Pessoas)</option>
 				 <option id="T0+1">T0+1 (3 Pessoas)</option>
 				 <option id="T1">T1 (4 Pessoas)</option>
@@ -48,7 +48,7 @@
 			<table id="prices-table">
 				<caption>Preçário</caption>
 				<tr>
-					<th>Data</th><th>Preço por noite</th>
+					<th>Data</th><th>Preço/noite</th>
 				</tr><tr>
 					<td>Jan 03 - Mar 31</td><td>35€</td>
 				</tr><tr>
@@ -81,10 +81,10 @@
 			<section id = "price-calc">
 				<h2>Cálculo de Preço:</h2>
 				<label for="check-in-date-picker">Data de check-in
-					<input type="date" id="check-in-date-picker">
+					<input type="date" id="check-in-date-picker" onchange="calcDateRangePrice();">
 				</label>
 				<label for="check-out-date-picker">Data de check-out
-					<input type="date" id="check-out-date-picker">
+					<input type="date" id="check-out-date-picker" onchange="calcDateRangePrice();">
 				</label>
 				<p id="price-calc-result"></p>
 			</section>
