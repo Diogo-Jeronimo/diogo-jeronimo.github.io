@@ -36,6 +36,10 @@ const calcDateRangePrice = () => {
       numberNights++;
     }
     priceCalcResult.innerHTML = `Preço por ${numberNights} noite(s): ${totalPrice}€`;
+  } else if(inDatePicker.value === "") {
+    inDatePicker.value = outDatePicker.value;
+  } else if(outDatePicker.value === "") {
+    outDatePicker.value = inDatePicker.value;
   }
 };
 const getPricesOf = optionId => {
