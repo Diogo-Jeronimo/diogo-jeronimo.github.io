@@ -24,7 +24,7 @@ const calcDateRangePrice = () => {
     const pricesObj = getPricesOf(selectedId);
     let totalPrice = 0, numberNights = 0;
     for(let date = inDate, d = inDatePicker.valueAsDate;
-      date <= outDate;
+      date < outDate;
       d.setDate(d.getDate() + 1), date = d.toISOString().slice(0, 10)
     ) {
       for(let i = 0; i < pricesObj.dates.length; i++) {
