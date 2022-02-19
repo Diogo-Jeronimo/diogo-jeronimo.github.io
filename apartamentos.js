@@ -8,6 +8,18 @@ const selectionChange = () => {
   }
   calcDateRangePrice();
 };
+let slideIndex = 0;
+const changeSlide = id => {
+  const slide = document.getElementById("slide");
+  const slides = ["/pics/hotel.jpg", "/pics/beach.jpg", "/pics/hotel2.jpg"];
+  if(id === -1) {
+    slide.src = slides[(++slideIndex) % slides.length];
+  } else if(id === -2) {
+    slide.src = slides[(--slideIndex + slides.length) % slides.length];
+  } else {
+    slide.src = slides[slideIndex = id];
+  }
+};
 const calcDateRangePrice = () => {
   const inDatePicker = document.getElementById("check-in-date-picker");
   const outDatePicker = document.getElementById("check-out-date-picker");

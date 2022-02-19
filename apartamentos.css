@@ -10,8 +10,25 @@ main {
 	padding: 2vw;
 	font-size: 1rem;
 }
+#slideshow {
+	margin: 0;
+	position: relative;
+}
 #slideshow > img {
 	width: 100%;
+}
+#slideshow > button {
+	position: absolute;
+	top: 50%;
+	padding: 0;
+	font-weight: bold;
+	font-size: 2em;
+}
+#prev-slide {
+	left: 0;
+}
+#next-slide {
+	right: 0;
 }
 #prices-table > caption {
 	font-size: 1.1rem;

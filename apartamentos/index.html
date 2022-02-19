@@ -41,9 +41,11 @@
 				</select>
 			</label>
 			<br>
-			<div id="slideshow">
-				<img src="/pics/hotel.jpg">
-			</div>
+			<figure id="slideshow">
+				<img id="slide" src="/pics/hotel.jpg">
+				<button id="prev-slide" type="button" onclick="changeSlide(-2);">←</button>
+				<button id="next-slide" type="button" onclick="changeSlide(-1);">→</button>
+			</figure>
 			<br>
 			<table id="prices-table">
 				<caption>Preçário</caption>
