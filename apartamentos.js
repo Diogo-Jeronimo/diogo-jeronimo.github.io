@@ -23,10 +23,8 @@ const changeSlide = id => {
   } else {
     slide.src = slides[slideIndex = id];
   }
-  buttons.children[prevSlideIndex].classList.add('slide-n');
-  buttons.children[prevSlideIndex].classList.remove('slide-n-a');
-  buttons.children[slideIndex].classList.add('slide-n-a');
-  buttons.children[slideIndex].classList.remove('slide-n');
+  buttons.children[prevSlideIndex].className = "slide-n";
+  buttons.children[slideIndex].className = "slide-n-a";
 };
 const calcDateRangePrice = () => {
   const inDatePicker = document.getElementById("check-in-date-picker");
