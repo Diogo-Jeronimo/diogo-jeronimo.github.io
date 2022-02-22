@@ -11,14 +11,22 @@ const selectionChange = () => {
 let slideIndex = 0;
 const changeSlide = id => {
   const slide = document.getElementById("slide");
-  const slides = ["/pics/hotel.jpg", "/pics/beach.jpg", "/pics/hotel2.jpg"];
+  const buttons = document.getElementById("slide-buttons");
+  const slides = ["/pics/4-403/1181.jpg", "/pics/4-403/1182.jpg", "/pics/4-403/1183.jpg", "/pics/4-403/1187.jpg", "/pics/4-403/1196.jpg", "/pics/4-403/1200.jpg", "/pics/4-403/1333.jpg", "/pics/4-403/1338.jpg", "/pics/4-403/1342.jpg", "/pics/4-403/1344.jpg", "/pics/4-403/1345.jpg", "/pics/4-403/1348.jpg", "/pics/4-403/1352.jpg", "/pics/4-403/1357.jpg"];
+  const prevSlideIndex = slideIndex;
   if(id === -1) {
-    slide.src = slides[(++slideIndex) % slides.length];
+    slideIndex = (slideIndex + 1) % slides.length;
+    slide.src = slides[slideIndex];
   } else if(id === -2) {
-    slide.src = slides[(--slideIndex + slides.length) % slides.length];
+    slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+    slide.src = slides[slideIndex];
   } else {
     slide.src = slides[slideIndex = id];
   }
+  buttons.children[prevSlideIndex].classList.add('slide-n');
+  buttons.children[prevSlideIndex].classList.remove('slide-n-a');
+  buttons.children[slideIndex].classList.add('slide-n-a');
+  buttons.children[slideIndex].classList.remove('slide-n');
 };
 const calcDateRangePrice = () => {
   const inDatePicker = document.getElementById("check-in-date-picker");

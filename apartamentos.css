@@ -20,15 +20,47 @@ main {
 #slideshow > button {
 	position: absolute;
 	top: 50%;
-	padding: 0;
+	transform: translate(0, -50%);
+	padding-top: 2vw;
+	padding-bottom: 2vw;
+	border: 0;
+	background-color: rgba(0, 0, 0, 0.1);
 	font-weight: bold;
-	font-size: 2em;
+	font-size: 5vw;
+	color: white;
 }
 #prev-slide {
 	left: 0;
+	padding-left: 1vw;
+	padding-right: 2vw;
 }
 #next-slide {
 	right: 0;
+	padding-right: 1vw;
+	padding-left: 2vw;
+}
+#slideshow > ol {
+	position: absolute;
+	bottom: 2%;
+	width: 100%;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+}
+.slide-n, .slide-n-a {
+	padding-left: 1px;
+	padding-right: 1px;
+	font-size: 5vw;
+}
+.slide-n {
+	color: rgba(255, 255, 255, 0.5);
+	border-color: white;
+}
+.slide-n-a {
+	color: rgba(0, 0, 0, 0.7);
+	border-color: black;
 }
 #prices-table > caption {
 	font-size: 1.1rem;
