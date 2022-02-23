@@ -26,7 +26,7 @@ main {
 	border: 0;
 	background-color: rgba(0, 0, 0, 0.1);
 	font-weight: bold;
-	font-size: 5vw;
+	font-size: 7vw;
 	color: white;
 }
 #prev-slide {
@@ -52,7 +52,7 @@ main {
 .slide-n, .slide-n-a {
 	padding-left: 1px;
 	padding-right: 1px;
-	font-size: 5vw;
+	font-size: 7vw;
 }
 .slide-n {
 	color: rgba(255, 255, 255, 0.5);
