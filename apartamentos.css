@@ -17,6 +17,14 @@ main {
 #slideshow > img {
 	width: 100%;
 }
+#slide-caption {
+	position: absolute;
+	top: 0;
+	padding-left: 1vw;
+	padding-right: 1vw;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.2);
+}
 #slideshow > button {
 	position: absolute;
 	top: 50%;
@@ -48,6 +56,7 @@ main {
 	margin: 0;
 	display: flex;
 	justify-content: center;
+	flex-wrap: wrap-reverse;
 }
 .slide-n, .slide-n-a {
 	padding-left: 1px;
