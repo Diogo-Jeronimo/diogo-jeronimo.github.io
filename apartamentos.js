@@ -27,12 +27,28 @@ const pricesTable = deepFreeze({
     "T2": [60, 65, 95, 115, 130, 150, 130, 115, 110, 95, 65, 60, 160]
   }
 });
+const slidesTable = deepFreeze({
+  "T0": {id: 13037, slides: ["/pics/4-403/1181.jpg", "/pics/4-403/1182.jpg", "/pics/4-403/1183.jpg", "/pics/4-403/1187.jpg", "/pics/4-403/1196.jpg", "/pics/4-403/1200.jpg", "/pics/4-403/1333.jpg", "/pics/4-403/1338.jpg", "/pics/4-403/1342.jpg", "/pics/4-403/1344.jpg", "/pics/4-403/1345.jpg", "/pics/4-403/1348.jpg", "/pics/4-403/1352.jpg", "/pics/4-403/1357.jpg"]},
+  "T0+1": {id: 49298, slides: ["/pics/6-102/1152.jpg", "/pics/6-102/1153.jpg", "/pics/6-102/1154.jpg", "/pics/6-102/1161.jpg", "/pics/6-102/1163.jpg", "/pics/6-102/1188.jpg", "/pics/6-102/1190.jpg", "/pics/6-102/1274.jpg", "/pics/6-102/1292.jpg", "/pics/6-102/1294.jpg", "/pics/6-102/1363.jpg", "/pics/6-102/1366.jpg", "/pics/6-102/1368.jpg", "/pics/6-102/1374.jpg"]},
+  "T1": {id: 22535, slides: ["/pics/4-105/1093.jpg", "/pics/4-105/1094.jpg", "/pics/4-105/1096.jpg", "/pics/4-105/1097.jpg", "/pics/4-105/1102.jpg", "/pics/4-105/1103.jpg", "/pics/4-105/1104.jpg", "/pics/4-105/1105.jpg", "/pics/4-105/1106.jpg", "/pics/4-105/1107.jpg", "/pics/4-105/1109.jpg", "/pics/4-105/1110.jpg", "/pics/4-105/1112.jpg"]},
+  "T1s": {id: 22517, slides: ["/pics/4-305/0821.jpg", "/pics/4-305/0826.jpg", "/pics/4-305/0827.jpg", "/pics/4-305/0828.jpg", "/pics/4-305/0829.jpg", "/pics/4-305/0834.jpg", "/pics/4-305/0835.jpg", "/pics/4-305/0838.jpg", "/pics/4-305/0842.jpg", "/pics/4-305/0920.jpg", "/pics/4-305/0936.jpg", "/pics/4-305/0945.jpg"]},
+  "T1+1": {id: 55772, slides: ["/pics/4-201/0715.jpg", "/pics/4-201/0717.jpg", "/pics/4-201/0718.jpg", "/pics/4-201/0722.jpg", "/pics/4-201/0723.jpg", "/pics/4-201/0728.jpg", "/pics/4-201/0729.jpg", "/pics/4-201/0730.jpg", "/pics/4-201/0732.jpg", "/pics/4-201/0733.jpg", "/pics/4-201/0739.jpg", "/pics/4-201/0743.jpg", "/pics/4-201/0746.jpg", "/pics/4-201/0749.jpg", "/pics/4-201/0754.jpg", "/pics/4-201/0757.jpg", "/pics/4-201/1348.jpg"]},
+  "T2": {id: 22536, slides: ["/pics/4-106/0669.jpg", "/pics/4-106/0675.jpg", "/pics/4-106/0678.jpg", "/pics/4-106/0682.jpg", "/pics/4-106/0683.jpg", "/pics/4-106/0686.jpg", "/pics/4-106/0687.jpg", "/pics/4-106/0688.jpg", "/pics/4-106/0690.jpg", "/pics/4-106/0693.jpg", "/pics/4-106/0695.jpg", "/pics/4-106/0697.jpg", "/pics/4-106/0699.jpg", "/pics/4-106/0702.jpg", "/pics/4-106/0703.jpg", "/pics/4-106/0704.jpg", "/pics/4-106/0705.jpg", "/pics/4-106/0708.jpg"]}
+});
 
 const selectionChange = () => {
   const typeSelect = document.getElementById("type-select");
   const pricesTableElement = document.getElementById("prices-table");
+  const slideButtons = document.getElementById("slide-buttons");
+  const slideCaption = document.getElementById("slide-caption");
   const selectedId = typeSelect.selectedOptions[0].id;
   const prices = pricesTable.prices[selectedId];
+  const buttons = slideButtons.children;
+  changeSlide(0);
+  for(let i = 1; i < buttons.length; i++) {
+    buttons[i].className = i < slidesTable[selectedId].slides.length ? "slide-n" : "slide-n-d";
+  }
+  slideCaption.innerHTML = "Alojamento Local: " + slidesTable[selectedId].id;
   for(let i = 0; i < prices.length; i++) {
     pricesTableElement.rows[i + 1].cells[1].innerHTML = prices[i] + "€";
   }
@@ -42,7 +58,9 @@ let slideIndex = 0;
 const changeSlide = id => {
   const slide = document.getElementById("slide");
   const buttons = document.getElementById("slide-buttons");
-  const slides = ["/pics/4-403/1181.jpg", "/pics/4-403/1182.jpg", "/pics/4-403/1183.jpg", "/pics/4-403/1187.jpg", "/pics/4-403/1196.jpg", "/pics/4-403/1200.jpg", "/pics/4-403/1333.jpg", "/pics/4-403/1338.jpg", "/pics/4-403/1342.jpg", "/pics/4-403/1344.jpg", "/pics/4-403/1345.jpg", "/pics/4-403/1348.jpg", "/pics/4-403/1352.jpg", "/pics/4-403/1357.jpg"];
+  const typeSelect = document.getElementById("type-select");
+  const selectedId = typeSelect.selectedOptions[0].id;
+  const slides = slidesTable[selectedId].slides;
   const prevSlideIndex = slideIndex;
   if(id === -1) {
     slideIndex = (slideIndex + 1) % slides.length;

@@ -20,8 +20,10 @@ main {
 #slide-caption {
 	position: absolute;
 	top: 0;
+	padding-top: 0.5vw;
 	padding-left: 1vw;
 	padding-right: 1vw;
+	font-size: 1em;
 	color: white;
 	background-color: rgba(0, 0, 0, 0.2);
 }
@@ -59,6 +61,7 @@ main {
 	flex-wrap: wrap-reverse;
 }
 .slide-n, .slide-n-a {
+	display: list-item;
 	padding-left: 1px;
 	padding-right: 1px;
 	font-size: 7vw;
@@ -70,6 +73,9 @@ main {
 .slide-n-a {
 	color: rgba(0, 0, 0, 0.7);
 	border-color: black;
+}
+.slide-n-d {
+	display: none;
 }
 #prices-table > caption {
 	font-size: 1.1rem;
