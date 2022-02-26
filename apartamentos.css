@@ -11,6 +11,9 @@ main {
 	font-size: 1rem;
 	background-color: gainsboro;
 }
+#type-select {
+	font-weight: bold;
+}
 #type-select-label {
 	padding: 1vw;
 	background-color: white;
@@ -115,6 +118,16 @@ main {
 }
 #price-calc > h2 {
 	margin: 0;
+}
+#price-calc > div {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+#check-in-date-picker, #check-out-date-picker {
+	margin-left: 1vw;
 }
 #price-calc-result {
 	margin: 2vw 0 0 0;
