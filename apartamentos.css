@@ -9,9 +9,14 @@ main {
 	align-items: center;
 	padding: 2vw;
 	font-size: 1rem;
+	background-color: gainsboro;
+}
+#type-select-label {
+	padding: 1vw;
+	background-color: white;
 }
 #slideshow {
-	margin: 0;
+	margin: 2vw 0;
 	position: relative;
 }
 #slideshow > img {
@@ -75,6 +80,11 @@ main {
 .slide-n-d {
 	display: none;
 }
+#prices-table-container {
+	padding: 1vw;
+	margin-bottom: 2vw;
+	background-color: white;
+}
 #prices-table > caption {
 	font-size: 1.1rem;
 	font-weight: bold;
@@ -97,7 +107,12 @@ main {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	padding: 1vw;
+	background-color: white;
 }
 #price-calc > h2 {
 	margin: 0;
+}
+#price-calc-result {
+	margin: 2vw 0 0 0;
 }
