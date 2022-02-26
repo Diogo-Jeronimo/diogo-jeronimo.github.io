@@ -84,6 +84,9 @@ main {
 	padding: 1vw;
 	margin-bottom: 2vw;
 	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 #prices-table > caption {
 	font-size: 1.1rem;
