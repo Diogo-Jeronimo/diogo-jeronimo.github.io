@@ -72,6 +72,7 @@
     border: solid;
     border-width: 1px;
     border-color: #1E1E1E;
+    flex-grow: 0;
   }
   #nav-bar > a:hover {
     background-color: dodgerblue;
