@@ -4,7 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  background-color: black;
+  background-color: #1E1E1E;
   color: white;
 }
 #top-bar a {
@@ -52,6 +52,9 @@
   margin: 1px;
 }
 @media screen and (min-width: 600px) {
+  #top-bar {
+    flex-wrap: nowrap;
+  }
   #logo {
     order: 1;
   }
@@ -65,11 +68,11 @@
     width: auto;
   }
   #nav-bar > a {
-    background-color: black;
+    background-color: #1E1E1E;
     padding: 0.5vw;
     border: solid;
     border-width: 1px;
-    border-color: black;
+    border-color: #1E1E1E;
   }
   #nav-bar > a:hover {
     background-color: dodgerblue;
