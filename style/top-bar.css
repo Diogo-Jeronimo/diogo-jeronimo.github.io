@@ -1,9 +1,7 @@
 #top-bar {
-  padding-left: 5vw;
-  padding-right: 5vw;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: #1E1E1E;
   color: white;
 }
@@ -37,19 +35,20 @@
 }
 #nav-bar {
   width: 100%;
+  margin: 1px;
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: center;
+  align-content: center;
   font-size: 0.9em;
-  border-bottom: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: black;
 }
 #nav-bar > a {
-  background-color: lightslategrey;
+  background-color: #2E2E2E;
   padding: 1vw;
   margin: 1px;
+  flex-grow: 1;
+  text-align: center;
 }
 @media screen and (min-width: 600px) {
   #top-bar {
