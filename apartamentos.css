@@ -11,7 +11,7 @@ main {
 	font-size: 1rem;
 	background-color: gainsboro;
 }
-#type-select {
+#type-select, #type-select-label {
 	font-weight: bold;
 }
 #type-select-label {
