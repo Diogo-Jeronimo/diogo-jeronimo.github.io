@@ -28,9 +28,7 @@ main {
 #slide-caption {
 	position: absolute;
 	top: 0;
-	padding-top: 0.5vw;
-	padding-left: 1vw;
-	padding-right: 1vw;
+	padding: 0.5vw 1vw 0 1vw;
 	font-size: 1em;
 	color: white;
 	background-color: rgba(0, 0, 0, 0.2);
@@ -92,7 +90,7 @@ main {
 	align-items: center;
 }
 #prices-table > caption {
-	font-size: 1.1rem;
+	font-size: 1.1em;
 	font-weight: bold;
 }
 #prices-table td {
@@ -131,4 +129,65 @@ main {
 }
 #price-calc-result {
 	margin: 2vw 0 0 0;
+}
+@media screen and (min-width: 1000px) {
+	main {
+		flex-flow: row wrap;
+		justify-content: space-around;
+		align-items: stretch;
+	}
+	#type-select-label-container {
+		width: 100%;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+		margin: 0 0 1vw 0;
+	}
+	#slideshow {
+		width: 66%;
+		margin: 0;
+	}
+	#slide-caption {
+		padding: 0.25vw 0.5vw;
+		font-size: 1em;
+		color: white;
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+	#slide-caption:hover {
+		background-color: rgba(0, 0, 0, 0.8);
+	}
+	#slideshow > button {
+		padding-top: 1vw;
+		padding-bottom: 1vw;
+		background-color: rgba(0, 0, 0, 0);
+		font-size: 2vw;
+	}
+	#slideshow > button:hover {
+		background-color: rgba(0, 0, 0, 0.8);
+	}
+	#prev-slide {
+		padding-left: 0.5vw;
+		padding-right: 1vw;
+	}
+	#next-slide {
+		padding-right: 0.5vw;
+		padding-left: 1vw;
+	}
+	.slide-n, .slide-n-a {
+		font-size: 1.5vw;
+	}
+	.slide-n:hover {
+		color: rgba(0, 0, 0, 0.7);
+	}
+	#prices-table-container {
+		margin: 1vw 0 0 0;
+	}
+	#prices-table th, #prices-table td {
+		padding: 0.5vw;
+	}
+	#table-calc-container {
+		display: flex;
+		flex-flow: column-reverse nowrap;
+		justify-content: flex-end;
+	}
 }
