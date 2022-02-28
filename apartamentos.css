@@ -20,51 +20,59 @@ main {
 }
 #slideshow {
 	margin: 2vw 0;
-	position: relative;
+	display: grid;
+	grid-template: 1fr 1fr 1fr / 1fr 1fr;
 }
 #slideshow > img {
 	width: 100%;
+	grid-area: 1 / 1 / span 3 / span 2;
 }
 #slide-caption {
-	position: absolute;
-	top: 0;
-	padding: 0.5vw 1vw 0 1vw;
+	margin: 0 auto auto 0;
+	padding: 1vw 2vw 0 2vw;
+	grid-area: 1 / 1 / span 1 / span 2;
 	font-size: 1em;
 	color: white;
 	background-color: rgba(0, 0, 0, 0.2);
+	z-index: 1;
 }
 #slideshow > button {
-	position: absolute;
-	top: 50%;
-	transform: translate(0, -50%);
+	margin-top: auto;
+	margin-bottom: auto;
+	border: 0;
 	padding-top: 2vw;
 	padding-bottom: 2vw;
-	border: 0;
+	grid-row: 2 / span 1;
+	grid-column-end: span 1;
 	background-color: rgba(0, 0, 0, 0.1);
 	font-weight: bold;
 	font-size: 8vw;
 	color: white;
 }
 #prev-slide {
-	left: 0;
+	margin-left: 0;
+	margin-right: auto;
 	padding-left: 1vw;
 	padding-right: 2vw;
+	grid-column-start: 1;
 }
 #next-slide {
-	right: 0;
+	margin-right: 0;
+	margin-left: auto;
 	padding-right: 1vw;
 	padding-left: 2vw;
+	grid-column-start: 2;
 }
 #slideshow > ol {
-	position: absolute;
-	bottom: 2%;
-	width: 100%;
+	grid-area: 3 / 1 / span 1 / span 2;
 	list-style-type: none;
-	padding: 0;
 	margin: 0;
+	padding: 0;
 	display: flex;
+	flex-flow: row wrap-reverse;
 	justify-content: center;
-	flex-wrap: wrap-reverse;
+	align-items: flex-start;
+	align-content: flex-start;
 }
 .slide-n, .slide-n-a {
 	display: list-item;
