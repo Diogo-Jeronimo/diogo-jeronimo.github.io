@@ -134,7 +134,7 @@ main {
 	main {
 		flex-flow: row wrap;
 		justify-content: space-around;
-		align-items: stretch;
+		align-items: flex-start;
 	}
 	#type-select-label-container {
 		width: 100%;
