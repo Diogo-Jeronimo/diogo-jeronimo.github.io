@@ -109,11 +109,11 @@
 					<h2>Cálculo de Preço:</h2>
 					<div>
 						<label for="check-in-date-picker">Data de check-in</label>
-						<input type="date" id="check-in-date-picker" onchange="calcDateRangePrice();">
+						<input type="date" id="check-in-date-picker" min="2022-01-03" max="2023-01-01" onchange="calcDateRangePrice();">
 					</div>
 					<div>
 						<label for="check-out-date-picker">Data de check-out</label>
-						<input type="date" id="check-out-date-picker" onchange="calcDateRangePrice();">
+						<input type="date" id="check-out-date-picker" min="2022-01-03" max="2023-01-01" onchange="calcDateRangePrice();">
 					</div>
 					<p id="price-calc-result">Preço por 0 noite(s): 0€</p>
 				</section>

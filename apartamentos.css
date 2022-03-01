@@ -25,12 +25,12 @@ main {
 }
 #slideshow > img {
 	width: 100%;
-	grid-area: 1 / 1 / span 3 / span 2;
+	grid-area: 1 / 1 / -1 / -1;
 }
 #slide-caption {
 	margin: 0 auto auto 0;
 	padding: 1vw 2vw 0 2vw;
-	grid-area: 1 / 1 / span 1 / span 2;
+	grid-area: 1 / 1 / span 1 / -1;
 	font-size: 1em;
 	color: white;
 	background-color: rgba(0, 0, 0, 0.2);
@@ -61,10 +61,10 @@ main {
 	margin-left: auto;
 	padding-right: 1vw;
 	padding-left: 2vw;
-	grid-column-start: 2;
+	grid-column-start: -1;
 }
 #slideshow > ol {
-	grid-area: 3 / 1 / span 1 / span 2;
+	grid-area: 3 / 1 / span 1 / -1;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
