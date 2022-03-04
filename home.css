@@ -3,13 +3,14 @@ body {
 	font-family: sans-serif;
 }
 main {
-	background-color: gainsboro;
+	background-color: white;
 }
 #init-image {
 	width: 100%;
 }
 #intro {
 	padding: 2vw;
+	background-color: white;
 	font-size: 1em;
 	display: flex;
 	flex-direction: column-reverse;
