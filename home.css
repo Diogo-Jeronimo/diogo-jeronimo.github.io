@@ -18,6 +18,9 @@ main {
 #intro > img {
 	width: 100%;
 }
+#intro-fp {
+	margin-top: 0;
+}
 @media screen and (min-width: 600px) {
 	#intro {
 		padding: 1vw;
