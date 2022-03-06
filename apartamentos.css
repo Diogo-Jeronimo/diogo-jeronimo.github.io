@@ -75,6 +75,7 @@ main {
 	align-content: flex-start;
 }
 .slide-n, .slide-n-a {
+	cursor: default;
 	display: list-item;
 	padding-left: 1px;
 	padding-right: 1px;
