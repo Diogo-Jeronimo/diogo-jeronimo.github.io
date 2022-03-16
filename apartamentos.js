@@ -66,7 +66,7 @@ const selectionChange = () => {
 };
 const toggleTooltip = () => {
   const tooltip = document.getElementById("type-select-tooltip");
-  tooltip.style.display = tooltip.style.display === "none" ? "inline-block" : "none";
+  tooltip.style.display = tooltip.style.display === "inline-block" ? "" : "inline-block";
 };
 let slideIndex = 0;
 const changeSlide = id => {

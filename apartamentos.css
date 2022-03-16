@@ -23,15 +23,21 @@ main {
 	display: inline-block;
 	background-color: white;
 }
+#type-select-label > div {
+	display: inline-block;
+}
 #type-select-label button {
 	position: relative;
 	border: 1px solid black;
 	border-radius: 50%;
-	padding: 0 1vw;
+	padding: 0 0.25em;
 	font-weight: bolder;
-	font-size: 4vw;
+	font-size: 1.2em;
 	color: white;
 	background-color: black;
+}
+#type-select-label button:hover > aside {
+	display: inline-block;
 }
 #type-select-label button > aside {
 	position: absolute;
