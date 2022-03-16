@@ -64,9 +64,13 @@ const selectionChange = () => {
   }
   calcDateRangePrice();
 };
-const toggleTooltip = () => {
+const toggleTooltip = override => {
   const tooltip = document.getElementById("type-select-tooltip");
-  tooltip.style.display = tooltip.style.display === "inline-block" ? "" : "inline-block";
+  if(override === null) {
+    tooltip.style.display = tooltip.style.display === "none" ? "inline-block" : "none";
+  } else {
+    tooltip.style.display = override ? "inline-block" : "none";
+  }
 };
 let slideIndex = 0;
 const changeSlide = id => {

@@ -36,9 +36,6 @@ main {
 	color: white;
 	background-color: black;
 }
-#type-select-label button:hover > aside {
-	display: inline-block;
-}
 #type-select-label button > aside {
 	position: absolute;
 	width: max-content;
