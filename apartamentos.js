@@ -8,6 +8,14 @@ const deepFreeze = object => {
   }
   return Object.freeze(object);
 };
+const descriptions = deepFreeze({
+  "T0": "Sala comum com duas camas, kitchenette e casa de banho completa, capacidade para 2 pessoas.",
+  "T0+1": "Sala comum com dois sofás mais uma cama de casal, kittchenette e casa de banho completa, mais um quarto pequeno com uma cama single capacidade total para 3 pessoas.",
+  "T1": "Sala com sofá cama para duas pessoas, um quarto, kitchenette e casa de banho completa. Máximo 4 pessoas.",
+  "T1s": "T1 superior com um terraço grande que rodeia todo o apartamento e com sol todo o dia.",
+  "T1+1": "Sala com sofá cama para duas pessoas, um quarto com cama de casal e mais outro quarto com duas camas individuais ambos com terraço, cozinha e casa de banho completa. Máximo 6 pessoas.",
+  "T2": "Sala com sofá cama para duas pessoas, um quarto com cama de casal com terraço e janela e mais outro quarto interior sem janela nem terraço mas ventilado, kitcnenette e casa de banho completa. Máximo 5 pessoas."
+});
 const pricesTable = deepFreeze({
   dates: [
     {start: "2022-01-03", end: "2022-03-31"}, {start: "2022-04-01", end: "2022-05-31"},
@@ -38,12 +46,14 @@ const slidesTable = deepFreeze({
 
 const selectionChange = () => {
   const typeSelect = document.getElementById("type-select");
+  const tooltip = document.getElementById("type-select-tooltip");
   const pricesTableElement = document.getElementById("prices-table");
   const slideButtons = document.getElementById("slide-buttons");
   const slideCaption = document.getElementById("slide-caption");
   const selectedId = typeSelect.selectedOptions[0].id;
   const prices = pricesTable.prices[selectedId];
   const buttons = slideButtons.children;
+  tooltip.innerHTML = descriptions[selectedId];
   changeSlide(0);
   for(let i = 1; i < buttons.length; i++) {
     buttons[i].className = i < slidesTable[selectedId].slides.length ? "slide-n" : "slide-n-d";
@@ -53,6 +63,10 @@ const selectionChange = () => {
     pricesTableElement.rows[i + 1].cells[1].innerHTML = prices[i] + "€";
   }
   calcDateRangePrice();
+};
+const toggleTooltip = () => {
+  const tooltip = document.getElementById("type-select-tooltip");
+  tooltip.style.display = tooltip.style.display === "none" ? "inline-block" : "none";
 };
 let slideIndex = 0;
 const changeSlide = id => {
