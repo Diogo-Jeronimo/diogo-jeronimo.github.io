@@ -15,11 +15,12 @@
 }
 #logo > img {
   width: 18vw;
-  max-width: 512px;
+  max-width: 70px;
   padding: 1vw;
   padding-right: 2vw;
 }
 #logo > h1 {
+  margin: 0;
   font-family: serif;
   font-size: 1.3em;
   font-weight: bold;
@@ -32,6 +33,7 @@
 }
 #lang-switcher > img {
   width: 8vw;
+  max-width: 30px;
 }
 #nav-bar {
   width: 100%;
@@ -58,7 +60,6 @@
     order: 1;
   }
   #logo > img {
-    width: 70px;
     padding: 0.5vw;
     padding-right: 1vw;
   }
@@ -79,8 +80,5 @@
   }
   #lang-switcher {
     order: 3;
-  }
-  #lang-switcher > img {
-    width: 30px;
   }
 }
