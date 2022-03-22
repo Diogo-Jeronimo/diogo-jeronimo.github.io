@@ -36,10 +36,10 @@ main {
 	color: white;
 	background-color: black;
 }
-#type-select-label button > aside {
+#type-select-tooltip {
 	position: absolute;
-	width: max-content;
-	max-width: 50vw;
+	width: 75ch;
+	max-width: 60vw;
 	right: 0;
 	top: 100%;
 	z-index: 2;
@@ -172,6 +172,37 @@ main {
 	margin: 2vw 0 0 0;
 }
 @media screen and (min-width: 600px) {
+	#slide-caption {
+		padding: 0.25vw 0.5vw;
+		font-size: 1em;
+		color: white;
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+	#slide-caption:hover {
+		background-color: rgba(0, 0, 0, 0.8);
+	}
+	#slideshow > button {
+		padding-top: 1vw;
+		padding-bottom: 1vw;
+		font-size: 4vw;
+	}
+	#slideshow > button:hover {
+		background-color: rgba(0, 0, 0, 0.8);
+	}
+	#prev-slide {
+		padding-left: 0.5vw;
+		padding-right: 1vw;
+	}
+	#next-slide {
+		padding-right: 0.5vw;
+		padding-left: 1vw;
+	}
+	.slide-n, .slide-n-a {
+		font-size: 3vw;
+	}
+	.slide-n:hover {
+		color: rgba(0, 0, 0, 0.7);
+	}
 	#prices-table-container {
 		margin-bottom: 0;
 	}
@@ -183,7 +214,7 @@ main {
 		align-items: flex-start;
 	}
 }
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1024px) {
 	main {
 		flex-flow: row wrap;
 		justify-content: space-around;
@@ -200,37 +231,12 @@ main {
 		width: 66%;
 		margin: 0;
 	}
-	#slide-caption {
-		padding: 0.25vw 0.5vw;
-		font-size: 1em;
-		color: white;
-		background-color: rgba(0, 0, 0, 0.2);
-	}
-	#slide-caption:hover {
-		background-color: rgba(0, 0, 0, 0.8);
-	}
 	#slideshow > button {
-		padding-top: 1vw;
-		padding-bottom: 1vw;
 		background-color: rgba(0, 0, 0, 0);
 		font-size: 2vw;
 	}
-	#slideshow > button:hover {
-		background-color: rgba(0, 0, 0, 0.8);
-	}
-	#prev-slide {
-		padding-left: 0.5vw;
-		padding-right: 1vw;
-	}
-	#next-slide {
-		padding-right: 0.5vw;
-		padding-left: 1vw;
-	}
 	.slide-n, .slide-n-a {
 		font-size: 1.5vw;
-	}
-	.slide-n:hover {
-		color: rgba(0, 0, 0, 0.7);
 	}
 	#prices-table-container {
 		margin: 1vw 0 0 0;
