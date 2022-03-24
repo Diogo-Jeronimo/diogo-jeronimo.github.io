@@ -28,13 +28,12 @@ main {
 }
 #type-select-label button {
 	position: relative;
-	border: 1px solid black;
-	border-radius: 50%;
-	padding: 0 0.25em;
-	font-weight: bolder;
-	font-size: 1.2em;
-	color: white;
-	background-color: black;
+	border: 0;
+	background-color: white;
+}
+#type-select-label button > img {
+	width: 1.5em;
+	vertical-align: bottom;
 }
 #type-select-tooltip {
 	position: absolute;
@@ -48,6 +47,7 @@ main {
 	display: none;
 	font-weight: normal;
 	font-size: 1rem;
+	color: white;
 	background-color: #222222;
 }
 #slideshow {
