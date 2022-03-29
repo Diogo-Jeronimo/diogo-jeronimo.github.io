@@ -1,82 +1,82 @@
-#top-bar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  background-color: #1E1E1E;
-  color: white;
+:root {
+  --max-layout-width: 64rem;
+  --bar-color: #1E1E1E;
+  --bar-text-color: white;
+  --link-color: #2E2E2E;
+  --link-hover-color: dodgerblue;
 }
-#top-bar a {
-  color: white;
+#top-bar {
+  background-color: var(--bar-color);
+  color: var(--bar-text-color);
+}
+#top-bar-content {
+  margin: auto;
+  max-width: var(--max-layout-width);
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+#top-bar-content a {
+  color: var(--bar-text-color);
+}
+#top-bar-content p, #top-bar-content h1 {
+  margin: 0;
 }
 #logo {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
-#logo > img {
-  width: 18vw;
-  max-width: 70px;
-  padding: 1vw;
-  padding-right: 2vw;
+#logo>img {
+  width: 4rem;
+  margin: 0.5rem;
 }
-#logo > h1 {
-  margin: 0;
-  font-family: serif;
-  font-size: 1.3em;
-  font-weight: bold;
+#logo>h1 {
+  white-space: nowrap;
+  font-size: 1.2rem;
 }
 #lang-switcher {
+  margin-right: 0.5rem;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 0.8em;
 }
-#lang-switcher > img {
-  width: 8vw;
-  max-width: 30px;
+#lang-switcher>img {
+  width: 2rem;
 }
 #nav-bar {
-  width: 100%;
-  margin: 1px;
   display: flex;
-  flex-wrap: wrap-reverse;
+  flex-flow: row wrap-reverse;
   justify-content: center;
-  align-items: center;
-  align-content: center;
-  font-size: 0.9em;
+  width: 100%;
+  margin: 0.1rem;
 }
-#nav-bar > a {
-  background-color: #2E2E2E;
-  padding: 1vw;
-  margin: 1px;
-  flex-grow: 1;
+#nav-bar>a {
+  margin: 0.1rem;
+  padding: 0.2rem;
+  background-color: var(--link-color);
+  flex: 1 0 auto;
   text-align: center;
 }
-@media screen and (min-width: 600px) {
-  #top-bar {
+@media (hover: hover) {
+  #nav-bar>a {
+    background-color: var(--bar-color);
+    flex: 0 0 auto;
+  }
+  #nav-bar>a:hover {
+    background-color: var(--link-hover-color);
+  }
+}
+@media screen and (min-width: 30rem) {
+  #top-bar-content {
     flex-wrap: nowrap;
+    justify-content: space-between;
   }
   #logo {
     order: 1;
   }
-  #logo > img {
-    padding: 0.5vw;
-    padding-right: 1vw;
-  }
   #nav-bar {
+    margin: 0 0.5rem;
     order: 2;
-    width: auto;
-  }
-  #nav-bar > a {
-    background-color: #1E1E1E;
-    padding: 0.5vw;
-    border: solid;
-    border-width: 1px;
-    border-color: #1E1E1E;
-    flex-grow: 0;
-  }
-  #nav-bar > a:hover {
-    background-color: dodgerblue;
   }
   #lang-switcher {
     order: 3;

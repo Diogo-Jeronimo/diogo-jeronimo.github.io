@@ -1,37 +1,35 @@
+:root {
+	--max-layout-width: 64rem;
+}
 body {
 	margin: 0;
 	font-family: sans-serif;
 }
-main {
-	background-color: white;
-}
 #init-image {
 	width: 100%;
+	max-width: 4096px;
 }
 #intro {
-	padding: 2vw;
+	max-width: var(--max-layout-width);
+	margin: auto;
+	padding: 0.5rem;
 	display: flex;
 	flex-flow: column nowrap;
-	background-color: white;
-	font-size: 1em;
 }
 #intro > img {
 	width: 100%;
 	order: 1;
 }
-#intro-fp {
-	margin-top: 0;
-}
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 75ch) {
 	#intro {
 		padding: 1vw;
 		display: block;
 		overflow: auto;
 	}
 	#intro > img {
-		width: 50vw;
+		width: 50%;
 		max-width: 800px;
-		margin-right: 1vw;
+		margin-right: 0.5rem;
 		float: left;
 	}
 }
