@@ -6,7 +6,7 @@
 }
 #bottom-bar-content {
   max-width: var(--max-layout-width);
-  margin-left: 4rem;
+  margin: 0 4rem;
   flex: 1 0 auto;
 }
 #bottom-bar-content>h2 {
