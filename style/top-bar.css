@@ -1,13 +1,6 @@
-:root {
-  --max-layout-width: 64rem;
-  --bar-color: #1E1E1E;
-  --bar-text-color: white;
-  --link-color: #2E2E2E;
-  --link-hover-color: dodgerblue;
-}
 #top-bar {
-  background-color: var(--bar-color);
-  color: var(--bar-text-color);
+  background-color: var(--bars-color);
+  color: var(--bars-text-color);
 }
 #top-bar-content {
   margin: auto;
@@ -18,7 +11,7 @@
   justify-content: space-around;
 }
 #top-bar-content a {
-  color: var(--bar-text-color);
+  color: var(--bars-text-color);
 }
 #top-bar-content p, #top-bar-content h1 {
   margin: 0;
@@ -53,17 +46,17 @@
 #nav-bar>a {
   margin: 0.1rem;
   padding: 0.2rem;
-  background-color: var(--link-color);
+  background-color: var(--bars-link-color);
   flex: 1 0 auto;
   text-align: center;
 }
 @media (hover: hover) {
   #nav-bar>a {
-    background-color: var(--bar-color);
+    background-color: var(--bars-color);
     flex: 0 0 auto;
   }
   #nav-bar>a:hover {
-    background-color: var(--link-hover-color);
+    background-color: var(--bars-link-hover-color);
   }
 }
 @media screen and (min-width: 30rem) {

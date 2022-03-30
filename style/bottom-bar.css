@@ -1,6 +1,6 @@
 #bottom-bar {
-  background-color: var(--bar-color);
-  color: var(--bar-text-color);
+  background-color: var(--bars-color);
+  color: var(--bars-text-color);
   display: flex;
   justify-content: center;
 }
@@ -40,6 +40,6 @@
   font-size: 0.8rem;
 }
 .phone-text a {
-  color: var(--bar-text-color);
+  color: var(--bars-text-color);
   text-decoration: none;
 }

@@ -1,6 +1,6 @@
 body {
 	margin: 0;
-	font-family: sans-serif;
+	font-family: var(--font-family);
 }
 main {
 	display: flex;
@@ -135,7 +135,7 @@ main {
 	font-weight: bold;
 }
 #prices-table td {
-	font-family: monospace;
+	font-family: var(--font-family-monospace);
 	text-align: center;
 }
 #prices-table th, #prices-table td {
