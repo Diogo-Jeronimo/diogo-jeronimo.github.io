@@ -31,8 +31,9 @@
 		</header>
 
 		<main>
-			<div id="type-select-label-container">
-				<label id="type-select-label" for="type-select">Tipo de Alojamento:
+			<div>
+				<section id="type-select-widget" class="card">
+					<label id="type-select-label" for="type-select">Tipo de Alojamento:</label>
 					<div>
 						<select id="type-select" onchange="selectionChange();">
 							<option id="T0">T0 (2 Pessoas)</option>
@@ -47,83 +48,83 @@
 							<aside id="type-select-tooltip">Sala comum com duas camas, kitchenette e casa de banho completa, capacidade para 2 pessoas.</aside>
 						</button>
 					</div>
-				</label>
-			</div>
-			<figure id="slideshow">
-				<figcaption id="slide-caption">Alojamento Local: 13037</figcaption>
-				<img id="slide" src="/pics/4-403/1181.jpg">
-				<button id="prev-slide" type="button" onclick="changeSlide(-2);">&#10094;</button>
-				<button id="next-slide" type="button" onclick="changeSlide(-1);">&#10095;</button>
-				<ol id="slide-buttons">
-					<li class="slide-n-a" onclick="changeSlide(0);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(1);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(2);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(3);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(4);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(5);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(6);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(7);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(8);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(9);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(10);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(11);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(12);">&#11044;</li>
-					<li class="slide-n" onclick="changeSlide(13);">&#11044;</li>
-					<li class="slide-n-d" onclick="changeSlide(14);">&#11044;</li>
-					<li class="slide-n-d" onclick="changeSlide(15);">&#11044;</li>
-					<li class="slide-n-d" onclick="changeSlide(16);">&#11044;</li>
-					<li class="slide-n-d" onclick="changeSlide(17);">&#11044;</li>
-				</ol>
-			</figure>
-			<div id="table-calc-container">
-				<div id="prices-table-container">
-					<table id="prices-table">
-						<caption>Preçário (2022)</caption>
-						<tbody>
-							<tr>
-								<th>Data</th><th>Preço/noite</th>
-							</tr><tr>
-								<td>Jan 03 - Mar 31</td><td>35€</td>
-							</tr><tr>
-								<td>Abr 01 - Mai 31</td><td>40€</td>
-							</tr><tr>
-								<td>Jun 01 - Jun 30</td><td>55€</td>
-							</tr><tr>
-								<td>Jul 01 - Jul 15</td><td>70€</td>
-							</tr><tr>
-								<td>Jul 16 - Jul 31</td><td>85€</td>
-							</tr><tr>
-								<td>Ago 01 - Ago 26</td><td>100€</td>
-							</tr><tr>
-								<td>Ago 27 - Set 02</td><td>85€</td>
-							</tr><tr>
-								<td>Set 03 - Set 09</td><td>70€</td>
-							</tr><tr>
-								<td>Set 10 - Set 16</td><td>60€</td>
-							</tr><tr>
-								<td>Set 17 - Set 30</td><td>55€</td>
-							</tr><tr>
-								<td>Out 01 - Out 31</td><td>40€</td>
-							</tr><tr>
-								<td>Nov 01 - Dez 29</td><td>35€</td>
-							</tr><tr>
-								<td>Dez 30 - Jan 01</td><td>110€</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<section id = "price-calc">
-					<h2>Cálculo de Preço:</h2>
-					<div>
-						<label for="check-in-date-picker">Data de check-in</label>
-						<input type="date" id="check-in-date-picker" min="2022-01-03" max="2023-01-01" onchange="calcDateRangePrice();">
-					</div>
-					<div>
-						<label for="check-out-date-picker">Data de check-out</label>
-						<input type="date" id="check-out-date-picker" min="2022-01-03" max="2023-01-01" onchange="calcDateRangePrice();">
-					</div>
-					<p id="price-calc-result">Preço por 0 noite(s): 0€</p>
 				</section>
+				<figure id="slideshow">
+					<figcaption id="slide-caption">Alojamento Local: 13037</figcaption>
+					<img id="slide" src="/pics/4-403/1181.jpg">
+					<button id="prev-slide" type="button" onclick="changeSlide(-2);">&#10094;</button>
+					<button id="next-slide" type="button" onclick="changeSlide(-1);">&#10095;</button>
+					<ol id="slide-buttons">
+						<li class="slide-n-a" onclick="changeSlide(0);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(1);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(2);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(3);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(4);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(5);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(6);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(7);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(8);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(9);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(10);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(11);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(12);">&#11044;</li>
+						<li class="slide-n" onclick="changeSlide(13);">&#11044;</li>
+						<li class="slide-n-d" onclick="changeSlide(14);">&#11044;</li>
+						<li class="slide-n-d" onclick="changeSlide(15);">&#11044;</li>
+						<li class="slide-n-d" onclick="changeSlide(16);">&#11044;</li>
+						<li class="slide-n-d" onclick="changeSlide(17);">&#11044;</li>
+					</ol>
+				</figure>
+				<div id="table-calc-container">
+					<div id="prices-table-container" class="card">
+						<table id="prices-table">
+							<caption>Preçário (2022)</caption>
+							<tbody>
+								<tr>
+									<th>Data</th><th>Preço/noite</th>
+								</tr><tr>
+									<td>Jan 03 - Mar 31</td><td>35€</td>
+								</tr><tr>
+									<td>Abr 01 - Mai 31</td><td>40€</td>
+								</tr><tr>
+									<td>Jun 01 - Jun 30</td><td>55€</td>
+								</tr><tr>
+									<td>Jul 01 - Jul 15</td><td>70€</td>
+								</tr><tr>
+									<td>Jul 16 - Jul 31</td><td>85€</td>
+								</tr><tr>
+									<td>Ago 01 - Ago 26</td><td>100€</td>
+								</tr><tr>
+									<td>Ago 27 - Set 02</td><td>85€</td>
+								</tr><tr>
+									<td>Set 03 - Set 09</td><td>70€</td>
+								</tr><tr>
+									<td>Set 10 - Set 16</td><td>60€</td>
+								</tr><tr>
+									<td>Set 17 - Set 30</td><td>55€</td>
+								</tr><tr>
+									<td>Out 01 - Out 31</td><td>40€</td>
+								</tr><tr>
+									<td>Nov 01 - Dez 29</td><td>35€</td>
+								</tr><tr>
+									<td>Dez 30 - Jan 01</td><td>110€</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<section id="price-calc" class="card">
+						<h2>Cálculo de Preço:</h2>
+						<div>
+							<label for="check-in-date-picker">Data de check-in</label>
+							<input type="date" id="check-in-date-picker" min="2022-01-03" max="2023-01-01" onchange="calcDateRangePrice();">
+						</div>
+						<div>
+							<label for="check-out-date-picker">Data de check-out</label>
+							<input type="date" id="check-out-date-picker" min="2022-01-03" max="2023-01-01" onchange="calcDateRangePrice();">
+						</div>
+						<p id="price-calc-result">Preço por 0 noite(s): 0€</p>
+					</section>
+				</div>
 			</div>
 		</main>
 

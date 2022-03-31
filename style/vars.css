@@ -2,10 +2,12 @@
 
 :root {
   --max-layout-width: 64rem;
+  --font-family: "Noto Sans", sans-serif;
+  --font-family-monospace: "Noto Sans Mono", monospace;
   --bars-color: #1E1E1E;
   --bars-text-color: white;
   --bars-link-color: #2E2E2E;
   --bars-link-hover-color: dodgerblue;
-  --font-family: "Noto Sans", sans-serif;
-  --font-family-monospace: "Noto Sans Mono", monospace;
+  --cards-background-color: gainsboro;
+  --cards-color: white;
 }
