@@ -69,7 +69,7 @@
     order: 3;
   }
 }
-@media (hover: hover) {
+@media (pointer: fine) {
   #nav-bar {
     align-items: center;
     align-content: center;

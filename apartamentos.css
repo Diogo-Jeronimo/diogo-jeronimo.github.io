@@ -202,13 +202,15 @@ main>div {
 	}
 }
 @media (hover: hover) {
+	.slide-n:hover {
+		color: rgba(0, 0, 0, 0.7);
+	}
+}
+@media (pointer: fine) {
 	#slideshow>button {
 		background-color: rgba(0, 0, 0, 0);
 	}
 	#slideshow>button:hover {
 		background-color: rgba(0, 0, 0, 0.5);
-	}
-	.slide-n:hover {
-		color: rgba(0, 0, 0, 0.7);
 	}
 }
