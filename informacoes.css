@@ -77,7 +77,7 @@ body {
 .info-surroundings-type {
 	display: flex;
 	flex-flow: column nowrap;
-	justify-content: space-around;
+	justify-content: space-evenly;
 	align-items: center;
 	gap: 1rem;
 }
