@@ -31,9 +31,9 @@ body {
 	text-align: center;
 }
 .info-apartments-area>ul {
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-evenly;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+	justify-content: center;
 	gap: 1rem;
 	list-style: none;
 	margin: 0;
@@ -41,14 +41,17 @@ body {
 }
 .info-apartments-feature {
 	padding: 1rem;
-	flex: 1 1 auto;
 	background-color: white;
 	color: black;
+}
+.info-apartments-feature>img {
+	max-width: 2rem;
+	filter: invert(59%) sepia(64%) saturate(3458%) hue-rotate(161deg) brightness(105%) contrast(102%);
 }
 .info-apartments-feature>h4 {
 	margin: 0 0 1rem 0;
 	text-transform: uppercase;
-	color: skyblue;
+	color: deepskyblue;
 }
 .info-apartments-feature>ul {
 	margin: 0;
@@ -78,9 +81,19 @@ body {
 	align-items: center;
 	gap: 1rem;
 }
+.info-surroundings-type>table {
+	border-collapse: collapse;
+}
 .info-surroundings-type>table>caption {
 	font-size: 1.2rem;
 	font-weight: bold;
+}
+.info-surroundings-type>table>tbody>tr {
+	border-bottom: 0.1rem solid darkgrey;
+}
+.info-surroundings-type>table>tbody>tr>td:nth-child(2) {
+	padding-left: 0.5rem;
+	text-align: right;
 }
 .info-surroundings-type>figure {
 	width: 100%;
@@ -89,7 +102,7 @@ body {
 .info-surroundings-type>figure>img {
 	width: 100%;
 }
-@media screen and (min-width: 75ch) {
+@media screen and (min-width: 32rem) {
 	#info-surroundings-beaches {
 		flex-flow: row nowrap;
 	}
