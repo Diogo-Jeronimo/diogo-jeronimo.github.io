@@ -22,6 +22,7 @@
 #logo>img {
   width: 4rem;
   margin: 0.5rem;
+  background-color: skyblue;
 }
 #logo>h1 {
   white-space: nowrap;
