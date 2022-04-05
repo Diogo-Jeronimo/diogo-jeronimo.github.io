@@ -33,7 +33,6 @@ body {
 .info-apartments-area>ul {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-	justify-content: center;
 	gap: 1rem;
 	list-style: none;
 	margin: 0;
@@ -59,6 +58,10 @@ body {
 	padding: 0 0 0 2rem;
 	list-style: disc;
 }
+.info-apartments-feature>table>tbody>tr>td, .info-apartments-feature>table>tbody>tr>th {
+	text-align: center;
+	border: 0.1rem solid black;
+}
 #info-surroundings {
 	max-width: var(--max-layout-width);
 	margin: auto;
@@ -82,7 +85,7 @@ body {
 	align-items: center;
 	gap: 1rem;
 }
-.info-surroundings-type>table {
+.info-surroundings-type>table, .info-apartments-feature>table {
 	border-collapse: collapse;
 }
 .info-surroundings-type>table>caption {
