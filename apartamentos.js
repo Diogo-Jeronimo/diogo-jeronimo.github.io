@@ -64,14 +64,6 @@ const selectionChange = () => {
   }
   calcDateRangePrice();
 };
-const toggleTooltip = override => {
-  const tooltip = document.getElementById("type-select-tooltip");
-  if(override === null) {
-    tooltip.style.display = tooltip.style.display === "none" ? "inline-block" : "none";
-  } else {
-    tooltip.style.display = override ? "inline-block" : "none";
-  }
-};
 let slideIndex = 0;
 const changeSlide = id => {
   const slide = document.getElementById("slide");
@@ -88,8 +80,8 @@ const changeSlide = id => {
     slideIndex = id;
   }
   slide.src = slides[slideIndex];
-  buttons.children[prevSlideIndex].className = "slide-n";
-  buttons.children[slideIndex].className = "slide-n-a";
+  buttons.children[prevSlideIndex].children[0].className = "slide-n";
+  buttons.children[slideIndex].children[0].className = "slide-n-a";
 };
 const calcDateRangePrice = () => {
   const inDatePicker = document.getElementById("check-in-date-picker");
