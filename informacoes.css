@@ -139,7 +139,7 @@ main {
 	box-shadow: 0 0 12px 0 black;
 }
 @media screen and (min-width: 32rem) {
-	#info-surroundings-beaches {
+	#info-surroundings-beaches, #info-surroundings-services {
 		flex-flow: row nowrap;
 	}
 	#info-surroundings-attractions {
