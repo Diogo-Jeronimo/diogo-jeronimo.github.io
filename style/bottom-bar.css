@@ -7,7 +7,7 @@
 #bottom-bar-content {
   max-width: var(--max-layout-width);
   margin: 0 4rem;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
 }
 #bottom-bar-content>h2 {
   margin: 0.2rem;
