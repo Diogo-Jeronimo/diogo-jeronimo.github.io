@@ -1,5 +1,6 @@
 body {
 	margin: 0;
+	background-color: var(--bars-color);
 }
 main {
 	background-color: var(--cards-background-color);
@@ -27,9 +28,9 @@ main>div {
 #type-select-widget button {
 	position: relative;
 	border: 0;
-	background-color: var(--cards-color);
+	background: none;
 }
-#type-select-widget button:focus #type-select-tooltip {
+#type-select-widget button:focus>#type-select-tooltip {
 	display: inline-block;
 }
 #type-select-widget button>img {
@@ -38,12 +39,12 @@ main>div {
 }
 #type-select-tooltip {
 	position: absolute;
-	width: 75ch;
-	max-width: 60vw;
+	width: max-content;
+	max-width: min(60vw, 75ch);
 	right: 0;
 	top: 100%;
 	z-index: 2;
-	margin-top: 1rem;
+	margin-top: 0.5rem;
 	padding: 0.5rem;
 	display: none;
 	font-weight: normal;
@@ -220,7 +221,7 @@ main>div {
 	}
 }
 @media (pointer: fine) {
-	#type-select-widget button:hover #type-select-tooltip {
+	#type-select-widget button:hover>#type-select-tooltip {
 		display: inline-block;
 	}
 	#slideshow>button {

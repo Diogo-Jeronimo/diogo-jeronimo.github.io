@@ -1,6 +1,10 @@
 body {
 	margin: 0;
 	font-family: var(--font-family);
+	background-color: var(--bars-color);
+}
+main {
+	background-color: white;
 }
 #info-apartments-container {
 	background-image: url("/pics/4-403/1344.jpg");
@@ -18,7 +22,7 @@ body {
 }
 #info-apartments>ul {
 	margin: 0;
-	padding: 1rem;
+	padding: 0;
 	display: flex;
 	flex-flow: column nowrap;
 	gap: 2rem;
@@ -45,7 +49,6 @@ body {
 }
 .info-apartments-feature>img {
 	width: 2rem;
-	max-width: 512px;
 	filter: invert(59%) sepia(64%) saturate(3458%) hue-rotate(161deg) brightness(105%) contrast(102%);
 }
 .info-apartments-feature>h4 {
@@ -69,6 +72,34 @@ body {
 }
 #info-surroundings>h2 {
 	margin: 0;
+	display: inline-block;
+}
+#info-surroundings>button {
+	position: relative;
+	display: inline-block;
+	background: none;
+	border: 0;
+}
+#info-surroundings>button:focus>aside {
+	display: block;
+}
+#info-surroundings>button>img {
+	width: 1.5rem;
+	vertical-align: bottom;
+}
+#info-surroundings>button>aside {
+	position: absolute;
+	width: max-content;
+	max-width: min(75vw, 75ch);
+	left: -9rem;
+	top: 100%;
+	z-index: 1;
+	padding: 0.5rem;
+	display: none;
+	font-weight: normal;
+	font-size: 1rem;
+	color: white;
+	background-color: #222222;
 }
 #info-surroundings>ul {
 	margin: 0;
@@ -105,6 +136,7 @@ body {
 }
 .info-surroundings-type>figure>img {
 	width: 100%;
+	box-shadow: 0 0 12px 0 black;
 }
 @media screen and (min-width: 32rem) {
 	#info-surroundings-beaches {
@@ -115,5 +147,10 @@ body {
 	}
 	.info-surroundings-type>figure {
 		width: 50%;
+	}
+}
+@media (pointer: fine) {
+	#info-surroundings>button:hover>aside {
+		display: inline-block;
 	}
 }
