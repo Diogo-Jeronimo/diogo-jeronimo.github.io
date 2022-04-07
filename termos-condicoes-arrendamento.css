@@ -20,8 +20,11 @@ main>div p {
 }
 main>div ol, main>div ul {
   margin: 0;
+}
+main>div ol {
   padding-left: 2rem;
 }
 main>div ul {
   list-style-type: disc;
+  padding-left: 1.5rem;
 }
