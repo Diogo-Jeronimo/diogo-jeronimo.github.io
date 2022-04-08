@@ -136,7 +136,7 @@ main {
 }
 .info-surroundings-type>figure>img {
 	width: 100%;
-	box-shadow: 0 0 12px 0 black;
+	box-shadow: 3px 3px 12px 0 black;
 }
 @media screen and (min-width: 32rem) {
 	#info-surroundings-beaches, #info-surroundings-services {
