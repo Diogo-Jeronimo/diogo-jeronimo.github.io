@@ -7,6 +7,7 @@ main {
 	background-color: white;
 }
 #info-apartments-container {
+	background-color: skyblue;
 	background-image: url("/pics/4-403/1344.jpg");
 	background-size: cover;
 	background-position: center;
@@ -36,11 +37,16 @@ main {
 }
 .info-apartments-area>ul {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
 	gap: 1rem;
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+#info-apartments-interior>ul {
+	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+#info-apartments-exterior>ul {
+	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 }
 .info-apartments-feature {
 	padding: 1rem;
@@ -55,6 +61,9 @@ main {
 	margin: 0 0 1rem 0;
 	text-transform: uppercase;
 	color: deepskyblue;
+}
+.info-apartments-feature>p {
+	margin: 1rem 0;
 }
 .info-apartments-feature>ul {
 	margin: 0;
