@@ -11,7 +11,6 @@
 		<link rel="stylesheet" type="text/css" href="/reservar.css">
 	</head>
 	<body>
-		<!-- Top Bar -->
 		<header id="top-bar">
 			<div id="top-bar-content">
 				<div id="logo">
@@ -35,7 +34,7 @@
       <div>
         <h2>Formulário de<br>pedido de reserva</h2>
         <hr>
-        <form>
+        <form action="javascript:void(alert('Teste.'));">
           <label for="form-name">Nome</label>
           <input id="form-name" type="text" required autocomplete="name">
           <label for="form-phone">Telefone</label>
@@ -59,7 +58,7 @@
           <input id="form-check-out" type="date" required autocomplete="off">
           <label for="form-info">Informações adicionais (opcional)</label>
           <textarea id="form-info"></textarea>
-          <button type="button" disabled>Enviar</button>
+          <button type="submit">Enviar</button>
           <button type="reset">Repor</button>
         </form>
       </div>
