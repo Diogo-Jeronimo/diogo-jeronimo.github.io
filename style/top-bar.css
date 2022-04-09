@@ -43,7 +43,7 @@
 }
 #nav-bar {
   margin: 0.1rem;
-  flex: 1 1 auto;
+  flex: 1 1 100%;
   display: flex;
   flex-flow: row wrap-reverse;
   justify-content: center;
@@ -58,7 +58,7 @@
   justify-content: center;
   align-items: center;
 }
-@media screen and (min-width: 30rem) {
+@media screen and (min-width: 50rem) {
   #top-bar-content {
     flex-wrap: nowrap;
     justify-content: space-between;

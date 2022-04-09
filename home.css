@@ -1,9 +1,9 @@
 body {
 	margin: 0;
 	background-color: var(--bars-color);
+	font-family: var(--font-family);
 }
 main {
-	font-family: var(--font-family);
 	background-color: white;
 }
 #init-image {

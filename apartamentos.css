@@ -1,10 +1,10 @@
 body {
 	margin: 0;
 	background-color: var(--bars-color);
+	font-family: var(--font-family);
 }
 main {
 	background-color: var(--cards-background-color);
-	font-family: var(--font-family);
 }
 main>div {
 	max-width: var(--max-layout-width);
