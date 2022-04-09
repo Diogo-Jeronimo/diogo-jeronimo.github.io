@@ -1,0 +1,26 @@
+body {
+	margin: 0;
+	font-family: var(--font-family);
+	background-color: var(--bars-color);
+}
+main {
+  padding: 1rem;
+	background-color: var(--cards-background-color);
+}
+main>div {
+  margin: auto;
+  padding: 1rem;
+  width: fit-content;
+  max-width: var(--max-layout-width);
+  background-color: var(--cards-color);
+}
+main>div>h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+main>div>hr {
+  border-color: black;
+}
+main>div label, main>div input, main>div textarea {
+  display: block;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Apartamentos Naturmar Praia</title>
+		<link rel="icon" type="image/x-icon" href="/icons/beach.svg">
+		<link rel="stylesheet" type="text/css" href="/style/vars.css">
+		<link rel="stylesheet" type="text/css" href="/style/top-bar.css">
+		<link rel="stylesheet" type="text/css" href="/style/bottom-bar.css">
+		<link rel="stylesheet" type="text/css" href="/reservar.css">
+	</head>
+	<body>
+		<!-- Top Bar -->
+		<header id="top-bar">
+			<div id="top-bar-content">
+				<div id="logo">
+					<img src="/icons/beach.svg">
+					<h1>Apartamentos<br>Naturmar Praia</h1>
+				</div>
+				<a id="lang-switcher" href="/en/home">
+					<img src="/icons/united-kingdom-flag.svg">
+					<p lang="en">English</p>
+				</a>
+				<nav id="nav-bar">
+					<a href="/">INÍCIO</a>
+					<a href="/apartamentos">APARTAMENTOS</a>
+					<a href="/informacoes">INFORMAÇÕES</a>
+				</nav>
+			</div>
+		</header>
+
+		<main>
+      <div>
+        <h2>Formulário de<br>pedido de reserva</h2>
+        <hr>
+        <form>
+          <label for="form-name">Nome</label>
+          <input id="form-name" type="text" required autocomplete="name">
+          <label for="form-phone">Telefone</label>
+          <input id="form-phone" type="tel" placeholder="+351 123 456 789" required autocomplete="tel">
+          <label for="form-email">E-mail</label>
+          <input id="form-email" type="email" placeholder="exemplo@email.com" required autocomplete="email">
+          <label for="form-type">Tipologia</label>
+          <select id="form-type">
+            <option>T0</option>
+            <option>T0+1</option>
+            <option>T1</option>
+            <option>T1s</option>
+            <option>T1+1</option>
+            <option>T2</option>
+          </select>
+          <label for="form-number">Número de pessoas</label>
+          <input id="form-number" type="number" value="1" min="1" max="6" required autocomplete="off">
+          <label for="form-check-in">Data de chegada</label>
+          <input id="form-check-in" type="date" required autocomplete="off">
+          <label for="form-check-out">Data de saída</label>
+          <input id="form-check-out" type="date" required autocomplete="off">
+          <label for="form-info">Informações adicionais (opcional)</label>
+          <textarea id="form-info"></textarea>
+          <button type="button" disabled>Enviar</button>
+          <button type="reset">Repor</button>
+        </form>
+      </div>
+		</main>
+
+		<footer id="bottom-bar">
+			<div id="bottom-bar-content">
+				<h2>Contactos</h2>
+				<ul id="contacts-list">
+					<li>
+						<img class="contact-icon" src="/icons/alternate-email-white.svg">
+						<p class="contact-text">portugal<wbr>_holidays<wbr>@hotmail<wbr>.com</p>
+					</li>
+					<li>
+						<img class="contact-icon" src="/icons/local-phone-white.svg">
+						<p class="contact-text phone-text">+351 289 571 929</p>
+					</li>
+					<li>
+						<img class="contact-icon" src="/icons/smartphone-white.svg">
+						<p class="contact-text phone-text">+351 966 040 459</p>
+					</li>
+				</ul>
+			</div>
+		</footer>
+	</body>
+</html>
