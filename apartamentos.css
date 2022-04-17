@@ -121,10 +121,10 @@ main>div {
 	cursor: default;
 	display: list-item;
 }
-.slide-n {
+.slide-n>button {
 	color: rgba(255, 255, 255, 0.5);
 }
-.slide-n-a {
+.slide-n-a>button {
 	color: rgba(0, 0, 0, 0.7);
 }
 .slide-n-d {
