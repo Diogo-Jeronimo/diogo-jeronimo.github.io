@@ -117,17 +117,17 @@ main>div {
 	background: none;
 	font-size: 4vw;
 }
-.slide-n, .slide-n-a {
+.slide-button {
 	cursor: default;
 	display: list-item;
 }
-.slide-n>button {
+.slide-button>button {
 	color: rgba(255, 255, 255, 0.5);
 }
-.slide-n-a>button {
+.sb-displayed>button {
 	color: rgba(0, 0, 0, 0.7);
 }
-.slide-n-d {
+.sb-hidden {
 	display: none;
 }
 #table-calc-container {
@@ -216,7 +216,7 @@ main>div {
 	}
 }
 @media (hover: hover) {
-	.slide-n:hover {
+	.slide-button:hover {
 		color: rgba(0, 0, 0, 0.7);
 	}
 }

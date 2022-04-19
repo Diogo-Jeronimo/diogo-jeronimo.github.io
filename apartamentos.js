@@ -56,7 +56,13 @@ const selectionChange = () => {
   tooltip.innerHTML = descriptions[selectedId];
   changeSlide(0);
   for(let i = 1; i < buttons.length; i++) {
-    buttons[i].className = i < slidesTable[selectedId].slides.length ? "slide-n" : "slide-n-d";
+    if(i < slidesTable[selectedId].slides.length) {
+      buttons[i].classList.remove("sb-hidden");
+      buttons[i].hidden = false;
+    } else {
+      buttons[i].classList.add("sb-hidden");
+      buttons[i].hidden = true;
+    }
   }
   slideCaption.innerHTML = "Alojamento Local: " + slidesTable[selectedId].id;
   for(let i = 0; i < prices.length; i++) {
@@ -78,8 +84,8 @@ const changeSlide = id => {
     slideIndex = id;
   }
   slide.src = slides[slideIndex];
-  slideButtons.children[prevSlideIndex].className = "slide-n";
-  slideButtons.children[slideIndex].className = "slide-n-a";
+  slideButtons.children[prevSlideIndex].classList.remove("sb-displayed");
+  slideButtons.children[slideIndex].classList.add("sb-displayed");
 };
 const calcDateRangePrice = () => {
   const inDatePicker = document.getElementById("check-in-date-picker");

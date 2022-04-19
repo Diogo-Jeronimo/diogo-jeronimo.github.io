@@ -9,18 +9,38 @@ main {
 }
 main>div {
   margin: auto;
-  padding: 1rem;
-  width: fit-content;
   max-width: var(--max-layout-width);
-  background-color: var(--cards-color);
 }
-main>div>h2 {
+#introduction {
+	padding: 1rem;
+	background-color: var(--cards-color);
+}
+#introduction>h2, form>h2 {
   margin: 0;
   font-size: 1.2rem;
 }
-main>div>hr {
+#introduction>p {
+	margin: 1rem 0 0 0;
+}
+form {
+	width: fit-content;
+	margin: 1rem auto 0 auto;
+	padding: 1rem;
+	background-color: var(--cards-color);
+}
+form>hr {
+	padding: 0;
+	border: 0;
+	border-bottom: 0.1rem solid black;
   border-color: black;
 }
-main>div label, main>div input, main>div textarea {
+form>label, form>textarea {
   display: block;
+}
+#form-types {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-flow: row wrap;
 }
