@@ -24,48 +24,49 @@ const genMessage = () => {
 const formNumberChanged = () => {
   for(let i = 0; i < formTypesH.children.length; i++) {
     const item = formTypesH.children[i];
-    item.hidden = item.children[0].disabled = i >= formNumberH.value;
+    const type = item.children[0];
+    if(i < formNumberH.value) {
+      item.hidden = type.disabled = false;
+    } else {
+      item.hidden = type.disabled = true;
+      type[2].selected = true;
+    }
   }
   formTypeChanged();
 };
 const formTypeChanged = () => {
-  /*const typeCount = {
+  const typeCounts = {
     "T0": 0, "T0+1": 0, "T1": 0, "T1s": 0, "T1+1": 0, "T2": 0
   };
   for(const item of formTypesH.children) {
-    if(!item.classList.contains("form-type-n-a")) {
-      typeCount[item.children[0].value]++;
+    if(!item.hidden) {
+      typeCounts[item.children[0].value]++;
     }
   }
-  console.log(typeCount);
-  const maxedTypes = [];
-  const availableTypes = [];
-  for(const type in typeCount) {
-    if(typeCount[type] === maxNumberOfType[type]) {
-      maxedTypes.push(type);
-    } else {
-      availableTypes.push(type);
-    }
-  }
-  console.log(maxedTypes);
   for(const item of formTypesH.children) {
-    if(!item.classList.contains("form-type-n-a")) {
+    if(!item.hidden) {
       const type = item.children[0];
-      for(const maxedType of maxedTypes) {
-        if(maxedType !== type.value) {
+      for(const typeCount in typeCounts) {
+        if(typeCounts[typeCount] === maxNumberOfType[typeCount]) {
+          if(typeCount !== type.value) {
+            for(const option of type) {
+              if(option.value === typeCount) {
+                option.hidden = option.disabled = true;
+                break;
+              }
+            }
+          }
+        } else {
           for(const option of type) {
-            if(option.value === maxedType) {
-              option.classList.add("form-type-option-n-a");
+            if(option.value === typeCount) {
+              option.hidden = option.disabled = false;
               break;
             }
           }
         }
       }
-      for(const availableType of availableTypes) {
-
-      }
     }
-  }//*/
+  }
 
   let maxPeople = 0;
   for(const item of formTypesH.children) {
@@ -74,6 +75,13 @@ const formTypeChanged = () => {
     }
   }
   for(let i = 0; i < formPeopleH.length; i++) {
-    formPeopleH[i].disabled = formPeopleH[i].hidden = i >= maxPeople;
+    if(i < maxPeople) {
+      formPeopleH[i].disabled = formPeopleH[i].hidden = false;
+    } else {
+      formPeopleH[i].disabled = formPeopleH[i].hidden = true;
+      if(formPeopleH[i].selected) {
+        formPeopleH[0].selected = true;
+      }
+    }
   }
 };
