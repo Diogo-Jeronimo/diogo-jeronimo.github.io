@@ -7,12 +7,13 @@ const maxNumberOfType = {
 const formPeopleH = document.getElementById("form-people");
 const formTypesH = document.getElementById("form-types");
 const formNumberH = document.getElementById("form-number");
+const formCheckInH = document.getElementById("form-check-in");
+const formCheckOutH = document.getElementById("form-check-out");
+formCheckInH.min = formCheckOutH.min = new Date().toISOString().split("T")[0];
 
 const genMessage = () => {
   const formNameH = document.getElementById("form-name");
   const formPhoneH = document.getElementById("form-phone");
-  const formCheckInH = document.getElementById("form-check-in");
-  const formCheckOutH = document.getElementById("form-check-out");
   const formInfoH = document.getElementById("form-info");
 
   let message = `Nome: ${formNameH.value};\nTelefone: ${formPhoneH.value};\nTipologias: `;
@@ -90,4 +91,13 @@ const formTypeChanged = () => {
       }
     }
   }
+};
+const changeFormDate = inDate => {
+  if(inDate && formCheckOutH.value === "") {
+    formCheckOutH.value = formCheckInH.value;
+  } else if (!inDate && formCheckInH.value === "") {
+    formCheckInH.value = formCheckOutH.value;
+  }
+  formCheckInH.max = formCheckOutH.value;
+  formCheckOutH.min = formCheckInH.value;
 };

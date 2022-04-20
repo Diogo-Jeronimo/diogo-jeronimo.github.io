@@ -60,7 +60,7 @@
           <label for="form-type1">Tipologia(s)</label>
 					<ul id="form-types">
 	          <li>
-							<select id="form-type1" onchange="formTypeChanged();">
+							<select onchange="formTypeChanged();">
 		            <option>T0</option>
 		            <option>T0+1</option>
 		            <option>T1</option>
@@ -70,7 +70,7 @@
 		          </select>
 						</li>
 						<li hidden>
-							<select id="form-type2" onchange="formTypeChanged();" disabled>
+							<select onchange="formTypeChanged();" disabled>
 		            <option>T0</option>
 		            <option>T0+1</option>
 		            <option selected>T1</option>
@@ -80,7 +80,7 @@
 		          </select>
 						</li>
 						<li hidden>
-							<select id="form-type3" onchange="formTypeChanged();" disabled>
+							<select onchange="formTypeChanged();" disabled>
 		            <option>T0</option>
 		            <option>T0+1</option>
 		            <option selected>T1</option>
@@ -114,10 +114,10 @@
 					</select>
 
           <label for="form-check-in">Data de chegada</label>
-          <input id="form-check-in" type="date" required autocomplete="off">
+          <input id="form-check-in" type="date" onchange="changeFormDate(true);" required autocomplete="off">
 
           <label for="form-check-out">Data de saída</label>
-          <input id="form-check-out" type="date" required autocomplete="off">
+          <input id="form-check-out" type="date" onchange="changeFormDate(false);" required autocomplete="off">
 
           <label for="form-info">Informações adicionais (opcional)</label>
           <textarea id="form-info"></textarea>
