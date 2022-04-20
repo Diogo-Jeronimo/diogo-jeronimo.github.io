@@ -11,14 +11,20 @@ const formNumberH = document.getElementById("form-number");
 const genMessage = () => {
   const formNameH = document.getElementById("form-name");
   const formPhoneH = document.getElementById("form-phone");
-  const formTypeH = document.getElementById("form-type1");
   const formCheckInH = document.getElementById("form-check-in");
   const formCheckOutH = document.getElementById("form-check-out");
   const formInfoH = document.getElementById("form-info");
 
-  const message = `Nome: ${formNameH.value};\nTelefone: ${formPhoneH.value};\n` +
-    `Tipologia: ${formTypeH.value};\nPessoas: ${formPeopleH.value};\nEntrada: ${formCheckInH.value};\n` +
-    `Saída: ${formCheckOutH.value};\nInformações:\n${formInfoH.value}`;
+  let message = `Nome: ${formNameH.value};\nTelefone: ${formPhoneH.value};\nTipologias: `;
+  for(let i = 0; i < formNumberH.value; i++) {
+    message += `${formTypesH.children[i].children[0].value},`;
+  }
+  message = (message += ";\n").replace(",;", ";");
+  message += `Pessoas: ${formPeopleH.value};\nEntrada: ${formCheckInH.value};\n` +
+    `Saída: ${formCheckOutH.value};\n`;
+  if(formInfoH.value !== "") {
+    message += `Informações:\n${formInfoH.value}`;
+  }
   alert(message);
 };
 const formNumberChanged = () => {
