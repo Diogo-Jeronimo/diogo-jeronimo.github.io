@@ -95,10 +95,6 @@ const calcDateRangePrice = () => {
     const selectedId = typeSelect.selectedOptions[0].id;
     let inDate = inDatePicker.value;
     let outDate = outDatePicker.value;
-    if(inDate > outDate) {
-      [inDate, outDate] = [outDate, inDate];
-      [inDatePicker.value, outDatePicker.value] = [outDatePicker.value, inDatePicker.value];
-    }
     const prices = pricesTable.prices[selectedId];
     const dates = pricesTable.dates;
     let totalPrice = 0, numberNights = 0;
@@ -120,4 +116,6 @@ const calcDateRangePrice = () => {
   } else if(outDatePicker.value === "") {
     outDatePicker.value = inDatePicker.value;
   }
+  inDatePicker.max = outDatePicker.value;
+  outDatePicker.min = inDatePicker.value;
 };
