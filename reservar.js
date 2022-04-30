@@ -4,19 +4,22 @@ const peoplePerType = {
 const maxNumberOfType = {
   "T0": 1, "T0+1": 2, "T1": 3, "T1s": 1, "T1+1": 2, "T2": 1
 };
+const resultTextH = document.getElementById("result-text");
 const formPeopleH = document.getElementById("form-people");
 const formTypesH = document.getElementById("form-types");
 const formNumberH = document.getElementById("form-number");
 const formCheckInH = document.getElementById("form-check-in");
 const formCheckOutH = document.getElementById("form-check-out");
 formCheckInH.min = formCheckOutH.min = new Date().toISOString().split("T")[0];
+let message;
 
 const genMessage = () => {
   const formNameH = document.getElementById("form-name");
   const formPhoneH = document.getElementById("form-phone");
   const formInfoH = document.getElementById("form-info");
+  const resultH = document.getElementById("result");
 
-  let message = `Nome: ${formNameH.value};\nTelefone: ${formPhoneH.value};\nTipologias: `;
+  message = `Nome: ${formNameH.value};\nTelefone: ${formPhoneH.value};\nTipologias: `;
   for(let i = 0; i < formNumberH.value; i++) {
     message += `${formTypesH.children[i].children[0].value},`;
   }
@@ -26,7 +29,9 @@ const genMessage = () => {
   if(formInfoH.value !== "") {
     message += `Informações:\n${formInfoH.value}`;
   }
-  alert(message);
+  resultTextH.innerHTML = message;
+  resultTextH.rows = 7;
+  resultH.hidden = false;
 };
 const formNumberChanged = () => {
   for(let i = 0; i < formTypesH.children.length; i++) {
@@ -100,4 +105,8 @@ const changeFormDate = inDate => {
   }
   formCheckInH.max = formCheckOutH.value;
   formCheckOutH.min = formCheckInH.value;
+};
+const copyMessage = () => {
+  resultTextH.select();
+  navigator.clipboard.writeText(message);
 };

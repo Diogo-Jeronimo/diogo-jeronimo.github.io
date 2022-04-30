@@ -11,11 +11,11 @@ main>div {
   margin: auto;
   max-width: var(--max-layout-width);
 }
-#introduction {
+#introduction, #result {
 	padding: 1rem;
 	background-color: var(--cards-color);
 }
-#introduction>h2, form>h2 {
+#introduction>h2, form>h2, #result h2 {
   margin: 0;
   font-size: 1.2rem;
 }
@@ -24,7 +24,7 @@ main>div {
 }
 form {
 	width: fit-content;
-	margin: 1rem auto 0 auto;
+	margin: 1rem auto;
 	padding: 1rem;
 	background-color: var(--cards-color);
 }
@@ -43,4 +43,25 @@ form>label, form>textarea {
 	padding: 0;
 	display: flex;
 	flex-flow: row wrap;
+}
+#result>div {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+#result h2, #result button {
+	display: inline-block;
+}
+#result button {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
+#result button>img {
+	width: 2rem;
+}
+#result-text {
+	width: 100%;
+	margin: 1rem 0 0 0;
+	resize: vertical;
 }

@@ -125,6 +125,16 @@
           <button type="submit">Gerar</button>
           <button type="reset">Repor</button>
         </form>
+				<section id="result" hidden>
+					<div>
+						<h2>Corpo:</h2>
+						<button onclick="copyMessage();">
+							Copiar
+							<img src="/icons/content-copy.svg">
+						</button>
+					</div>
+					<textarea id="result-text" rows="1" readonly></textarea>
+				</section>
       </div>
 		</main>
 
