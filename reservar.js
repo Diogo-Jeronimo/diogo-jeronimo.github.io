@@ -108,5 +108,6 @@ const changeFormDate = inDate => {
 };
 const copyMessage = () => {
   resultTextH.select();
+  resultTextH.setSelectionRange(0, 99999); /* For mobile devices */
   navigator.clipboard.writeText(message);
 };
