@@ -15,11 +15,12 @@ let message;
 
 const genMessage = () => {
   const formNameH = document.getElementById("form-name");
+  const formSurnameH = document.getElementById("form-surname");
   const formPhoneH = document.getElementById("form-phone");
   const formInfoH = document.getElementById("form-info");
   const resultH = document.getElementById("result");
 
-  message = `Nome: ${formNameH.value};\nTelefone: ${formPhoneH.value};\nTipologias: `;
+  message = `Nome: ${formNameH.value} ${formSurnameH.value};\nTelefone: ${formPhoneH.value};\nTipologias: `;
   for(let i = 0; i < formNumberH.value; i++) {
     message += `${formTypesH.children[i].children[0].value},`;
   }

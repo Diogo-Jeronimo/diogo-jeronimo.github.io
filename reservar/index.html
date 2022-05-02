@@ -36,13 +36,17 @@
 				<section id="introduction">
 					<h2>Como Reservar</h2>
 					<p>
-						Para reservar precisa de enviar um email para portugal<wbr>_holidays<wbr>@hotmail<wbr>.com.<br>
-						Utilize o formulário abaixo para gerar o corpo do email.
+						Para reservar precisa de enviar um inquérito, por email, para portugal<wbr>_holidays<wbr>@hotmail<wbr>.com.<br>
+						Utilize o formulário abaixo para gerar o inquérito.
 					</p>
 				</section>
         <form action="javascript:genMessage();" autocomplete="on">
 	        <label for="form-name">Nome</label>
           <input id="form-name" type="text" required autocomplete="name">
+
+
+	        <label for="form-surname">Apelido</label>
+          <input id="form-surname" type="text" required autocomplete="name">
 
           <label for="form-phone">Telefone</label>
           <input id="form-phone" type="tel" required autocomplete="tel">
@@ -122,12 +126,12 @@
           <label for="form-info">Informações adicionais (opcional)</label>
           <textarea id="form-info"></textarea>
 
-          <button type="submit">Gerar</button>
-          <button type="reset">Repor</button>
+          <button type="submit">Gerar Inquérito</button>
+          <button type="reset">Apagar</button>
         </form>
 				<section id="result" hidden>
 					<div>
-						<h2>Corpo:</h2>
+						<h2>Inquérito a enviar:</h2>
 						<button onclick="copyMessage();">
 							Copiar
 							<img src="/icons/content-copy.svg">
