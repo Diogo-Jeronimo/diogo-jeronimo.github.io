@@ -19,7 +19,9 @@ const genMessage = () => {
   const formPhoneH = document.getElementById("form-phone");
   const formInfoH = document.getElementById("form-info");
   const resultH = document.getElementById("result");
+  const contentH = document.getElementById("main-content");
 
+  contentH.classList.replace("main-content-without-result", "main-content-with-result");
   message = `Nome: ${formNameH.value} ${formSurnameH.value};\nTelefone: ${formPhoneH.value};\nTipologias: `;
   for(let i = 0; i < formNumberH.value; i++) {
     message += `${formTypesH.children[i].children[0].value},`;
