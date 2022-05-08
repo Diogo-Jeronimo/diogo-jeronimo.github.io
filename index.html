@@ -9,7 +9,6 @@
 		<link rel="stylesheet" type="text/css" href="/style/top-bar.css">
 		<link rel="stylesheet" type="text/css" href="/style/bottom-bar.css">
 		<link rel="stylesheet" type="text/css" href="/home.css">
-		<script src="/script/bottom-bar.js" defer></script>
 	</head>
 	<body>
 		<header id="top-bar">
@@ -63,30 +62,20 @@
 					</ul>
 				</li>
 				<li>
-					<h2>Localização</h2>
+					<h2>Endereço</h2>
 					<dl id="location-list">
-						<dt>Rua:</dt>
+						<dt>Arruamento:</dt>
 						<dd>Beco dos Lôpos</dd><br>
-						<dt>Freguesia:</dt>
-						<dd>Olhos de Água</dd><br>
+						<dt>Localidade:</dt>
+						<dd>Olhos D'Água</dd><br>
 						<dt>Concelho:</dt>
 						<dd>Albufeira</dd><br>
 						<dt>Distrito:</dt>
 						<dd>Faro</dd><br>
 						<dt><strong>Código Postal</strong>:</dt>
-						<dd>8200-642 Albufeira</dd><br>
+						<dd>8200-642 ALBUFEIRA</dd><br>
 						<dt><strong>Coordenadas</strong>:</dt>
-						<dd>
-							<label for="coordinates-explicit-cardinals">
-								<input id="coordinates-explicit-cardinals" type="checkbox" onchange="updateCoordinates();">
-								N-S/E-O
-							</label><br>
-							<p id="coordinates-text">37.0921, -8.1913</p>
-							<select id="coordinates-format" onchange="updateCoordinates();">
-								<option>DD</option>
-								<option>DMS</option>
-							</select>
-						</dd>
+						<dd id="location-coordinates">37°05'31.6"N 8°11'28.7"W<br>37.0921, -8.1913</dd>
 					</dl>
 				</li>
 				<li>

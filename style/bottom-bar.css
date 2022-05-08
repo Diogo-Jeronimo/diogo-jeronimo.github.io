@@ -13,6 +13,7 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  gap: 1rem;
   font-size: 0.8rem;
 }
 #bottom-bar-content>li>h2 {
@@ -52,9 +53,9 @@
 }
 #location-list>dt, #location-list>dd {
   display: inline;
-  margin: 0;
+  margin-left: 0;
 }
-#coordinates-text {
-  display: inline;
-  margin-left: 1rem;
+#location-coordinates {
+  display: block !important;
+  margin-left: 1rem !important;
 }
