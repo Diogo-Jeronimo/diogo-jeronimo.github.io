@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="/style/top-bar.css">
 		<link rel="stylesheet" type="text/css" href="/style/bottom-bar.css">
 		<link rel="stylesheet" type="text/css" href="/home.css">
+		<script src="/script/bottom-bar.js" defer></script>
 	</head>
 	<body>
 		<header id="top-bar">
@@ -77,16 +78,20 @@
 						<dt><strong>Coordenadas</strong>:</dt>
 						<dd>
 							<label for="coordinates-explicit-cardinals">
-								<input id="coordinates-explicit-cardinals" type="checkbox">
+								<input id="coordinates-explicit-cardinals" type="checkbox" onchange="updateCoordinates();">
 								N-S/E-O
 							</label><br>
-							<p id="coordinates">37.0921, -8.1913</p>
-							<select>
+							<p id="coordinates-text">37.0921, -8.1913</p>
+							<select id="coordinates-format" onchange="updateCoordinates();">
 								<option>DD</option>
-								<option>DMG</option>
+								<option>DMS</option>
 							</select>
 						</dd>
 					</dl>
+				</li>
+				<li>
+					<h2>Menu Legal</h2>
+					<a href="/termos-condicoes-arrendamento">Termos e Condições de Arrendamento</a>
 				</li>
 			</ul>
 		</footer>
