@@ -7,9 +7,14 @@
 #bottom-bar-content {
   max-width: var(--max-layout-width);
   margin: 0 4rem;
+  padding: 0;
   flex: 1 1 auto;
+  list-style-type: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
-#bottom-bar-content>h2 {
+#bottom-bar-content>li>h2 {
   margin: 0.2rem;
   font-size: 1.2rem;
   font-weight: bold;
@@ -41,4 +46,12 @@
 .phone-text a {
   color: var(--bars-text-color);
   text-decoration: none;
+}
+#location-list>dt, #location-list>dd {
+  display: inline;
+  margin: 0;
+}
+#coordinates {
+  display: inline;
+  margin-left: 1rem;
 }

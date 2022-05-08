@@ -21,6 +21,9 @@ main {
 	width: 100%;
 	order: 1;
 }
+#intro-fp {
+	margin-top: 0;
+}
 @media screen and (min-width: 75ch) {
 	#intro {
 		padding: 1rem;
@@ -32,9 +35,6 @@ main {
 		max-width: 800px;
 		margin-right: 0.5rem;
 		float: left;
-	}
-	#intro-fp {
-		margin-top: 0;
 	}
 	#intro-lp {
 		margin-bottom: 0;
