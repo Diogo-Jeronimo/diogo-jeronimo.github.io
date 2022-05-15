@@ -51,6 +51,9 @@
   color: var(--bars-text-color);
   text-decoration: none;
 }
+#location-list {
+  margin: 0;
+}
 #location-list>dt, #location-list>dd {
   display: inline;
   margin-left: 0;
