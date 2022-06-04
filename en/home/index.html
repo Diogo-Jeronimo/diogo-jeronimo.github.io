@@ -2,20 +2,86 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title lang="pt">Apartamentos Naturmar</title>
-		<link rel="icon" href="/icons/evergreen-tree.png">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Naturmar Apartaments</title>
+		<link rel="icon" type="image/x-icon" href="/icons/beach.svg">
+		<link rel="stylesheet" type="text/css" href="/style/vars.css">
+		<link rel="stylesheet" type="text/css" href="/style/top-bar.css">
+		<link rel="stylesheet" type="text/css" href="/style/bottom-bar.css">
 		<link rel="stylesheet" type="text/css" href="/home.css">
 	</head>
 	<body>
-		<header>
-			<!--"Logo"-->
-			<div></div>
-			<!--Links-->
-			<div></div>
-			<a id="link-to-switch-lang" href="/">
-				<img src="/icons/portugal-flag.svg" width="60" height="40">
-				<p lang="pr">Português</p>
-			</a>
+		<header id="top-bar">
+			<div id="top-bar-content">
+				<div id="logo">
+					<img src="/icons/beach.svg">
+					<h1>Naturmar Praia<br>Apartaments</h1>
+				</div>
+				<a id="lang-switcher" href="/">
+					<img src="/icons/portugal-flag.svg">
+					<p lang="pt-PT">Português</p>
+				</a>
+				<nav id="nav-bar">
+					<a>HOME</a>
+					<a href="/apartamentos">APARTAMENTS</a>
+					<a href="/informacoes">INFORMATION</a>
+					<a href="/reservar">RESERVE</a>
+				</nav>
+			</div>
 		</header>
+
+		<main>
+			<img id="init-image" src="/pics/beach.jpg">
+			<article id="intro">
+				<img src="/pics/hotel.jpg">
+				<p id="intro-fp">This property is 3 minutes walk from the beach. Naturmar Praia is located in the small village of Olhos de Água, just 4 km away from Albufeira. The units are 200 m from the Olhos de Água Beach and feature an outdoor swimming pool.</p>
+				<p>The air-conditioned apartments and studios all feature a living room with sofas and satellite TV. They also include a private bathroom with a hairdryer, an equipped kitchen or kitchenette and a balcony.</p>
+				<p>Guests are welcome to prepare their own meals in the units’ kitchen and kitchenettes. They include all the necessary utensils and appliances to prepare meals. For more dining options, guests can go to the seafront area near Olhos de Água Beach, where there are many restaurants and cafés available.</p>
+				<p>Maria Luisa Beach is 800 m from the Naturmar, which has many sea-related activities, such as jet skiing, pedal boat rental, surfing and windsurfing. For golfing enthusiasts, there are several golf courses in the vicinity. Balaia Golf Village is a 4-minute walk and it is a 7-minute drive from the Pine Cliffs Golf Club.</p>
+				<p>The property is a 12-minute drive from the Albufeira centre . On the outside of Albufeira is the famous, cliff-surrounded Falésia Beach. The Naturmar is an 18-minute drive from Vilamoura, which features bars, casinos, golf courses and a marina.<p>
+				<p id="intro-lp">It is a 34-minute drive from the Faro International Airport. The Albufeira/Ferreiras train station is 7 km away.</p>
+			</article>
+		</main>
+
+		<footer id="bottom-bar">
+			<ul id="bottom-bar-content">
+				<li>
+					<h2>Contacts</h2>
+					<ul id="contacts-list">
+						<li>
+							<img class="contact-icon" src="/icons/alternate-email-white.svg">
+							<p class="contact-text">portugal<wbr>_holidays<wbr>@hotmail<wbr>.com</p>
+						</li>
+						<li>
+							<img class="contact-icon" src="/icons/local-phone-white.svg">
+							<p class="contact-text phone-text">+351 289 571 929</p>
+						</li>
+						<li>
+							<img class="contact-icon" src="/icons/smartphone-white.svg">
+							<p class="contact-text phone-text">+351 966 040 459</p>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<h2>Endereço</h2>
+					<dl id="location-list">
+						<dt>Street:</dt>
+						<dd>Beco dos Lôpos</dd><br>
+						<dt>Locality:</dt>
+						<dd>Olhos D'Água</dd><br>
+						<dt>Municipality:</dt>
+						<dd>Albufeira</dd><br>
+						<dt><strong>Postcode</strong>:</dt>
+						<dd>8200-642 ALBUFEIRA</dd><br>
+						<dt><strong>Coordinates</strong>:</dt>
+						<dd>37°05'31.6"N 8°11'28.7"W</dd>
+					</dl>
+				</li>
+				<li>
+					<h2>Legal Menu</h2>
+					<a href="/termos-condicoes-arrendamento">Termos e Condições de Arrendamento</a>
+				</li>
+			</ul>
+		</footer>
 	</body>
 </html>
