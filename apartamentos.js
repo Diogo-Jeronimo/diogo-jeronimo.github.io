@@ -1,13 +1,13 @@
 const isEN = document.URL.includes("/en/");
 const descriptions = isEN ? {
-  "T0": ".",
-  "T0+1": ".",
+  "T0": "Living room with two beds, kitchenette and a full bathroom. Capacity for 2 people.",
+  "T0+1": "Living room with two sofas plus one double bed, kitchenette and a full",
   "T1": ".",
   "T1s": ".",
   "T1+1": ".",
   "T2": "."
 } : {
-  "T0": "Sala comum com duas camas, kitchenette e casa de banho completa, capacidade para 2 pessoas.",
+  "T0": "Sala comum com duas camas, kitchenette e casa de banho completa. Capacidade para 2 pessoas.",
   "T0+1": "Sala comum com dois sofás mais uma cama de casal, kittchenette e casa de banho completa, mais um quarto pequeno com uma cama single capacidade total para 3 pessoas.",
   "T1": "Sala com sofá cama para duas pessoas, um quarto, kitchenette e casa de banho completa. Máximo 4 pessoas.",
   "T1s": "T1 superior com um terraço grande que rodeia todo o apartamento e com sol todo o dia.",
