@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Apartamentos Naturmar Praia</title>
+		<title>Naturmar Praia Apartaments</title>
 		<link rel="icon" type="image/x-icon" href="/icons/beach.svg">
 		<link rel="stylesheet" type="text/css" href="/style/vars.css">
 		<link rel="stylesheet" type="text/css" href="/style/top-bar.css">
@@ -12,22 +12,22 @@
 		<script src="/reservar.js" defer></script>
 	</head>
 
-	<body>
-		<header id="top-bar">
+  <body>
+    <header id="top-bar">
 			<div id="top-bar-content">
 				<div id="logo">
 					<img src="/icons/beach.svg">
-					<h1>Apartamentos<br>Naturmar Praia</h1>
+					<h1>Naturmar Praia<br>Apartaments</h1>
 				</div>
-				<a id="lang-switcher" href="/en/home">
-					<img src="/icons/united-kingdom-flag.svg">
-					<p lang="en">English</p>
+				<a id="lang-switcher" href="/">
+					<img src="/icons/portugal-flag.svg">
+					<p lang="pt-PT">Português</p>
 				</a>
 				<nav id="nav-bar">
-					<a href="/">INÍCIO</a>
-					<a href="/apartamentos">APARTAMENTOS</a>
-					<a href="/informacoes">INFORMAÇÕES</a>
-					<a>RESERVAR</a>
+					<a href="/en/home">HOME</a>
+					<a href="/en/apartments">APARTAMENTS</a>
+					<a href="/en/information">INFORMATION</a>
+					<a>RESERVE</a>
 				</nav>
 			</div>
 		</header>
@@ -35,34 +35,34 @@
 		<main>
       <div id="main-content" class="main-content-without-result">
 				<section id="introduction">
-					<h2>Como Reservar</h2>
+					<h2>How to Reserve</h2>
 					<p>
-						Para reservar precisa de enviar um inquérito, por email, para <strong>portugal_holidays<wbr>@hotmail.com</strong>.<br>
-						Utilize o formulário abaixo para o ajudar a gerar o inquérito.
+						To book you need to send an inquiry, by email, to <strong>portugal_holidays<wbr>@hotmail.com</strong>.<br>
+						Use the form below to help you generate the inquiry.
 					</p>
 				</section>
         <form action="javascript:genMessage();" autocomplete="on">
-	        <label for="form-name">Nome</label>
+	        <label for="form-name">Name</label>
           <input id="form-name" type="text" required autocomplete="name">
 
 
-	        <label for="form-surname">Apelido</label>
+	        <label for="form-surname">Surname</label>
           <input id="form-surname" type="text" required autocomplete="name">
 
-          <label for="form-phone">Telefone</label>
+          <label for="form-phone">Telephone</label>
           <input id="form-phone" type="tel" required autocomplete="tel">
 
           <!--<label for="form-email">E-mail</label>
           <input id="form-email" type="email" placeholder="exemplo@email.com" required autocomplete="email">-->
 
-					<label for="form-number">Número de apartamentos</label>
+					<label for="form-number">Number of apartments</label>
 					<select id="form-number" onchange="formNumberChanged();">
             <option>1</option>
             <option>2</option>
             <option>3</option>
           </select>
 
-          <label for="form-type1">Tipologia(s)</label>
+          <label for="form-type1">Type(s)</label>
 					<ul id="form-types">
 	          <li>
 							<select onchange="formTypeChanged();">
@@ -96,7 +96,7 @@
 						</li>
 					</ul>
 
-          <label for="form-people">Número de pessoas</label>
+          <label for="form-people">Number of people</label>
           <select id="form-people">
 						<option>1</option>
 						<option>2</option>
@@ -118,23 +118,23 @@
 						<option disabled hidden>18</option>
 					</select>
 
-          <label for="form-check-in">Data de chegada</label>
+          <label for="form-check-in">Check-in date</label>
           <input id="form-check-in" type="date" onchange="changeFormDate(true);" required autocomplete="off">
 
-          <label for="form-check-out">Data de saída</label>
+          <label for="form-check-out">Check-out date</label>
           <input id="form-check-out" type="date" onchange="changeFormDate(false);" required autocomplete="off">
 
-          <label for="form-info">Informações adicionais (opcional)</label>
+          <label for="form-info">Additional information (optional)</label>
           <textarea id="form-info"></textarea>
 
-          <button type="submit">Gerar Inquérito</button>
-          <button type="reset">Apagar</button>
+          <button type="submit">Generate Inquiry</button>
+          <button type="reset">Reset</button>
         </form>
 				<section id="result" hidden>
 					<div>
-						<h2>Inquérito a enviar:</h2>
+						<h2>Inquiry to send:</h2>
 						<button onclick="copyMessage();">
-							Copiar
+							Copy
 							<img src="/icons/content-copy.svg">
 						</button>
 					</div>
@@ -143,10 +143,10 @@
       </div>
 		</main>
 
-		<footer id="bottom-bar">
+    <footer id="bottom-bar">
 			<ul id="bottom-bar-content">
 				<li>
-					<h2>Contactos</h2>
+					<h2>Contacts</h2>
 					<ul id="contacts-list">
 						<li>
 							<img class="contact-icon" src="/icons/alternate-email-white.svg">
@@ -163,25 +163,24 @@
 					</ul>
 				</li>
 				<li>
-					<h2>Endereço</h2>
+					<h2>Address</h2>
 					<dl id="location-list">
-						<dt>Rua:</dt>
+						<dt>Street:</dt>
 						<dd>Beco dos Lôpos</dd><br>
-						<dt>Localidade:</dt>
+						<dt>Locality:</dt>
 						<dd>Olhos D'Água</dd><br>
-						<dt>Concelho:</dt>
+						<dt>Municipality:</dt>
 						<dd>Albufeira</dd><br>
-						<dt><strong>Código Postal</strong>:</dt>
+						<dt><strong>Postcode</strong>:</dt>
 						<dd>8200-642 ALBUFEIRA</dd><br>
-						<dt><strong>Coordenadas</strong>:</dt>
+						<dt><strong>Coordinates</strong>:</dt>
 						<dd>37°05'31.6"N 8°11'28.7"W</dd>
 					</dl>
 				</li>
 				<li>
-					<h2>Menu Legal</h2>
-					<a href="/termos-condicoes-arrendamento">Termos e Condições de Arrendamento</a>
+					<h2>Legal Menu</h2>
+					<a lang="pt-PT" href="/termos-condicoes-arrendamento">Termos e Condições de Arrendamento</a>
 				</li>
 			</ul>
 		</footer>
-	</body>
-</html>
+  </body>
