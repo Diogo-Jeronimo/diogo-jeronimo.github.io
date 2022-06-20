@@ -1,3 +1,4 @@
+const isEN = document.URL.includes("/en/");
 const peoplePerType = {
   "T0": 2, "T0+1": 3, "T1": 4, "T1s": 4, "T1+1": 6, "T2": 6
 };
@@ -22,15 +23,18 @@ const genMessage = () => {
   const contentH = document.getElementById("main-content");
 
   contentH.classList.replace("main-content-without-result", "main-content-with-result");
-  message = `Nome: ${formNameH.value} ${formSurnameH.value};\nTelefone: ${formPhoneH.value};\nTipologias: `;
+  message = isEN
+    ? `Name: ${formNameH.value} ${formSurnameH.value};\nTelephone: ${formPhoneH.value};\nTypes: `
+    : `Nome: ${formNameH.value} ${formSurnameH.value};\nTelefone: ${formPhoneH.value};\nTipologias: `;
   for(let i = 0; i < formNumberH.value; i++) {
     message += `${formTypesH.children[i].children[0].value},`;
   }
   message = (message += ";\n").replace(",;", ";");
-  message += `Pessoas: ${formPeopleH.value};\nEntrada: ${formCheckInH.value};\n` +
-    `Saída: ${formCheckOutH.value};\n`;
+  message += isEN
+    ? `People: ${formPeopleH.value};\nCheck-in: ${formCheckInH.value};\nCheck-out: ${formCheckOutH.value};\n`
+    : `Pessoas: ${formPeopleH.value};\nEntrada: ${formCheckInH.value};\nSaída: ${formCheckOutH.value};\n`;
   if(formInfoH.value !== "") {
-    message += `Informações:\n${formInfoH.value}`;
+    message += isEN ? `Information:\n${formInfoH.value}` : `Informações:\n${formInfoH.value}`;
   }
   resultTextH.innerHTML = message;
   resultTextH.rows = 7;
