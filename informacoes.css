@@ -139,6 +139,10 @@ main {
 	padding-left: 0.5rem;
 	text-align: right;
 }
+.info-surroundings-type>table>tbody>tr>td>a {
+	color: inherit;
+	text-decoration: none;
+}
 .info-surroundings-type>figure {
 	width: 100%;
 	margin: 0;
