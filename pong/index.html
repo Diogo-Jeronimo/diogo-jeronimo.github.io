@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong 🏓</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: darkslategrey;
+            /*color: ;/**/
+        }
+
+        canvas {
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="game_area" width="1280" height="720"></canvas>
+    <script>
+        const html_canvas = document.getElementById("game_area");
+        const game_area = html_canvas.getContext("2d");
+        const tau = Math.PI * 2;
+        game_area.width = html_canvas.width;
+        game_area.height = html_canvas.height;
+        const font_size = 44;
+        const paddle_margin = 10;
+        const paddle_width = 20;
+        const paddle_height = 100;
+        const ball_radius = 10;
+
+        game_area.font = `${font_size}px Arial`;
+
+        game_area.fillStyle = "black";
+        game_area.fillRect(0, 0, game_area.width, game_area.height);
+
+        game_area.fillStyle = "aquamarine";
+        game_area.fillText("0", font_size/2, font_size);
+        game_area.fillText("0", game_area.width - font_size, font_size);
+
+        game_area.fillRect(paddle_margin,
+            game_area.height/2 - paddle_height/2, 
+            paddle_width, paddle_height
+        );
+        game_area.fillRect(game_area.width - paddle_margin - paddle_width,
+            game_area.height/2 - paddle_height/2,
+            paddle_width, paddle_height
+        );
+
+        game_area.beginPath();
+        game_area.arc(game_area.width/2, game_area.height/2, ball_radius, 0, tau);
+        game_area.fill();
+    </script>
+</body>
+
+</html>
