@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+	<meta charset="utf-8">
+	<title>⏱️ Contador</title>
+	<style>
+	body {
+		margin: 0;
+		padding: 4vw;
+		background-color: black;
+		color: white;
+		font-size: 4vw;
+		font-family: sans-serif;
+	}
+	table, button {
+		margin: auto;
+	}
+	table, td {
+		border: 1px solid white;
+		border-collapse: collapse;
+		background-color: #222;
+	}
+	td {
+		padding: 2vw;
+	}
+	.player-name {
+		font-size: 5vw;
+	}
+	.score {
+		font-size: 7vw;
+		text-align: end;
+	}
+	#buttons {
+		display: grid;
+		gap: 4vw;
+		grid-template-columns: 1fr 1fr;
+	}
+	button {
+		margin: 0;
+		padding: 4vw;
+		background-color: #222;
+		color: white;
+		border: 1px solid white;
+		border-radius: 1vw;
+		font-size: 4vw;
+	}
+	</style>
+</head>
+
+<body>
+	<table>
+		<tr>
+			<td class="player-name">Jogador A</td>
+			<td id="score1" class="score">0/0</td>
+			<td id="points-left" class="score" rowspan="2">0</td>
+		</tr>
+		<tr>
+			<td class="player-name">Jogador B</td>
+			<td id="score2" class="score">0/0</td>
+		</tr>
+	</table>
+	<br>
+	<div id="buttons">
+		<button onclick="scoreChanged('a', 1);">A 🎱</button>
+		<button onclick="scoreChanged('b', 1);">B 🎱</button>
+		<button onclick="scoreChanged('a', foulValue);">A ❌</button>
+		<button onclick="scoreChanged('b', foulValue);">B ❌</button>
+		<button onclick="scoreChanged('p', 1);">P +1</button>
+		<button onclick="scoreChanged('p', -1);">P −1</button>
+		<button onclick="reset();">Repor</button>
+	</div>
+
+	<script>
+	const score1 = document.getElementById("score1");
+	const score2 = document.getElementById("score2");
+	const pointsLeft = document.getElementById("points-left");
+	const correctImprecision = x => +(+x).toFixed(1);
+	const numbFormat = x => x.toLocaleString("pt-PT").replace("-", "−");
+	const foulValue = correctImprecision(new URLSearchParams(window.location.search).get("f") ?? -0.5);
+	let s1 = 0, s2 = 0, pl = 16, ms1 = s1 + pl, ms2 = s2 + pl;
+	const updateScores = () => {
+		pointsLeft.innerText = numbFormat(pl);
+		score1.innerText = `${numbFormat(s1)}/${numbFormat(ms1)}`;
+		score2.innerText = `${numbFormat(s2)}/${numbFormat(ms2)}`;
+	};
+	const scoreChanged = (player, sum) => {
+		if(player == "p") {
+			pl += sum;
+		} else if(player == "a") {
+			s1 = correctImprecision(s1 + sum);
+			if(sum > 0) pl--;
+		} else if(player == "b") {
+			s2 = correctImprecision(s2 + sum);
+			if(sum > 0) pl--;
+		}
+		ms1 = correctImprecision(s1 + pl), ms2 = correctImprecision(s2 + pl);
+		updateScores();
+	};
+	const reset = () => {
+		s1 = 0, s2 = 0, pl = 16, ms1 = s1 + pl, ms2 = s2 + pl;
+		updateScores();
+	};
+	updateScores();
+	</script>
+</body>
+
+</html>
