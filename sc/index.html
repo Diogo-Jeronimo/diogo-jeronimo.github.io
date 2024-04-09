@@ -77,7 +77,8 @@
 	const pointsLeft = document.getElementById("points-left");
 	const correctImprecision = x => +(+x).toFixed(1);
 	const numbFormat = x => x.toLocaleString("pt-PT").replace("-", "−");
-	const foulValue = correctImprecision(new URLSearchParams(window.location.search).get("f") ?? -0.5);
+	let foulValue = new URLSearchParams(window.location.search).get("f") || -0.5;
+	foulValue = isNaN(foulValue) ? -0.5 : correctImprecision(foulValue);
 	let s1 = 0, s2 = 0, pl = 16, ms1 = s1 + pl, ms2 = s2 + pl;
 	const updateScores = () => {
 		pointsLeft.innerText = numbFormat(pl);
