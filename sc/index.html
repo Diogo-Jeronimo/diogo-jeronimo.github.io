@@ -62,24 +62,23 @@
 	</table>
 	<br>
 	<div id="buttons">
-		<button onclick="scoreChanged('a', 1);">A 🎱</button>
-		<button onclick="scoreChanged('b', 1);">B 🎱</button>
-		<button onclick="scoreChanged('a', foulValue);">A ❌</button>
-		<button onclick="scoreChanged('b', foulValue);">B ❌</button>
-		<button onclick="scoreChanged('p', 1);">P +1</button>
-		<button onclick="scoreChanged('p', -1);">P −1</button>
-		<button onclick="reset();">Repor</button>
+		<button onmousedown="scoreChanged('a', 1);">A +1</button>
+		<button onmousedown="scoreChanged('b', 1);">B +1</button>
+		<button onmousedown="scoreChanged('a', -0.5);">A −½</button>
+		<button onmousedown="scoreChanged('b', -0.5);">B −½</button>
+		<button onmousedown="scoreChanged('a', 0.5);">A +½</button>
+		<button onmousedown="scoreChanged('b', 0.5);">B +½</button>
+		<button onmousedown="scoreChanged('p', 1);">P +1</button>
+		<button onmousedown="scoreChanged('p', -1);">P −1</button>
+		<button onmousedown="reset();">Repor</button>
 	</div>
 
 	<script>
 	const score1 = document.getElementById("score1");
 	const score2 = document.getElementById("score2");
 	const pointsLeft = document.getElementById("points-left");
-	const correctImprecision = x => +(+x).toFixed(1);
 	const numbFormat = x => x.toLocaleString("pt-PT").replace("-", "−");
-	let foulValue = new URLSearchParams(window.location.search).get("f") || -0.5;
-	foulValue = isNaN(foulValue) ? -0.5 : correctImprecision(foulValue);
-	let s1 = 0, s2 = 0, pl = 16, ms1 = s1 + pl, ms2 = s2 + pl;
+	let s1 = 0, s2 = 0, pl = 17, ms1 = s1 + pl, ms2 = s2 + pl;
 	const updateScores = () => {
 		pointsLeft.innerText = numbFormat(pl);
 		score1.innerText = `${numbFormat(s1)}/${numbFormat(ms1)}`;
@@ -89,17 +88,17 @@
 		if(player == "p") {
 			pl += sum;
 		} else if(player == "a") {
-			s1 = correctImprecision(s1 + sum);
+			s1 += sum;
 			if(sum > 0) pl--;
 		} else if(player == "b") {
-			s2 = correctImprecision(s2 + sum);
+			s2 += sum;
 			if(sum > 0) pl--;
 		}
-		ms1 = correctImprecision(s1 + pl), ms2 = correctImprecision(s2 + pl);
+		ms1 = s1 + pl, ms2 = s2 + pl;
 		updateScores();
 	};
 	const reset = () => {
-		s1 = 0, s2 = 0, pl = 16, ms1 = s1 + pl, ms2 = s2 + pl;
+		s1 = 0, s2 = 0, pl = 17, ms1 = s1 + pl, ms2 = s2 + pl;
 		updateScores();
 	};
 	updateScores();
