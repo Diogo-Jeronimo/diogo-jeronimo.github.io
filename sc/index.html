@@ -29,7 +29,7 @@
 	}
 	.score {
 		font-size: 7vw;
-		text-align: end;
+		text-align: center;
 	}
 	#buttons {
 		display: grid;
@@ -52,12 +52,14 @@
 	<table>
 		<tr>
 			<td class="player-name">Jogador A</td>
-			<td id="score1" class="score">0/0</td>
+			<td id="score1" class="score">0</td>
+			<td id="max-score1" class="score">0</td>
 			<td id="points-left" class="score" rowspan="2">0</td>
 		</tr>
 		<tr>
 			<td class="player-name">Jogador B</td>
-			<td id="score2" class="score">0/0</td>
+			<td id="score2" class="score">0</td>
+			<td id="max-score2" class="score">0</td>
 		</tr>
 	</table>
 	<br>
@@ -76,13 +78,17 @@
 	<script>
 	const score1 = document.getElementById("score1");
 	const score2 = document.getElementById("score2");
+	const maxScore1 = document.getElementById("max-score1");
+	const maxScore2 = document.getElementById("max-score2");
 	const pointsLeft = document.getElementById("points-left");
 	const numbFormat = x => x.toLocaleString("pt-PT").replace("-", "−");
 	let s1 = 0, s2 = 0, pl = 17, ms1 = s1 + pl, ms2 = s2 + pl;
 	const updateScores = () => {
 		pointsLeft.innerText = numbFormat(pl);
-		score1.innerText = `${numbFormat(s1)}/${numbFormat(ms1)}`;
-		score2.innerText = `${numbFormat(s2)}/${numbFormat(ms2)}`;
+		score1.innerText = numbFormat(s1);
+		score2.innerText = numbFormat(s2);
+		maxScore1.innerText = numbFormat(ms1);
+		maxScore2.innerText = numbFormat(ms2);
 	};
 	const scoreChanged = (player, sum) => {
 		if(player == "p") {
