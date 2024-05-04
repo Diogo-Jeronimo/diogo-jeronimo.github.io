@@ -64,16 +64,24 @@
 	</table>
 	<br>
 	<div id="buttons">
-		<button onmousedown="scoreChanged('a', 1);">A +1</button>
-		<button onmousedown="scoreChanged('b', 1);">B +1</button>
-		<button onmousedown="scoreChanged('a', -0.5);">A −½</button>
-		<button onmousedown="scoreChanged('b', -0.5);">B −½</button>
-		<button onmousedown="scoreChanged('a', 0.5);">A +½</button>
-		<button onmousedown="scoreChanged('b', 0.5);">B +½</button>
+		<button onmousedown="scoreChanged('a', 'sp');">A +1</button>
+		<button onmousedown="scoreChanged('b', 'sp');">B +1</button>
+		<button onmousedown="scoreChanged('a', 'f');">A −½</button>
+		<button onmousedown="scoreChanged('b', 'f');">B −½</button>
+		<button onmousedown="scoreChanged('a', 'ip');">A −1</button>
+		<button onmousedown="scoreChanged('b', 'ip');">B −1</button>
+		<button onmousedown="scoreChanged('a', 's');">A +½</button>
+		<button onmousedown="scoreChanged('b', 's');">B +½</button>
 		<button onmousedown="scoreChanged('p', 1);">P +1</button>
 		<button onmousedown="scoreChanged('p', -1);">P −1</button>
 		<button onmousedown="reset();">Repor</button>
 	</div>
+	<br>
+	<p>Estatísticas:<br>
+	Bolas metidas com sucesso: <span id="successfull-pots">0–0</span><br>
+	Bolas metidas ilegalmente: <span id="illegal-pots">0–0</span><br>
+	Faltas sem provocação: <span id="fouls">0–0</span><br>
+	<i>Snookers</i> bem sucedidos: <span id="snookers">0–0</span></p>
 
 	<script>
 	const body = document.querySelector("body");
@@ -82,32 +90,50 @@
 	const maxScore1 = document.getElementById("max-score1");
 	const maxScore2 = document.getElementById("max-score2");
 	const pointsLeft = document.getElementById("points-left");
+	const successfullPotsScore = document.getElementById("successfull-pots");
+	const illegalPotsScore = document.getElementById("illegal-pots");
+	const foulsScore = document.getElementById("fouls");
+	const snookersScore = document.getElementById("snookers");
 	const numbFormat = x => x.toLocaleString("pt-PT").replace("-", "−");
-	let s1 = 0, s2 = 0, pl = 17, ms1 = s1 + pl, ms2 = s2 + pl;
+	let sp1 = 0, sp2 = 0, ip1 = 0, ip2 = 0, f1 = 0, f2 = 0, s1 = 0, s2 = 0, pl = 17;
 	const updateScores = () => {
 		pointsLeft.innerText = numbFormat(pl);
-		score1.innerText = numbFormat(s1);
-		score2.innerText = numbFormat(s2);
-		maxScore1.innerText = numbFormat(ms1);
-		maxScore2.innerText = numbFormat(ms2);
+		const m1 = sp1 - ip1 + s1 / 2 - f1 / 2;
+		const m2 = sp2 - ip2 + s2 / 2 - f2 / 2;
+		score1.innerText = numbFormat(m1);
+		score2.innerText = numbFormat(m2);
+		maxScore1.innerText = numbFormat(m1 + pl);
+		maxScore2.innerText = numbFormat(m2 + pl);
+		successfullPotsScore.innerText = `${sp1}–${sp2}`;
+		illegalPotsScore.innerText = `${ip1}–${ip2}`;
+		foulsScore.innerText = `${f1}–${f2}`;
+		snookersScore.innerText = `${s1}–${s2}`;
 		body.style.backgroundColor = "grey";
 		setTimeout(() => body.style.backgroundColor = "black", 200);
 	};
-	const scoreChanged = (player, sum) => {
+	const scoreChanged = (player, val) => {
 		if(player == "p") {
-			pl += sum;
+			pl += val;
 		} else if(player == "a") {
-			s1 += sum;
-			if(sum > 0.5) pl--;
+			switch(val) {
+				case "sp": sp1++; pl--; break;
+				case "ip": ip1++; pl--; break;
+				case "f": f1++; break;
+				case "s": s1++; break;
+			}
 		} else if(player == "b") {
-			s2 += sum;
-			if(sum > 0.5) pl--;
+			switch(val) {
+				case "sp": sp2++; pl--; break;
+				case "ip": ip2++; pl--; break;
+				case "f": f2++; break;
+				case "s": s2++; break;
+			}
 		}
 		ms1 = s1 + pl, ms2 = s2 + pl;
 		updateScores();
 	};
 	const reset = () => {
-		s1 = 0, s2 = 0, pl = 17, ms1 = s1 + pl, ms2 = s2 + pl;
+		sp1 = 0, sp2 = 0, ip1 = 0, ip2 = 0, f1 = 0, f2 = 0, s1 = 0, s2 = 0, pl = 17;
 		updateScores();
 	};
 	updateScores();
