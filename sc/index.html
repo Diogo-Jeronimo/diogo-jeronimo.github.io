@@ -33,7 +33,7 @@
 	}
 	#buttons {
 		display: grid;
-		gap: 4vw;
+		gap: 6vw;
 		grid-template-columns: 1fr 1fr;
 	}
 	button {
@@ -76,6 +76,7 @@
 	</div>
 
 	<script>
+	const body = document.querySelector("body");
 	const score1 = document.getElementById("score1");
 	const score2 = document.getElementById("score2");
 	const maxScore1 = document.getElementById("max-score1");
@@ -89,16 +90,18 @@
 		score2.innerText = numbFormat(s2);
 		maxScore1.innerText = numbFormat(ms1);
 		maxScore2.innerText = numbFormat(ms2);
+		body.style.backgroundColor = "grey";
+		setTimeout(() => body.style.backgroundColor = "black", 200);
 	};
 	const scoreChanged = (player, sum) => {
 		if(player == "p") {
 			pl += sum;
 		} else if(player == "a") {
 			s1 += sum;
-			if(sum > 0) pl--;
+			if(sum > 0.5) pl--;
 		} else if(player == "b") {
 			s2 += sum;
-			if(sum > 0) pl--;
+			if(sum > 0.5) pl--;
 		}
 		ms1 = s1 + pl, ms2 = s2 + pl;
 		updateScores();
