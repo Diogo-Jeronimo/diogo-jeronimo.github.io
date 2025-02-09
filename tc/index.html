@@ -1,0 +1,40 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<style>
+body {
+	background: black;
+	color: white;
+	font-family: sans-serif;
+	font-size: 10vw;
+	text-align: center;
+}
+input {
+	font-size: 5vw;
+	text-align: center;
+	margin: 5vw;
+}
+#text {
+}
+		</style>
+	</head>
+	<body>
+		<input type="number" id="hours" value="0">
+		<input type="number" id="minutes" value="0">
+		<h1 id="text">_:__</h1>
+		<script>
+const hours = document.getElementById("hours");
+const minutes = document.getElementById("minutes");
+const text = document.getElementById("text");
+const main = () => {
+	const gameDate = new Date(Date.now() * 7);
+	gameDate.setUTCHours(gameDate.getUTCHours() + (+hours.value || 0));
+	gameDate.setUTCMinutes(gameDate.getUTCMinutes() + (+minutes.value || 0));
+	const gameHours = (gameDate.getUTCHours() % 12) || 12;
+	text.innerHTML = `${gameHours}:${gameDate.toISOString().slice(14, 16)}`;
+};
+main();
+setInterval(main, 8000);
+		</script>
+	</body>
+</html>
