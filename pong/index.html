@@ -2,230 +2,232 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pong 🏓</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: darkslategrey;
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pong 🏓</title>
+	<style>
+		body {
+			margin: 0;
+			background-color: darkslategrey;
+			color: white;
+			font-family: Arial, Helvetica, sans-serif;
+		}
 
-        #game_area {
-            display: block;
-            margin: auto;
-        }
+		#game_area {
+			display: block;
+			margin: auto;
+			width: min(100vw, 177.777vh);
+			height: min(56.25vw, 100vh);
+		}
 
-        label {
-            display: block;
-            margin: 1rem auto auto auto;
-            width: max-content;
-        }
+		label {
+			display: block;
+			margin: 1rem auto auto auto;
+			width: max-content;
+		}
 
-        #result_list {
-            width: max-content;
-            margin: 1rem auto;
-            padding: 0;
-        }
+		#result_list {
+			width: max-content;
+			margin: 1rem auto;
+			padding: 0;
+		}
 
-        #result_list>h2 {
-            margin: 0;
-        }
-    </style>
+		#result_list>h2 {
+			margin: 0;
+		}
+	</style>
 </head>
 
 <body>
-    <canvas id="game_area" width="1280" height="720"></canvas>
-    <label for="bot_selector">
-        Active bot:
-        <select id="bot_selector">
-            <option value="simple">Simple</option>
-            <option value="cheater">Cheater</option>
-        </select>
-    </label>
-    <ol id="result_list" reversed>
-        <h2>Result list:</h2>
-    </ol>
+	<canvas id="game_area" width="1280" height="720"></canvas>
+	<label for="bot_selector">
+		Active bot:
+		<select id="bot_selector">
+			<option value="simple">Simple</option>
+			<option value="cheater">Cheater</option>
+		</select>
+	</label>
+	<ol id="result_list" reversed>
+		<h2>Result list:</h2>
+	</ol>
 
-    <script>
-        const result_list = document.getElementById("result_list");
-        const bot_selector = document.getElementById("bot_selector");
-        const html_canvas = document.getElementById("game_area");
-        const game_area = html_canvas.getContext("2d");
-        const tau = Math.PI * 2;
-        let interval_id = NaN;
-        game_area.width = html_canvas.width; game_area.height = html_canvas.height;
-        const font_size = 44;
-        let score_left = 0; let score_right = 0;
-        const paddle_margin = 10; const paddle_speed = 10;
-        const paddle_width = 20; const paddle_height = 100;
-        let left_paddle_y = game_area.height / 2; let right_paddle_y = game_area.height / 2;
-        let left_paddle_vy = 0; let right_paddle_vy = 0; // pixel per frame
-        const ball_radius = 10;
-        let ball_pos_x; let ball_pos_y;
-        let ball_vel_x; let ball_vel_y;
+	<script>
+		const result_list = document.getElementById("result_list");
+		const bot_selector = document.getElementById("bot_selector");
+		const html_canvas = document.getElementById("game_area");
+		const game_area = html_canvas.getContext("2d");
+		const tau = Math.PI * 2;
+		let interval_id = null;
+		game_area.width = html_canvas.width; game_area.height = html_canvas.height;
+		const font_size = 44;
+		let score_left = 0; let score_right = 0;
+		const paddle_margin = 10; const paddle_speed = 10;
+		const paddle_width = 20; const paddle_height = 100;
+		let left_paddle_y = game_area.height / 2; let right_paddle_y = game_area.height / 2;
+		let left_paddle_vy = 0; let right_paddle_vy = 0; // pixel per frame
+		const ball_radius = 10;
+		let ball_pos_x; let ball_pos_y;
+		let ball_vel_x; let ball_vel_y;
 
-        game_area.font = `bold ${font_size}px Arial`;
-        document.onkeyup = () => {
-            right_paddle_vy = 0;
-        };
-        document.onkeydown = event => {
-            switch (event.code) {
-                case "ArrowRight": right_paddle_vy = -paddle_speed; break;
-                case "ArrowLeft": right_paddle_vy = paddle_speed; break;
-                case "Enter":
-                    if (isNaN(interval_id)) {
-                        // 20fps
-                        interval_id = setInterval(() => {
-                            update_game_state();
-                            draw_frame();
-                        }, 50);
-                    } else {
-                        clearInterval(interval_id);
-                        interval_id = NaN;
-                    }
-                    break;
-            }
-        };
-        const init_ball = () => {
-            ball_pos_x = game_area.width / 2;
-            ball_pos_y = game_area.height / 2;
-            ball_vel_x = 5;
-            ball_vel_y = Math.random() * 9 + 1;
-            if (Math.random() < 0.5) {
-                ball_vel_x *= -1;
-            }
-            if (Math.random() < 0.5) {
-                ball_vel_y *= -1;
-            }
-        };
-        const check_game_over = () => {
-            if ((score_left === 2 && score_right === 2) ||
-                (score_left === 3 && (score_right === 1 || score_right === 0)) ||
-                (score_right === 3 && (score_left === 1 || score_left === 0))
-            ) {
-                const li = document.createElement("li");
-                li.innerHTML = `Simple Bot <strong>${score_left}-${score_right}</strong> Player`;
-                if (result_list.childElementCount < 2) {
-                    result_list.appendChild(li);
-                } else {
-                    result_list.insertBefore(li, result_list.children[1]);
-                }
-                score_left = score_right = 0;
-                left_paddle_y = right_paddle_y = game_area.height / 2;
-                clearInterval(interval_id);
-                interval_id = NaN;
-            }
-        };
+		game_area.font = `bold ${font_size}px Arial`;
+		document.onkeyup = () => {
+			right_paddle_vy = 0;
+		};
+		document.onkeydown = event => {
+			switch (event.code) {
+				case "ArrowRight": right_paddle_vy = -paddle_speed; break;
+				case "ArrowLeft": right_paddle_vy = paddle_speed; break;
+				case "Enter":
+					if (interval_id === null) {
+						// 25fps
+						interval_id = setInterval(() => {
+							update_game_state();
+							draw_frame();
+						}, 40);
+					} else {
+						clearInterval(interval_id);
+						interval_id = null;
+					}
+					break;
+			}
+		};
+		const init_ball = () => {
+			ball_pos_x = game_area.width / 2;
+			ball_pos_y = game_area.height / 2;
+			ball_vel_x = 5;
+			ball_vel_y = Math.random() * 9 + 1;
+			if (Math.random() < 0.5) {
+				ball_vel_x *= -1;
+			}
+			if (Math.random() < 0.5) {
+				ball_vel_y *= -1;
+			}
+		};
+		const check_game_over = () => {
+			if ((score_left === 2 && score_right === 2) ||
+				(score_left === 3 && (score_right === 1 || score_right === 0)) ||
+				(score_right === 3 && (score_left === 1 || score_left === 0))
+			) {
+				const li = document.createElement("li");
+				li.innerHTML = `Simple Bot <strong>${score_left}-${score_right}</strong> Player`;
+				if (result_list.childElementCount < 2) {
+					result_list.appendChild(li);
+				} else {
+					result_list.insertBefore(li, result_list.children[1]);
+				}
+				score_left = score_right = 0;
+				left_paddle_y = right_paddle_y = game_area.height / 2;
+				clearInterval(interval_id);
+				interval_id = NaN;
+			}
+		};
 
-        const draw_frame = () => {
-            // draw background
-            game_area.fillStyle = "black";
-            game_area.fillRect(0, 0, game_area.width, game_area.height);
+		const draw_frame = () => {
+			// draw background
+			game_area.fillStyle = "black";
+			game_area.fillRect(0, 0, game_area.width, game_area.height);
 
-            // draw score
-            game_area.fillStyle = "aquamarine";
-            game_area.fillText(score_left.toString(), font_size / 2, font_size);
-            game_area.fillText(score_right.toString(), game_area.width - font_size, font_size);
+			// draw score
+			game_area.fillStyle = "aquamarine";
+			game_area.fillText(score_left.toString(), font_size / 2, font_size);
+			game_area.fillText(score_right.toString(), game_area.width - font_size, font_size);
 
-            // draw paddles
-            game_area.fillRect(paddle_margin,
-                left_paddle_y - paddle_height / 2,
-                paddle_width, paddle_height
-            );
-            game_area.fillRect(game_area.width - paddle_margin - paddle_width,
-                right_paddle_y - paddle_height / 2,
-                paddle_width, paddle_height
-            );
+			// draw paddles
+			game_area.fillRect(paddle_margin,
+				left_paddle_y - paddle_height / 2,
+				paddle_width, paddle_height
+			);
+			game_area.fillRect(game_area.width - paddle_margin - paddle_width,
+				right_paddle_y - paddle_height / 2,
+				paddle_width, paddle_height
+			);
 
-            // draw ball
-            game_area.beginPath();
-            game_area.arc(ball_pos_x, ball_pos_y, ball_radius, 0, tau);
-            game_area.fill();
-        };
+			// draw ball
+			game_area.beginPath();
+			game_area.arc(ball_pos_x, ball_pos_y, ball_radius, 0, tau);
+			game_area.fill();
+		};
 
-        const update_game_state = () => {
-            if(ball_vel_x < 0) {
-                if(bot_selector.value === "simple") {
-                    const ball_paddle_delta_y = ball_pos_y - left_paddle_y;
-                    if (ball_paddle_delta_y > paddle_speed) {
-                        left_paddle_vy = paddle_speed;
-                    } else if(ball_paddle_delta_y < -paddle_speed) {
-                        left_paddle_vy = -paddle_speed;
-                    } else {
-                        left_paddle_vy = 0;
-                    }
-                } else if (bot_selector.value === "cheater") {
-                    left_paddle_y = ball_pos_y;
-                    left_paddle_vy = 0;
-                }
-            } else {
-                left_paddle_vy = 0;
-            }
+		const update_game_state = () => {
+			if(ball_vel_x < 0) {
+				if(bot_selector.value === "simple") {
+					const ball_paddle_delta_y = ball_pos_y - left_paddle_y;
+					if (ball_paddle_delta_y > paddle_speed) {
+						left_paddle_vy = paddle_speed;
+					} else if(ball_paddle_delta_y < -paddle_speed) {
+						left_paddle_vy = -paddle_speed;
+					} else {
+						left_paddle_vy = 0;
+					}
+				} else if (bot_selector.value === "cheater") {
+					left_paddle_y = ball_pos_y;
+					left_paddle_vy = 0;
+				}
+			} else {
+				left_paddle_vy = 0;
+			}
 
-            // update ball's position
-            ball_pos_x += ball_vel_x;
-            ball_pos_y += ball_vel_y;
+			// update ball's position
+			ball_pos_x += ball_vel_x;
+			ball_pos_y += ball_vel_y;
 
-            // update paddles' postitions
-            left_paddle_y += left_paddle_vy;
-            right_paddle_y += right_paddle_vy;
+			// update paddles' postitions
+			left_paddle_y += left_paddle_vy;
+			right_paddle_y += right_paddle_vy;
 
-            // collide paddles with edges
-            if (left_paddle_y < paddle_height / 2) {
-                left_paddle_y = paddle_height / 2;
-            } else if (left_paddle_y > game_area.height - paddle_height / 2) {
-                left_paddle_y = game_area.height - paddle_height / 2;
-            }
-            if (right_paddle_y < paddle_height / 2) {
-                right_paddle_y = paddle_height / 2;
-            } else if (right_paddle_y > game_area.height - paddle_height / 2) {
-                right_paddle_y = game_area.height - paddle_height / 2;
-            }
+			// collide paddles with edges
+			if (left_paddle_y < paddle_height / 2) {
+				left_paddle_y = paddle_height / 2;
+			} else if (left_paddle_y > game_area.height - paddle_height / 2) {
+				left_paddle_y = game_area.height - paddle_height / 2;
+			}
+			if (right_paddle_y < paddle_height / 2) {
+				right_paddle_y = paddle_height / 2;
+			} else if (right_paddle_y > game_area.height - paddle_height / 2) {
+				right_paddle_y = game_area.height - paddle_height / 2;
+			}
 
-            // collide ball with edges
-            if (ball_pos_y < ball_radius) {
-                ball_pos_y = ball_radius;
-                ball_vel_y *= -1;
-            } else if (ball_pos_y > game_area.height - ball_radius) {
-                ball_pos_y = game_area.height - ball_radius;
-                ball_vel_y *= -1;
-            }
+			// collide ball with edges
+			if (ball_pos_y < ball_radius) {
+				ball_pos_y = ball_radius;
+				ball_vel_y *= -1;
+			} else if (ball_pos_y > game_area.height - ball_radius) {
+				ball_pos_y = game_area.height - ball_radius;
+				ball_vel_y *= -1;
+			}
 
-            // collide ball with paddles
-            if (ball_pos_x - ball_radius < paddle_margin + paddle_width &&
-                ball_pos_y > left_paddle_y - paddle_height / 2 &&
-                ball_pos_y < left_paddle_y + paddle_height / 2
-            ) {
-                ball_pos_x = paddle_margin + paddle_width + ball_radius;
-                ball_vel_x *= -1.1;
-                ball_vel_y *= 1.1;
-            } else if (ball_pos_x + ball_radius > game_area.width - paddle_margin - paddle_width &&
-                ball_pos_y > right_paddle_y - paddle_height / 2 &&
-                ball_pos_y < right_paddle_y + paddle_height / 2
-            ) {
-                ball_pos_x = game_area.width - paddle_margin - paddle_width - ball_radius;
-                ball_vel_x *= -1.1;
-                ball_vel_y *= 1.1;
-            }
+			// collide ball with paddles
+			if (ball_pos_x - ball_radius < paddle_margin + paddle_width &&
+				ball_pos_y > left_paddle_y - paddle_height / 2 &&
+				ball_pos_y < left_paddle_y + paddle_height / 2
+			) {
+				ball_pos_x = paddle_margin + paddle_width + ball_radius;
+				ball_vel_x *= -1.1;
+				ball_vel_y *= 1.1;
+			} else if (ball_pos_x + ball_radius > game_area.width - paddle_margin - paddle_width &&
+				ball_pos_y > right_paddle_y - paddle_height / 2 &&
+				ball_pos_y < right_paddle_y + paddle_height / 2
+			) {
+				ball_pos_x = game_area.width - paddle_margin - paddle_width - ball_radius;
+				ball_vel_x *= -1.1;
+				ball_vel_y *= 1.1;
+			}
 
-            // check if point won
-            if (ball_pos_x < -ball_radius) {
-                score_right++;
-                init_ball();
-                check_game_over();
-            } else if (ball_pos_x > game_area.width + ball_radius) {
-                score_left++;
-                init_ball();
-                check_game_over();
-            }
-        };
+			// check if point won
+			if (ball_pos_x < -ball_radius) {
+				score_right++;
+				init_ball();
+				check_game_over();
+			} else if (ball_pos_x > game_area.width + ball_radius) {
+				score_left++;
+				init_ball();
+				check_game_over();
+			}
+		};
 
-        init_ball();
-        draw_frame();
-    </script>
+		init_ball();
+		draw_frame();
+	</script>
 </body>
 
 </html>
