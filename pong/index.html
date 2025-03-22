@@ -18,6 +18,7 @@
 			margin: auto;
 			width: min(100vw, 177.777vh);
 			height: min(56.25vw, 100vh);
+			touch-action: none;
 		}
 
 		label {
@@ -90,6 +91,29 @@
 					}
 					break;
 			}
+		};
+		html_canvas.ontouchstart = event => {
+			const x = event.touches[0].clientX;
+			const y = event.touches[0].clientY;
+			if (y < html_canvas.clientHeight / 2) {
+				if (interval_id === null) {
+					// 25fps
+					interval_id = setInterval(() => {
+						update_game_state();
+						draw_frame();
+					}, 40);
+				} else {
+					clearInterval(interval_id);
+					interval_id = null;
+				}
+			} else if (x < window.innerWidth / 2) {
+				right_paddle_vy = paddle_speed;
+			} else {
+				right_paddle_vy = -paddle_speed;
+			}
+		};
+		html_canvas.ontouchend = event => {
+			right_paddle_vy = 0;
 		};
 		const init_ball = () => {
 			ball_pos_x = game_area.width / 2;
