@@ -72,6 +72,7 @@
 
 		game_area.font = `bold ${font_size}px Arial`;
 		html_canvas.oncontextmenu = event => false;
+		html_canvas.onselectstart = event => false;
 		document.onkeydown = event => {
 			switch (event.code) {
 				case "ArrowRight": right_paddle_vy = -paddle_speed; break;
