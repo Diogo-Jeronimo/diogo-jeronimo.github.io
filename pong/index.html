@@ -45,6 +45,7 @@
 		Active bot:
 		<select id="bot_selector">
 			<option value="simple">Simple</option>
+			<option value="complex">Complex</option>
 			<option value="cheater">Cheater</option>
 		</select>
 	</label>
@@ -130,9 +131,8 @@
 			}
 		};
 		const check_game_over = () => {
-			if ((score_left === 2 && score_right === 2) ||
-				(score_left === 3 && (score_right === 1 || score_right === 0)) ||
-				(score_right === 3 && (score_left === 1 || score_left === 0))
+			if ((score_left === 3 && score_right === 3) ||
+				(Math.abs(score_left - score_right) > 1 && (score_left > 3 || score_right > 3))
 			) {
 				const li = document.createElement("li");
 				li.innerHTML = `${bot_selector.selectedOptions[0].innerText} Bot <strong>${score_left}-${score_right}</strong> Player`;
@@ -144,7 +144,7 @@
 				score_left = score_right = 0;
 				left_paddle_y = right_paddle_y = game_area.height / 2;
 				clearInterval(interval_id);
-				interval_id = NaN;
+				interval_id = null;
 			}
 		};
 
@@ -176,21 +176,58 @@
 
 		const update_game_state = () => {
 			// run bot
-			if(ball_vel_x < 0) {
-				if(bot_selector.value === "simple") {
+			if (bot_selector.value === "simple") {
+				if (ball_vel_x < 0) {
 					const ball_paddle_delta_y = ball_pos_y - left_paddle_y;
 					if (ball_paddle_delta_y > paddle_speed) {
 						left_paddle_vy = paddle_speed;
-					} else if(ball_paddle_delta_y < -paddle_speed) {
+					} else if (ball_paddle_delta_y < -paddle_speed) {
 						left_paddle_vy = -paddle_speed;
 					} else {
 						left_paddle_vy = 0;
 					}
-				} else if (bot_selector.value === "cheater") {
-					left_paddle_y = ball_pos_y;
+				} else {
 					left_paddle_vy = 0;
 				}
-			} else {
+			} else if (bot_selector.value === "complex") {
+				if (ball_vel_x < 0) {
+					// 20 = 1000 - 15t (=) (20 - 1000) / -15 = t
+					const tx = Math.ceil(((paddle_margin + paddle_width) - ball_pos_x) / ball_vel_x);
+					let future_ball_y = ball_vel_y * tx + ball_pos_y;
+					const bounces = Math.abs(Math.floor(future_ball_y / game_area.height));
+					future_ball_y = future_ball_y % game_area.height;
+					// acount for negative direction because: -5 % 25 = -5 instead of 20
+					future_ball_y = (future_ball_y + game_area.height) % game_area.height;
+					if (bounces % 2 === 1) {
+						future_ball_y = game_area.height - future_ball_y;
+					}
+					let aim_offset = paddle_height / 2 - paddle_speed;
+					// randomize aim to avoid predictability
+					if (Math.round(future_ball_y) % 3 === 0) {
+						aim_offset *= -1;
+					} else if (Math.round(future_ball_y) % 3 === 1) {
+						aim_offset = 0;
+					}
+					const future_ball_paddle_delta_y = future_ball_y - left_paddle_y + aim_offset;
+					if (future_ball_paddle_delta_y > paddle_speed) {
+						left_paddle_vy = paddle_speed;
+					} else if (future_ball_paddle_delta_y < -paddle_speed) {
+						left_paddle_vy = -paddle_speed;
+					} else {
+						left_paddle_vy = 0;
+					}
+				} else {
+					const paddle_delta_y = game_area.height / 2 - left_paddle_y;
+					if (paddle_delta_y > paddle_speed) {
+						left_paddle_vy = paddle_speed;
+					} else if (paddle_delta_y < -paddle_speed) {
+						left_paddle_vy = -paddle_speed;
+					} else {
+						left_paddle_vy = 0;
+					}
+				}
+			} else if (bot_selector.value === "cheater") {
+				left_paddle_y = ball_pos_y;
 				left_paddle_vy = 0;
 			}
 
@@ -238,6 +275,11 @@
 				ball_pos_x = game_area.width - paddle_margin - paddle_width - ball_radius;
 				ball_vel_x *= -1.1;
 				ball_vel_y = (ball_pos_y - right_paddle_y) / 4;
+			}
+			if (ball_vel_x > 30) {
+				ball_vel_x = 30;
+			} else if (ball_vel_x < -30) {
+				ball_vel_x = -30;
 			}
 
 			// check if point won
