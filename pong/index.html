@@ -262,15 +262,15 @@
 
 			// collide ball with paddles
 			if (ball_pos_x - ball_radius < paddle_margin + paddle_width &&
-				ball_pos_y > left_paddle_y - paddle_height / 2 &&
-				ball_pos_y < left_paddle_y + paddle_height / 2
+				ball_pos_y + ball_radius > left_paddle_y - paddle_height / 2 &&
+				ball_pos_y - ball_radius < left_paddle_y + paddle_height / 2
 			) {
 				ball_pos_x = paddle_margin + paddle_width + ball_radius;
 				ball_vel_x *= -1.1;
 				ball_vel_y = (ball_pos_y - left_paddle_y) / 4;
 			} else if (ball_pos_x + ball_radius > game_area.width - paddle_margin - paddle_width &&
-				ball_pos_y > right_paddle_y - paddle_height / 2 &&
-				ball_pos_y < right_paddle_y + paddle_height / 2
+				ball_pos_y + ball_radius > right_paddle_y - paddle_height / 2 &&
+				ball_pos_y - ball_radius < right_paddle_y + paddle_height / 2
 			) {
 				ball_pos_x = game_area.width - paddle_margin - paddle_width - ball_radius;
 				ball_vel_x *= -1.1;
