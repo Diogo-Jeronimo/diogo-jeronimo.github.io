@@ -42,15 +42,17 @@
 <body>
 	<canvas id="game_area" width="1280" height="720"></canvas>
 	<label for="bot_selector">
-		Active bot:
+		Bot ativo:
 		<select id="bot_selector">
-			<option value="simple">Simple</option>
-			<option value="complex">Complex</option>
+			<option value="null">Nulo</option>
+			<option value="lazy">Preguiçoso</option>
+			<option value="simple">Simples</option>
+			<option value="complex">Complexo</option>
 			<!--<option value="cheater">Cheater</option>-->
 		</select>
 	</label>
 	<ol id="result_list" reversed>
-		<h2>Result list:</h2>
+		<h2>Resultados:</h2>
 	</ol>
 
 	<script>
@@ -135,7 +137,7 @@
 				(Math.abs(score_left - score_right) > 1 && (score_left > 3 || score_right > 3))
 			) {
 				const li = document.createElement("li");
-				li.innerHTML = `${bot_selector.selectedOptions[0].innerText} Bot <strong>${score_left}-${score_right}</strong> Player`;
+				li.innerHTML = `Bot ${bot_selector.selectedOptions[0].innerText} <strong>${score_left}–${score_right}</strong> Jogador`;
 				if (result_list.childElementCount < 2) {
 					result_list.appendChild(li);
 				} else {
@@ -176,7 +178,22 @@
 
 		const update_game_state = () => {
 			// run bot
-			if (bot_selector.value === "simple") {
+			if (bot_selector.value === "lazy") {
+				// 20 = 1000 - 15t (=) (20 - 1000) / -15 = t
+				const tx = Math.ceil(((paddle_margin + paddle_width) - ball_pos_x) / ball_vel_x);
+				const future_ball_y = ball_vel_y * tx + ball_pos_y;
+				if (ball_vel_x < 0 && ball_pos_x < game_area.width / 2 && future_ball_y < game_area.height && future_ball_y > 0) {
+					if (future_ball_y > left_paddle_y + paddle_height / 2) {
+						left_paddle_vy = paddle_speed;
+					} else if (future_ball_y < left_paddle_y - paddle_height / 2) {
+						left_paddle_vy = -paddle_speed;
+					} else {
+						left_paddle_vy = 0;
+					}
+				} else {
+					left_paddle_vy = 0;
+				}
+			} else if (bot_selector.value === "simple") {
 				if (ball_vel_x < 0) {
 					const ball_paddle_delta_y = ball_pos_y - left_paddle_y;
 					if (ball_paddle_delta_y > paddle_speed) {
