@@ -266,7 +266,7 @@ const draw = () => {
 	if(gtaDate.getUTCMinutes() === 0) {
 		drawHourly(currentGTAEpoch);
 		if(gtaDate.getUTCHours() === 0) {
-			drawHourly(currentGTAEpoch);
+			drawDaily(currentGTAEpoch);
 		}
 	}
 };
