@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt">
+	<head>
+		<meta charset="utf-8">
+		<title>📵 Números "falsos"</title>
+		<style>
+body {
+	color: white;
+	background-color: #111;
+}
+h2, dl, footer {
+	width: max-content;
+	margin: auto;
+}
+a {
+	color: white;
+	text-decoration: none;
+}
+		</style>
+	</head>
+	<body>
+		<h2>Números "inválidos"</h2><br>
+		<dl>
+			<dt><a id="2">267 ··· ···</a></dt><dd>Nenhuma área com o indicativo.</dd>
+			<dt><a id="3">31· ··· ···</a></dt><dd>31 a 39.</dd>
+			<dt><a id="5">5·· ··· ···</a></dt><dd>5: reservado para uso futuro.</dd>
+			<dt><a id="9">95· ··· ···</a></dt><dd>Nenhuma operadora com o indicativo.</dd>
+		</dl>
+		<br><br>
+		<h2>Números livres</h2><br>
+		<dl>
+			<dt><a id="289">289 6·· ···</a></dt><dd>Nenhuma operadora com o indicativo.</dd>
+			<dt><a id="ind3">309 402 188</a></dt><dd>Número indisponível.</dd>
+			<dt><a id="306">306 ··· ···</a></dt><dd>Nenhuma operadora com o indicativo.</dd>
+			<dt><a id="92">922 3·· ···</a></dt><dd>Nenhuma operadora com o indicativo.</dd>
+		</dl>
+		<br>
+		<footer>
+			<p>Atualizado a 2026-03-17.</p>
+		</footer>
+		<script>
+const i2 = document.getElementById("2");
+const l2 = document.getElementById("289");
+const i3 = document.getElementById("3");
+const l3 = document.getElementById("306");
+const ind3 = document.getElementById("ind3");
+const i5 = document.getElementById("5");
+const i9 = document.getElementById("9");
+const l9 = document.getElementById("92");
+const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const randItem = a => a[randInt(0, a.length - 1)];
+const phoneNumberFormat = x => String(x).replace(/(.{3})/g, "$1" + " ");
+const appendRandomDigits = x => {
+	const targetLength = 9;
+	let z = String(x);
+	while(z.length < targetLength) {
+		z += String(randInt(0, 9));
+	}
+	return z;
+};
+const generateNumberByIDs = (element, ids) => {
+	const n = appendRandomDigits(randItem(ids));
+	element.href = "tel:" + n;
+	element.innerText = phoneNumberFormat(n);
+};
+const generateNumberByRanges = (element, ranges) => {
+	const range = randItem(ranges);
+	const n = randInt(range[0], range[1]);
+	element.href = "tel:" + n;
+	element.innerText = phoneNumberFormat(n);
+};
+
+generateNumberByIDs(i2, [20, 230, 237, 240, 246, 247, 248, 250, 260, 264, 267, 270, 280, 287, 288, 290, 293, 294, 297, 298, 299]);
+generateNumberByRanges(i3, [[310000000, 399999999]]);
+generateNumberByIDs(i5, [5]);
+generateNumberByIDs(i9, [90, 94, 95, 97, 98, 99]);
+generateNumberByIDs(l2, [28913, 28919, 28922, 28923, 28925, 28926, 28927, 28928, 28929, 28933, 28934, 28944, 28945, 28949, 28952, 28953, 28955, 2896, 28973, 28974, 28975, 28976, 28977, 28985, 28990, 28991, 28992, 28993, 28994, 28995, 28996, 28997]);
+generateNumberByRanges(ind3, [[309400000, 309401308], [309403115, 309409999], [309402188, 309403113], [309401310, 309402186]]);
+generateNumberByIDs(l3, [306]);
+generateNumberByRanges(l9, [[929600000, 929999999], [920850000, 920999999], [922300000, 922999999], [928600000, 928999999]]);
+		</script>
+	</body>
+</html>
