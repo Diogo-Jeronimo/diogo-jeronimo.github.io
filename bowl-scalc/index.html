@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>🎳Custom WBT Score Calculator</title>
+		<style>
+body {
+	background-color: black;
+	color: white;
+	font-family: sans-serif;
+}
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+}
+input[type=number] {
+	min-width: 42px;
+	margin-bottom: 4px;
+}
+input[type=text] {
+	min-width: 30ch;
+}
+table {
+	margin: 8px 0px;
+	border-collapse: collapse;
+	border: 1px solid white;
+	text-align: center;
+}
+th, td {
+	padding: 4px;
+	border: 1px solid white;
+}
+ul {
+	list-style-type: none;
+	padding: 0px;
+}
+		</style>
+	</head>
+	<body>
+		<main>
+			<label>Pins:
+				<input id="pins" type="number" min="1" value="10" step="1" required/>
+			</label>
+			<label>Spare bonus:
+				<input id="spare" type="number" min="0" value="10" required/>
+			</label>
+			<label>Split bonus:
+				<input id="split" type="number" min="0" value="5" required/>
+			</label>
+			<label>Strike bonus:
+				<input id="strike" type="number" min="0" value="5" required/>
+			</label>
+			<button onclick="updateScoring();calculateScores();">Update scoring</button>
+			<table></table>
+			<ul>
+				<li>
+					<button onclick="this?.parentElement?.remove?.();">X</button>
+					<label>Game 1:
+						<input type="text" oninput="calculateScores();"/>
+						<output>0</output>
+					</label>
+				</li>
+			</ul>
+			<button onclick="addGame();">Add game</button>
+		</main>
+		<script>
+const numberPinsInput = document.getElementById("pins");
+const spareBonusInput = document.getElementById("spare");
+const splitBonusInput = document.getElementById("split");
+const strikeBonusInput = document.getElementById("strike");
+const gamesList = document.querySelector("ul");
+const table = document.querySelector("table");
+let pins = null, spare = null, split = null, strike = null, nextGameNumber = 2;
+const updateScoring = () => {
+	pins = numberPinsInput.valueAsNumber, spare = spareBonusInput.valueAsNumber, split = spare + splitBonusInput.valueAsNumber, strike = pins + spare + strikeBonusInput.valueAsNumber;
+	let z = `<tbody><tr><th>Points</th><th colspan="${pins + 1}">2nd roll</th>`;
+	z += split > spare ? "<th rowspan='2'>Split</th>" : "";
+	z += `</tr><tr><th rowspan="${pins}">1st roll</th><th>-</th>`;
+	for(let col = 1; col <= pins - 1; col++) {
+		z += `<td>${col}</td>`;
+	}
+	z += `<td>${Math.max(pins, spare)}</td></tr><tr>`;
+	for(let row = 1; row <= pins - 1; row++) {
+		for(let col = 0; col <= pins; col++) {
+			let v = "";
+			if(row + col == pins) v = Math.max(pins, row + spare);
+			else if(row + col < pins) v = row + col;
+			z += `<td>${v}</td>`;
+		}
+		if(split > spare) {
+			let v = "";
+			if(row > 0 && row < pins - 1) v = Math.max(pins, row + split);
+			z += `<td>${v}</td>`;
+		}
+		z += "</tr><tr>";
+	}
+	z += `<th>Strike</th><td>${strike}</td>`;
+	for(let col = 1; col <= pins; col++) {
+		z += "<td></td>";
+	}
+	if(split > spare) z += "<td></td>";
+	table.innerHTML = z + "</tr></tbody>";
+};
+updateScoring();
+const addGame = () => {
+	const li = document.createElement("li");
+	li.innerHTML = `<button onclick="this?.parentElement?.remove?.();">X</button> <label>Game ${nextGameNumber++}: <input type="text" oninput="calculateScores();"/> <output>0</output></label>`;
+	gamesList.appendChild(li);
+};
+const calculateScores = () => {
+	const num = x => "-:".includes(x) ? 0 : +x;
+	for(const li of gamesList.children) {
+		const gameText = li.getElementsByTagName("input")[0].value.trim();
+		const frames = gameText.split(" ");
+		let sum = 0;
+		for(const frame of frames) {
+			if(frame == "X" || frame == "x") sum += strike;
+			else if(frame?.endsWith?.(":/")) sum += Math.max(pins, num(frame?.at()) + split);
+			else if(frame?.endsWith?.("/")) sum += Math.max(pins, num(frame?.at()) + spare);
+			else sum += Array.from(frame, c => num(c))
+				.reduce((a, c) => a + c, 0);
+		}
+		li.getElementsByTagName("output")[0].innerText = sum;
+	}
+};
+calculateScores();
+		</script>
+	</body>
+</html>
