@@ -113,7 +113,7 @@ const addGame = () => {
 const calculateScores = () => {
 	const num = x => x === "-" ? 0 : +x;
 	for(const li of gamesList.children) {
-		const gameText = li.getElementsByTagName("input")[0].value.trim();
+		const gameText = li.getElementsByTagName("input")[0].value;
 		const frames = gameText.split(" ");
 		let sum = 0;
 		for(let i = 0; i < frames.length; i++) {
