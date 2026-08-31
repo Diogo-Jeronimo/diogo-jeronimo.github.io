@@ -113,18 +113,34 @@ const addGame = () => {
 const calculateScores = () => {
 	const num = x => x === "-" ? 0 : +x;
 	for(const li of gamesList.children) {
-		const gameText = li.getElementsByTagName("input")[0].value;
-		const frames = gameText.trim().split(" ");
-		let sum = gameText.includes(": ") ? NaN : 0;
-		for(const frame of frames) {
-			if(frame === "X" || frame === "x") sum += strike;
-			else if(frame.slice(1) === ":/") sum += Math.max(pins, num(frame[0]) + split);
-			else if(frame.length > 2) sum = NaN;
-			else if(frame[1] === "/") sum += Math.max(pins, num(frame[0]) + spare);
-			else if(frame[1] === ":") sum += num(frame[0]);
-			else {
-				const s = Array.from(frame, c => num(c)).reduce((a, c) => a + c, 0);
-				sum += s >= pins ? NaN : s;
+		const gameText = li.getElementsByTagName("input")[0].value.trim();
+		const frames = gameText.split(" ");
+		let sum = 0;
+		for(let i = 0; i < frames.length; i++) {
+			const frame = frames[i];
+			switch(frame.length) {
+				case 0: break;
+				case 1:
+					if(frame === "X" || frame === "x") sum += strike;
+					else sum += (i === frames.length - 1) ? num(frame) : NaN;
+					break;
+				case 2:
+					if(frame[1] === "/") sum += Math.max(pins, num(frame[0]) + spare);
+					else if(frame[1] === ":") sum += (i === frames.length - 1) ? num(frame[0]) : NaN;
+					else {
+						const s = num(frame[0]) + num(frame[1]);
+						sum += s >= pins ? NaN : s;
+					}
+					break;
+				case 3:
+					if(frame[1] !== ":") sum = NaN;
+					else if(frame[2] === "/") sum += Math.max(pins, num(frame[0]) + split);
+					else {
+						const s = num(frame[0]) + num(frame[2]);
+						sum += s >= pins ? NaN : s;
+					}
+					break;
+				default: sum = NaN;
 			}
 		}
 		li.getElementsByTagName("output")[0].innerText = String(sum);
