@@ -111,19 +111,22 @@ const addGame = () => {
 	gamesList.appendChild(li);
 };
 const calculateScores = () => {
-	const num = x => "-:".includes(x) ? 0 : +x;
+	const num = x => x === "-" ? 0 : +x;
 	for(const li of gamesList.children) {
 		const gameText = li.getElementsByTagName("input")[0].value.trim();
 		const frames = gameText.split(" ");
 		let sum = 0;
 		for(const frame of frames) {
-			if(frame == "X" || frame == "x") sum += strike;
-			else if(frame?.endsWith?.(":/")) sum += Math.max(pins, num(frame?.at()) + split);
-			else if(frame?.endsWith?.("/")) sum += Math.max(pins, num(frame?.at()) + spare);
-			else sum += Array.from(frame, c => num(c))
-				.reduce((a, c) => a + c, 0);
+			if(frame === "X" || frame === "x") sum += strike;
+			else if(frame.slice(1) === ":/") sum += Math.max(pins, num(frame[0]) + split);
+			else if(frame.length > 2) sum = NaN;
+			else if(frame[1] === "/") sum += Math.max(pins, num(frame[0]) + spare);
+			else {
+				const s = Array.from(frame, c => num(c)).reduce((a, c) => a + c, 0);
+				sum += s >= pins ? NaN : s;
+			}
 		}
-		li.getElementsByTagName("output")[0].innerText = sum;
+		li.getElementsByTagName("output")[0].innerText = String(sum);
 	}
 };
 calculateScores();
