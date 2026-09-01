@@ -9,6 +9,7 @@ body {
 	background-color: black;
 	color: white;
 	font-family: sans-serif;
+	font-size: medium;
 }
 main {
 	display: inline-flex;
@@ -23,6 +24,7 @@ input, button {
 	border-width: 1px;
 	border-color: white;
 	border-radius: 5px;
+	font-size: medium;
 }
 input[type=number] {
 	max-width: 8ch;
@@ -89,7 +91,7 @@ const gamesList = document.querySelector("ul");
 const table = document.querySelector("table");
 let pins = null, spare = null, split = null, strike = null, nextGameNumber = 2;
 const updateScoring = () => {
-	pins = numberPinsInput.valueAsNumber, spare = spareBonusInput.valueAsNumber, split = spare + splitBonusInput.valueAsNumber, strike = pins + spare + strikeBonusInput.valueAsNumber;
+	pins = numberPinsInput.valueAsNumber || 1, spare = spareBonusInput.valueAsNumber || 0, split = spare + (splitBonusInput.valueAsNumber || 0), strike = pins + spare + (strikeBonusInput.valueAsNumber || 0);
 	let z = `<tbody><tr><th>Points</th><th colspan="${pins + 1}">2nd roll</th>`;
 	z += split > spare ? "<th rowspan='2'>Split</th>" : "";
 	z += `</tr><tr><th rowspan="${pins}">1st roll</th><th>-</th>`;
