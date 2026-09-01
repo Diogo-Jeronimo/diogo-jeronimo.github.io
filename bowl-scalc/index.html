@@ -11,11 +11,11 @@ body {
 	font-family: sans-serif;
 }
 main {
-	display: flex;
+	display: inline-flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-around;
 	gap: 8px;
+	margin-bottom: 8px;
 }
 input, button {
 	background-color: #333;
@@ -29,6 +29,7 @@ input[type=number] {
 }
 input[type=text] {
 	min-width: 30ch;
+	margin-left: 32px;
 }
 hr {
 	border-width: 1px 0px 0px 0px;
@@ -56,7 +57,7 @@ ul {
 			<ul>
 				<li>
 					<button onclick="this?.parentElement?.remove?.();">X</button>
-					<label>Game 1:
+					<label>Game 1:<br>
 						<input type="text" oninput="calculateScores();"/>
 						<output>0</output>
 					</label>
@@ -65,7 +66,7 @@ ul {
 			<button onclick="addGame();">Add game</button>
 			<hr/>
 			<label>Pins:
-				<input id="pins" type="number" min="1" value="10" step="1" required/>
+				<input id="pins" type="number" min="1" value="10" max="10" step="1" required/>
 			</label>
 			<label>Spare bonus:
 				<input id="spare" type="number" min="0" value="10" required/>
@@ -77,8 +78,8 @@ ul {
 				<input id="strike" type="number" min="0" value="5" required/>
 			</label>
 			<button onclick="updateScoring();calculateScores();">Update scoring</button>
-			<table></table>
 		</main>
+		<table></table>
 		<script>
 const numberPinsInput = document.getElementById("pins");
 const spareBonusInput = document.getElementById("spare");
@@ -120,7 +121,7 @@ const updateScoring = () => {
 updateScoring();
 const addGame = () => {
 	const li = document.createElement("li");
-	li.innerHTML = `<button onclick="this?.parentElement?.remove?.();">X</button> <label>Game ${nextGameNumber++}: <input type="text" oninput="calculateScores();"/> <output>0</output></label>`;
+	li.innerHTML = `<button onclick="this?.parentElement?.remove?.();">X</button> <label>Game ${nextGameNumber++}:<br><input type="text" oninput="calculateScores();"/> <output>0</output></label>`;
 	gamesList.appendChild(li);
 };
 const calculateScores = () => {
