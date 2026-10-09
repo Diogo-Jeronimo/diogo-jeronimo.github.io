@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.8">
+	<title>🏀 lançamentos</title>
+	<style>
+* {
+	margin: auto;
+	text-align: center;
+}
+button {
+	padding: 5px 10px;
+}
+body, textarea, button {
+	background-color: black;
+	color: white;
+	font-family: sans-serif;
+}
+textarea {
+	text-align: left;
+}
+table {
+	border-collapse: collapse;
+}
+th, td {
+	min-width: 3ch;
+	border: 1px solid white;
+}
+thead th:nth-of-type(2), thead th:last-of-type, tbody th, tfoot th {
+	padding: 0px 1ch;
+}
+body>button, section:last-of-type {
+	display: none;
+}
+h2, h3 {
+	margin: 0px;
+	font-size: 1rem;
+}
+section {
+	max-width: max-content;
+}
+section button:last-of-type {
+	margin-left: 40px;
+}
+	</style>
+</head>
+<body>
+	<section>
+		<label>Jogadores:<br>
+			<textarea rows="3" cols="15" onselectionchange="updatePlayers();">Jogador 1</textarea>
+		</label>
+		<br><br>
+		<button onclick="finishNames();">Começar</button>
+	</section>
+	<br>
+	<table>
+		<thead>
+			<tr>
+				<th scope="col"></th>
+				<th scope="col">Pontos</th>
+				<th scope="col">LL</th>
+				<th scope="col">2c</th>
+				<th scope="col">2</th>
+				<th scope="col">2m</th>
+				<th scope="col">3</th>
+				<th scope="col">3c</th>
+				<th scope="col">Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row">Jogador 1</th>
+				<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th scope="row">Máximo</th>
+				<td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+			</tr>
+		</tfoot>
+	</table>
+	<br>
+	<button onclick="startDrill();">Mais 5 lançamentos</button>
+	<br>
+	<section>
+		<h2>Local:</h2>
+		<h3>🏀 Jogador 1</h3>
+		<p>Jogador 1: 0/0</p>
+		<br>
+		<button onclick="tookShot(true);">Acertou</button>
+		<button onclick="tookShot(false);">Falhou</button>
+	</section>
+	<script>
+const textArea = document.querySelector("textarea");
+const table = document.querySelector("table");
+const tbody = table.querySelector("tbody");
+const tfoot = table.querySelector("tfoot");
+const namesSection = document.querySelector("section");
+const startDrillButton = document.querySelector("body>button");
+const drillSection = document.querySelectorAll("section")[1];
+const currentDrillH = drillSection.querySelector("h2");
+const currentPlayerH = drillSection.querySelector("h3");
+const drillScoresP = drillSection.querySelector("p");
+const drills = ["LL", "2c", "2", "2m", "3", "3c"];
+
+const updatePlayers = function() {
+	const names = textArea.value.trim().split("\n").map(n => n.trim());
+	const html = names.reduce(function(acc, curr) {
+		return acc + `<tr><th scope="row">${curr}</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>`;
+	}, "");
+	tbody.innerHTML = html;
+};
+const updateTable = function() {
+	const doRow = function(row) {
+		let points = 0, total = 0;
+		for(let i = 2; i <= 7; i++) {
+			const cell = row.cells[i];
+			total += +cell.textContent;
+			if(i == 2) points += +cell.textContent;
+			else if (i <= 5) points += 2 * cell.textContent;
+			else points += 3 * cell.textContent;
+		}
+		row.cells[1].textContent = points;
+		row.cells[8].textContent = total;
+	};
+	for(const row of tbody.rows) {
+		doRow(row);
+	}
+	doRow(tfoot.rows[0]);
+};
+const finishNames = function() {
+	namesSection.style.display = "none";
+	startDrillButton.style.display = "block";
+	updatePlayers();
+};
+const startDrill = function() {
+	startDrillButton.style.display = "none";
+
+	const randIndex = Math.random() * drills.length | 0;
+	const drill = drills[randIndex];
+
+	currentDrillH.textContent = "Local: " + drill;
+	currentPlayerH.textContent = "🏀 " + tbody.rows[0].cells[0].textContent;
+
+	const text = Array.from(tbody.rows).reduce(function(acc, curr) {
+		return acc + curr.cells[0].textContent + ": 0/0\n";
+	}, "").trim();
+	drillScoresP.innerText = text;
+
+	const cell = tfoot.rows[0].cells[randIndex + 2];
+	cell.textContent = +cell.textContent + (drill == "LL" ? 10 : 5);
+
+	updateTable();
+	drillSection.style.display = "block";
+};
+const tookShot = function(hit) {
+	const player = currentPlayerH.textContent.split("🏀 ")[1];
+	const drillScoresLines = drillScoresP.innerText.split("\n");
+	const index = drillScoresLines.map(l => l.split(": ")[0]).indexOf(player);
+	const attempts = +drillScoresLines[index].split("/")[1];
+	const hits = +drillScoresLines[index].split(": ")[1].split("/")[0];
+	drillScoresLines[index] = `${player}: ${hits + hit}/${attempts + 1}`;
+	drillScoresP.innerText = drillScoresLines.join("\n");
+
+	const drill = currentDrillH.textContent.split(" ")[1];
+	if(hit) {
+		for(const row of tbody.rows) {
+			if(row.cells[0].textContent == player) {
+				const cell = row.cells[drills.indexOf(drill) + 2];
+				cell.textContent = +cell.textContent + 1;
+				break;
+			}
+		}
+		updateTable();
+	}
+	const limit = drill == "LL" ? 10 : 5;
+	if(attempts + 1 == limit) {
+		if(index + 1 == tbody.rows.length) {
+			drillSection.style.display = "none";
+			startDrillButton.style.display = "block";
+		} else {
+			const nextPlayer = drillScoresLines[index + 1].split(": ")[0];
+			currentPlayerH.textContent = "🏀 " + nextPlayer;
+		}
+	}
+};
+	</script>
+</body>
+</html>
