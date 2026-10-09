@@ -97,7 +97,7 @@
 	const snookersScore = document.getElementById("snookers");
 	const numbFormat = x => x.toLocaleString("pt-PT").replace("-", "−");
 	let sp1 = 0, sp2 = 0, ip1 = 0, ip2 = 0, f1 = 0, f2 = 0, s1 = 0, s2 = 0, pl = 17;
-	const queue = [];
+	const stack = [];
 	const updateScores = () => {
 		pointsLeft.innerText = numbFormat(pl);
 		const m1 = sp1 - ip1 + s1 / 2 - f1 / 2;
@@ -114,7 +114,7 @@
 		setTimeout(() => body.style.backgroundColor = "black", 200);
 	};
 	const scoreChanged = (player, val) => {
-		queue.push([sp1, sp2, ip1, ip2, f1, f2, s1, s2, pl]);
+		stack.push([sp1, sp2, ip1, ip2, f1, f2, s1, s2, pl]);
 		if(player == "p") {
 			pl += val;
 		} else if(player == "a") {
@@ -135,14 +135,14 @@
 		updateScores();
 	};
 	const back = () => {
-		if (queue.length > 0) {
-			[sp1, sp2, ip1, ip2, f1, f2, s1, s2, pl] = queue.pop();
+		if (stack.length > 0) {
+			[sp1, sp2, ip1, ip2, f1, f2, s1, s2, pl] = stack.pop();
 		}
 		updateScores();
 	};
 	const reset = () => {
 		sp1 = 0, sp2 = 0, ip1 = 0, ip2 = 0, f1 = 0, f2 = 0, s1 = 0, s2 = 0, pl = 17;
-		queue.length = 0;
+		stack.length = 0;
 		updateScores();
 	};
 	updateScores();
