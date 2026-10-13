@@ -40,8 +40,14 @@ h2, h3 {
 section {
 	max-width: max-content;
 }
-section button:last-of-type {
-	margin-left: 40px;
+menu {
+	list-style-type: none;
+	padding: 0px;
+	display: flex;
+	gap: 40px;
+}
+li:has(#end-button) {
+	display: none;
 }
 	</style>
 </head>
@@ -89,8 +95,12 @@ section button:last-of-type {
 		<h3>🏀 Jogador 1</h3>
 		<p>Jogador 1: 0/0</p>
 		<br>
-		<button onclick="tookShot(true);">Acertou</button>
-		<button onclick="tookShot(false);">Falhou</button>
+		<menu>
+			<li><button id="hit-button" onclick="tookShot(true);">Acertou</button></li>
+			<li><button id="miss-button" onclick="tookShot(false);">Falhou</button></li>
+			<li><button id="end-button" onclick="endDrill();">Confirmar</button></li>
+			<li><button id="undo-button" onclick="undoShot();">Voltar</button></li>
+		</menu>
 	</section>
 	<script>
 const textArea = document.querySelector("textarea");
@@ -103,7 +113,11 @@ const drillSection = document.querySelectorAll("section")[1];
 const currentDrillH = drillSection.querySelector("h2");
 const currentPlayerH = drillSection.querySelector("h3");
 const drillScoresP = drillSection.querySelector("p");
+const hitShotButton = document.getElementById("hit-button");
+const missShotButton = document.getElementById("miss-button");
+const endDrillButton = document.getElementById("end-button");
 const drills = ["LL", "2c", "2", "2m", "3", "3c"];
+const stack = [];
 
 const updatePlayers = function() {
 	const names = textArea.value.trim().split("\n").map(n => n.trim());
@@ -144,18 +158,38 @@ const startDrill = function() {
 	currentDrillH.textContent = "Local: " + drill;
 	currentPlayerH.textContent = "🏀 " + tbody.rows[0].cells[0].textContent;
 
-	const text = Array.from(tbody.rows).reduce(function(acc, curr) {
-		return acc + curr.cells[0].textContent + ": 0/0\n";
-	}, "").trim();
+	const text = Array.from(tbody.rows)
+		.reduce((acc, curr) => acc + curr.cells[0].textContent + ": 0/0\n", "")
+		.trim();
 	drillScoresP.innerText = text;
 
 	const cell = tfoot.rows[0].cells[randIndex + 2];
 	cell.textContent = +cell.textContent + (drill == "LL" ? 10 : 5);
-
 	updateTable();
+
 	drillSection.style.display = "block";
 };
+const endDrill = function() {
+	drillSection.style.display = "";
+	hitShotButton.parentElement.style.display = "";
+	missShotButton.parentElement.style.display = "";
+	endDrillButton.parentElement.style.display = "";
+	stack.length = 0;
+
+	drillScoresP.innerHTML.split("<br>")
+		.map(line => line.split(": ")[1].split("/")[0])
+		.forEach(function(hits, i) {
+			const drill = currentDrillH.textContent.split(" ")[1];
+			const cell = tbody.rows[i].cells[drills.indexOf(drill) + 2];
+			cell.textContent = +cell.textContent + +hits;
+		});
+	updateTable();
+
+	startDrillButton.style.display = "block";
+};
 const tookShot = function(hit) {
+	stack.push([currentPlayerH.textContent, drillScoresP.innerHTML]);
+
 	const player = currentPlayerH.textContent.split("🏀 ")[1];
 	const drillScoresLines = drillScoresP.innerText.split("\n");
 	const index = drillScoresLines.map(l => l.split(": ")[0]).indexOf(player);
@@ -165,26 +199,25 @@ const tookShot = function(hit) {
 	drillScoresP.innerText = drillScoresLines.join("\n");
 
 	const drill = currentDrillH.textContent.split(" ")[1];
-	if(hit) {
-		for(const row of tbody.rows) {
-			if(row.cells[0].textContent == player) {
-				const cell = row.cells[drills.indexOf(drill) + 2];
-				cell.textContent = +cell.textContent + 1;
-				break;
-			}
-		}
-		updateTable();
-	}
 	const limit = drill == "LL" ? 10 : 5;
 	if(attempts + 1 == limit) {
 		if(index + 1 == tbody.rows.length) {
-			drillSection.style.display = "none";
-			startDrillButton.style.display = "block";
+			hitShotButton.parentElement.style.display = "none";
+			missShotButton.parentElement.style.display = "none";
+			endDrillButton.parentElement.style.display = "block";
 		} else {
 			const nextPlayer = drillScoresLines[index + 1].split(": ")[0];
 			currentPlayerH.textContent = "🏀 " + nextPlayer;
 		}
 	}
+};
+const undoShot = function() {
+	endDrillButton.parentElement.style.display = "";
+
+	if(stack.length) [currentPlayerH.textContent, drillScoresP.innerHTML] = stack.pop();
+
+	hitShotButton.parentElement.style.display = "";
+	missShotButton.parentElement.style.display = "";
 };
 	</script>
 </body>
