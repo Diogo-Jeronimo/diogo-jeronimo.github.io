@@ -268,7 +268,7 @@ const endThrow = function() {
 	containerDiv.style.background = throwLocation == "c3" ? "linear-gradient(5deg, rgba(139, 110, 134, 1) 0%, rgba(188, 128, 131, 1) 10%, rgba(255, 151, 128, 1) 20%, rgba(207, 213, 245, 1) 45%, rgba(120, 169, 245, 1) 95%)" : "";
 };
 Events.on(engine, "afterUpdate", function() {
-	if(throwStarted && (ball.position.x > width + ballRadius ||
+	if(throwStarted && (ball.position.x > width + ballRadius || ball.position.x < -ballRadius ||
 		(ball.speed < 0.1 && ball.position.y > height-groundHeigth-ballRadius-20)
 	)) {
 		endThrow();
