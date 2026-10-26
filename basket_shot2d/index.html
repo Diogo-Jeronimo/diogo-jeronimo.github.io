@@ -200,9 +200,9 @@ Events.on(render, "afterRender", function() {
 
 	// scores
 	ctx.fillStyle = "#000"; ctx.textBaseline = "top"; ctx.direction = "ltr"; ctx.font = "normal 30px sans-serif";
-	ctx.fillText(`FT ${freeThrowsMade}/${freeThrowsTried} ${!freeThrowsTried ? "–" : 100 * freeThrowsMade / freeThrowsTried | 0}%`, 5, 5);
-	ctx.fillText(`FG ${fieldGoalsMade}/${fieldGoalsTried} ${!fieldGoalsTried ? "–" : 100 * fieldGoalsMade / fieldGoalsTried | 0}%`, 5, 35);
-	ctx.fillText(`3P ${fieldGoals3Made}/${fieldGoals3Tried} ${!fieldGoals3Tried ? "–" : 100 * fieldGoals3Made / fieldGoals3Tried | 0}%`, 5, 65);
+	ctx.fillText(`FG ${fieldGoalsMade}/${fieldGoalsTried} ${!fieldGoalsTried ? "–" : 100 * fieldGoalsMade / fieldGoalsTried | 0}%`, 5, 5);
+	ctx.fillText(`3P ${fieldGoals3Made}/${fieldGoals3Tried} ${!fieldGoals3Tried ? "–" : 100 * fieldGoals3Made / fieldGoals3Tried | 0}%`, 5, 35);
+	ctx.fillText(`FT ${freeThrowsMade}/${freeThrowsTried} ${!freeThrowsTried ? "–" : 100 * freeThrowsMade / freeThrowsTried | 0}%`, 5, 65);
 	ctx.direction = "rtl"; ctx.font = "bold 40px sans-serif";
 	ctx.fillText(`${pointsMade}/${throwsTried}`, width-10, 5);
 	ctx.fillText(!throwsTried ? "––" : (pointsMade/throwsTried).toFixed(2), width-10, 50);
@@ -233,7 +233,7 @@ const endThrow = function() {
 				pointsMade += 2;
 				break;
 			case "lr": case "c3":
-				fieldGoals3Made++;
+				fieldGoalsMade++; fieldGoals3Made++;
 				pointsMade += 3;
 				break;
 			default: pointsMade = NaN;
@@ -242,7 +242,7 @@ const endThrow = function() {
 	switch(throwLocation) {
 		case "ft": freeThrowsTried++; break;
 		case "fin": case "cr": case "mr": fieldGoalsTried++; break;
-		case "lr": case "c3": fieldGoals3Tried++; break;
+		case "lr": case "c3": fieldGoalsTried++; fieldGoals3Tried++; break;
 		default: throwsTried = NaN;
 	}
 	throwsTried++;
