@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>🏀 2D</title>
+		<script src="../lib/matter.min.js"></script>
+		<style>
+body {
+	background-color: black;
+	color: white;
+	font-size: xx-large;
+	font-family: sans-serif;
+}
+div {
+	position: relative;
+	width: 1000px;
+	height: 600px;
+	margin: auto;
+	background: linear-gradient(0deg, rgba(139, 110, 134, 1) 0%, rgba(188, 128, 131, 1) 10%,
+		rgba(255, 151, 128, 1) 20%, rgba(207, 213, 245, 1) 45%, rgba(120, 169, 245, 1) 95%);
+}
+canvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+		</style>
+	</head>
+	<body>
+		<div>
+			<canvas id="backgroundCanvas" width="1000" height="600"></canvas>
+			<canvas id="foregroundCanvas"></canvas>
+		</div>
+		<script>
+"use strict";
+const containerDiv = document.querySelector("div");
+const backgroundCanvasCtx = document.getElementById("backgroundCanvas").getContext("2d");
+const {Composite, Composites, Constraint, Bodies, Body, Events, Render, Engine, Runner, Vector, Sleeping} = Matter;
+const height = 600, width = 1000,
+	groundHeigth = 10, backboardXDist = 122, backboardWidth = 4, backboardHeight = 105, backboardYDist = 290,
+	rimWidth = 1, rimHeight = 4, rimRadius = 45/2, rimCenterXDist = 160, rimCenterYDist = 305,
+	freeThrowDist = 579, areaLineDistFromCenterRim = 724, areaCornerLineDistFromCenterRim = 671,
+	areaWidth = rimCenterXDist + areaLineDistFromCenterRim,
+	ballRadius = 12, playerHeight = 180, playerJump = 50;
+const mapNum = (n, min, max, min2, max2) => (n - min) / (max - min) * (max2 - min2) + min2;
+let meterPixel = 50, basketMade = false, throwStarted = false,
+	pointsMade = 0, throwsTried = 0, fieldGoalsMade = 0, fieldGoalsTried = 0,
+	fieldGoals3Made = 0, fieldGoals3Tried = 0, freeThrowsMade = 0, freeThrowsTried = 0;
+const throwLocations = ["ft", "fin", "cr", "mr", "lr", "c3"];
+const randomThrowLocation = () => throwLocations[Math.random() * throwLocations.length | 0];
+const throwLocationsX = {
+	"ft": width-freeThrowDist, "fin": width-rimCenterXDist-rimRadius-50,
+	"cr": width-areaWidth/2, "mr": width-areaWidth*0.85,
+	"lr": width-areaWidth, "c3": width-rimCenterXDist-areaCornerLineDistFromCenterRim
+};
+const throwLocationsY = throwLocation => height - playerHeight - (throwLocation == "ft" ? 0 : playerJump);
+const throwAngles = {
+	"ft": 51*Math.PI/180, "fin": 80*Math.PI/180, "cr": 70*Math.PI/180,
+	"mr": 56*Math.PI/180, "lr": 45*Math.PI/180, "c3": 52*Math.PI/180
+};
+const meterLows = {"ft": 14, "fin": 7, "cr": 13, "mr": 17, "lr": 18, "c3": 17};
+const meterHighs = {"ft": 17, "fin": 15, "cr": 18, "mr": 21, "lr": 22, "c3": 21};
+const meterGreens = {
+	"ft": [[15.2,15.5], [16.1,16.3]], "fin": [[9,11.2]], "cr": [[14.7,15.5], [16.2,16.4]],
+	"mr": [[18.3,18.6], [19.2,19.5]], "lr": [[19.1,19.5], [20,20.3]], "c3": [[19,19.4]]
+};
+let throwLocation = randomThrowLocation();
+if(throwLocation == "c3") containerDiv.style.background = "linear-gradient(5deg, rgba(139, 110, 134, 1) 0%, rgba(188, 128, 131, 1) 10%, rgba(255, 151, 128, 1) 20%, rgba(207, 213, 245, 1) 45%, rgba(120, 169, 245, 1) 95%)";
+
+const engine = Engine.create();
+const ball = Bodies.circle(throwLocationsX[throwLocation], throwLocationsY(throwLocation), ballRadius, {
+	isSleeping: true, restitution: 0.9, frictionStatic: 0.1, render: {fillStyle: "#EF6C32", strokeStyle: "#000", lineWidth: 2}
+});
+const frontRim = Bodies.circle(width-rimCenterXDist-rimRadius, height-rimCenterYDist, rimWidth, {
+	isStatic: true, render: {fillStyle: "#C84B14", strokeStyle: "#C84B14", lineWidth: 2}, visible: false
+});
+const backRim = Bodies.circle(width-rimCenterXDist+rimRadius, height-rimCenterYDist, rimWidth, {
+	isStatic: true, render: {fillStyle: "#C84B14", strokeStyle: "#C84B14", lineWidth: 2}, visible: false
+});
+const backboard = Bodies.rectangle(
+	Math.abs(width-backboardXDist-backboardWidth/2) * (throwLocation=="c3"?-1:1),
+	height-backboardYDist-backboardHeight/2,
+	backboardWidth, backboardHeight,
+	{isStatic: true, render: {fillStyle: "#fff"}}
+);
+Composite.add(engine.world, [
+	// ground
+	Bodies.rectangle(width/2, height-groundHeigth+1000/2, width, 1000, {
+		isStatic: true, render: {fillStyle: "#440"}
+	}),
+	backboard, frontRim, backRim, ball
+]);
+
+const createNetParticle = (x, y) => Bodies.circle(x, y, 4, {render: {visible: false}});
+const netConstraintsOptions = {
+	stiffness: 1, render: {anchors: false, lineWidth: 1, strokeStyle: "#888", type: "line"}
+};
+let frontNet = Composites.stack(
+	width-rimCenterXDist-rimRadius, height-rimCenterYDist+5, 1, 6, NaN, 1, createNetParticle
+);
+let backNet = Composites.stack(
+	width-rimCenterXDist+rimRadius, height-rimCenterYDist+5, 1, 6, NaN, 1, createNetParticle
+);
+frontNet = Composites.chain(frontNet, 0, 0, 0, 0, netConstraintsOptions);
+backNet = Composites.chain(backNet, 0, 0, 0, 0, netConstraintsOptions);
+
+Composite.add(engine.world, Composite.allBodies(frontNet));
+Composite.add(engine.world, Composite.allConstraints(frontNet));
+Composite.add(engine.world, Composite.allBodies(backNet));
+Composite.add(engine.world, Composite.allConstraints(backNet));
+Composite.add(engine.world, [
+	// ties frontNet to frontRim
+	Constraint.create(Object.assign({}, netConstraintsOptions, {
+		bodyA: frontRim, bodyB: frontNet.bodies[0]
+	})),
+	// ties backNet to backRim
+	Constraint.create(Object.assign({}, netConstraintsOptions, {
+		bodyA: backRim, bodyB: backNet.bodies[0]
+	})),
+	// ties backNet to frontNet
+	Constraint.create(Object.assign({}, netConstraintsOptions, {
+		bodyA: frontNet.bodies[0], bodyB: backNet.bodies[0], length: 40
+	})),
+	Constraint.create(Object.assign({}, netConstraintsOptions, {
+		bodyA: frontNet.bodies[1], bodyB: backNet.bodies[1], length: 35
+	})),
+	Constraint.create(Object.assign({}, netConstraintsOptions, {
+		bodyA: frontNet.bodies[2], bodyB: backNet.bodies[2], length: 30
+	})),
+	Constraint.create(Object.assign({}, netConstraintsOptions, {
+		bodyA: frontNet.bodies[3], bodyB: backNet.bodies[3], length: 25
+	})),
+	Constraint.create(Object.assign({}, netConstraintsOptions, {
+		bodyA: frontNet.bodies[4], bodyB: backNet.bodies[4], length: 25
+	}))
+]);
+
+const render = Render.create({
+	canvas: document.getElementById("foregroundCanvas"),
+	engine: engine,
+	options: {hasBounds: true, height: height, width: width, wireframes: false, background: "transparent", showAngleIndicator: true}
+});
+Events.on(render, "beforeRender", function() {
+	const ctx = backgroundCanvasCtx;
+	ctx.clearRect(0, 0, width, height);
+	if(throwLocation == "c3") {
+		ctx.fillStyle = "#fff";
+		ctx.fillRect(width-rimCenterXDist-200/2, height-backboardYDist, 200, -backboardHeight);
+		ctx.fillStyle = "#F00";
+		ctx.fillRect(width-rimCenterXDist-59/2, height-rimCenterYDist, 59, -2*rimRadius); // backboard's square
+		ctx.fillStyle = "#fff";
+		ctx.fillRect(width-rimCenterXDist-(59-8)/2, height-rimCenterYDist, 59-8, -2*rimRadius+4); // backboard's inner square
+	}
+});
+Events.on(render, "afterRender", function() {
+	const ctx = render.context;
+	ctx.fillStyle = "#fff";
+	if(throwLocation == "c3") {
+		// corner 3 "line"
+		ctx.fillRect(width-rimCenterXDist-areaCornerLineDistFromCenterRim, height-groundHeigth, 10, groundHeigth);
+	} else {
+		ctx.fillRect(width-freeThrowDist, height-groundHeigth, 10, groundHeigth); // free throw "line"
+		ctx.fillRect(width-areaWidth, height-groundHeigth, 10, groundHeigth); // 3 point "line"
+		ctx.fillRect(width, height-295, -backboardXDist, -8); // basket "support"
+	}
+	if(throwLocation != "c3") {
+		ctx.fillStyle = "#F00";
+		ctx.fillRect(width-backboardXDist, height-rimCenterYDist, -backboardWidth, -2*rimRadius); // backboard's square
+	}
+	ctx.fillStyle = "#C84B14";
+	if(throwLocation == "c3") {
+		ctx.fillRect(width-rimCenterXDist-rimRadius-rimWidth, height-rimCenterYDist-rimHeight/2, 2*(rimRadius+rimWidth), rimHeight);
+	} else {
+		ctx.fillRect(width-backboardXDist-backboardWidth, height-rimCenterYDist-rimHeight/2, -rimCenterXDist-rimRadius-rimWidth+backboardXDist+backboardWidth, rimHeight); // rim
+	}
+	ctx.lineWidth = 1; ctx.strokeStyle = "#000"; ctx.beginPath();
+	ctx.moveTo(throwLocationsX[throwLocation], throwLocationsY(throwLocation));
+	ctx.lineTo(throwLocationsX[throwLocation]+Math.cos(throwAngles[throwLocation])*20,
+		throwLocationsY(throwLocation)-Math.sin(throwAngles[throwLocation])*20);
+	ctx.stroke(); // throw location
+
+	// throw meter
+	ctx.fillStyle = "#000";
+	ctx.fillRect(width/2-2, height-48, 24, -104); // outline
+	ctx.fillStyle = "#555";
+	ctx.fillRect(width/2, height-50, 20, -100);
+	ctx.fillStyle = "#0f0";
+	meterGreens[throwLocation].forEach(function(greens) {
+		const min = mapNum(greens[0], meterLows[throwLocation], meterHighs[throwLocation], 50, 150);
+		const max = mapNum(greens[1], meterLows[throwLocation], meterHighs[throwLocation], 50, 150);
+		ctx.fillRect(width/2, height-min, 20, -max+min);
+	});
+	ctx.lineWidth = 1; ctx.strokeStyle = "#fff"; ctx.beginPath();
+	ctx.moveTo(width/2, height-meterPixel); ctx.lineTo(width/2+20, height-meterPixel); ctx.stroke();
+	if(!throwStarted) {
+		meterPixel += throwLocation == "ft" ? 0.5 : 1;
+		if(meterPixel >= 150) meterPixel = 50;
+	}
+
+	// scores
+	ctx.fillStyle = "#000"; ctx.textBaseline = "top"; ctx.direction = "ltr"; ctx.font = "normal 30px sans-serif";
+	ctx.fillText(`FT ${freeThrowsMade}/${freeThrowsTried} ${!freeThrowsTried ? "–" : 100 * freeThrowsMade / freeThrowsTried | 0}%`, 5, 5);
+	ctx.fillText(`FG ${fieldGoalsMade}/${fieldGoalsTried} ${!fieldGoalsTried ? "–" : 100 * fieldGoalsMade / fieldGoalsTried | 0}%`, 5, 35);
+	ctx.fillText(`3P ${fieldGoals3Made}/${fieldGoals3Tried} ${!fieldGoals3Tried ? "–" : 100 * fieldGoals3Made / fieldGoals3Tried | 0}%`, 5, 65);
+	ctx.direction = "rtl"; ctx.font = "bold 40px sans-serif";
+	ctx.fillText(`${pointsMade}/${throwsTried}`, width-10, 5);
+	ctx.fillText(!throwsTried ? "––" : (pointsMade/throwsTried).toFixed(2), width-10, 50);
+});
+
+//let scriptedVel = 8;
+render.canvas.onclick = function() {
+	if(!throwStarted) {
+		let vel = Vector.rotate(Vector.create(1, 0), -throwAngles[throwLocation]);
+		vel = Vector.mult(vel, mapNum(meterPixel, 50, 150, meterLows[throwLocation], meterHighs[throwLocation]));
+		Body.setVelocity(ball, vel);
+		Body.setAngularVelocity(ball, -0.3);
+		Sleeping.set(ball, false);
+
+		throwStarted = true;
+	}
+};
+
+const endThrow = function() {
+	if(basketMade) {
+		switch(throwLocation) {
+			case "ft":
+				freeThrowsMade++;
+				pointsMade++;
+				break;
+			case "fin": case "cr": case "mr":
+				fieldGoalsMade++;
+				pointsMade += 2;
+				break;
+			case "lr": case "c3":
+				fieldGoals3Made++;
+				pointsMade += 3;
+				break;
+			default: pointsMade = NaN;
+		}
+	}
+	switch(throwLocation) {
+		case "ft": freeThrowsTried++; break;
+		case "fin": case "cr": case "mr": fieldGoalsTried++; break;
+		case "lr": case "c3": fieldGoals3Tried++; break;
+		default: throwsTried = NaN;
+	}
+	throwsTried++;
+	basketMade = false;
+	throwStarted = false;
+
+	throwLocation = randomThrowLocation();
+	Sleeping.set(ball, true);
+	Body.setPosition(ball, Vector.create(throwLocationsX[throwLocation], throwLocationsY(throwLocation)));
+	Body.setPosition(backboard, Vector.create(
+		Math.abs(backboard.position.x) * (throwLocation=="c3"?-1:1), backboard.position.y
+	));
+	containerDiv.style.background = throwLocation == "c3" ? "linear-gradient(5deg, rgba(139, 110, 134, 1) 0%, rgba(188, 128, 131, 1) 10%, rgba(255, 151, 128, 1) 20%, rgba(207, 213, 245, 1) 45%, rgba(120, 169, 245, 1) 95%)" : "";
+};
+Events.on(engine, "afterUpdate", function() {
+	if(throwStarted && (ball.position.x > width + ballRadius ||
+		(ball.speed < 0.1 && ball.position.y > height-groundHeigth-ballRadius-20)
+	)) {
+		endThrow();
+	} else if(!basketMade &&
+		ball.position.x > frontRim.position.x + rimWidth &&
+		ball.position.x < backRim.position.x - rimWidth &&
+		ball.position.y > frontRim.position.y &&
+		ball.position.y < frontRim.position.y + 10
+	) {
+		basketMade = true;
+	}
+});
+
+const runner = Runner.create();
+
+Render.run(render);
+Runner.run(runner, engine);
+		</script>
+	</body>
+</html>
