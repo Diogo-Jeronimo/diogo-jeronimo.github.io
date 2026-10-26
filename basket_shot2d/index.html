@@ -14,7 +14,7 @@ body {
 }
 div {
 	position: relative;
-	width: 1000px;
+	width: 950px;
 	height: 600px;
 	margin: auto;
 	background: linear-gradient(0deg, rgba(139, 110, 134, 1) 0%, rgba(188, 128, 131, 1) 10%,
@@ -29,7 +29,7 @@ canvas {
 	</head>
 	<body>
 		<div>
-			<canvas id="backgroundCanvas" width="1000" height="600"></canvas>
+			<canvas id="backgroundCanvas" width="950" height="600"></canvas>
 			<canvas id="foregroundCanvas"></canvas>
 		</div>
 		<script>
@@ -37,7 +37,7 @@ canvas {
 const containerDiv = document.querySelector("div");
 const backgroundCanvasCtx = document.getElementById("backgroundCanvas").getContext("2d");
 const {Composite, Composites, Constraint, Bodies, Body, Events, Render, Engine, Runner, Vector, Sleeping} = Matter;
-const height = 600, width = 1000,
+const height = 600, width = 950,
 	groundHeigth = 10, backboardXDist = 122, backboardWidth = 4, backboardHeight = 105, backboardYDist = 290,
 	rimWidth = 1, rimHeight = 4, rimRadius = 45/2, rimCenterXDist = 160, rimCenterYDist = 305,
 	freeThrowDist = 579, areaLineDistFromCenterRim = 724, areaCornerLineDistFromCenterRim = 671,
@@ -203,6 +203,16 @@ Events.on(render, "afterRender", function() {
 	ctx.fillText(`FG ${fieldGoalsMade}/${fieldGoalsTried} ${!fieldGoalsTried ? "–" : 100 * fieldGoalsMade / fieldGoalsTried | 0}%`, 5, 5);
 	ctx.fillText(`3P ${fieldGoals3Made}/${fieldGoals3Tried} ${!fieldGoals3Tried ? "–" : 100 * fieldGoals3Made / fieldGoals3Tried | 0}%`, 5, 35);
 	ctx.fillText(`FT ${freeThrowsMade}/${freeThrowsTried} ${!freeThrowsTried ? "–" : 100 * freeThrowsMade / freeThrowsTried | 0}%`, 5, 65);
+	if(basketMade) {
+		let points;
+		switch(throwLocation) {
+			case "ft": points = "+1"; break;
+			case "fin": case "cr": case "mr": points = "+2"; break;
+			case "lr": case "c3": points = "+3"; break;
+			default: points = "";
+		}
+		ctx.fillText(points, width-backboardXDist, height-backboardYDist*0.8);
+	}
 	ctx.direction = "rtl"; ctx.font = "bold 40px sans-serif";
 	ctx.fillText(`${pointsMade}/${throwsTried}`, width-10, 5);
 	ctx.fillText(!throwsTried ? "––" : (pointsMade/throwsTried).toFixed(2), width-10, 50);
