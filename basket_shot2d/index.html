@@ -7,27 +7,29 @@
 		<script src="../lib/matter.min.js"></script>
 		<style>
 body {
-	background-color: black;
+	background-color: #222;
 	color: white;
 	font-size: large;
 	font-family: sans-serif;
 }
-button {
-	display: block;
-	margin: auto;
+div:first-of-type {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
 	margin-bottom: 8px;
+}
+button, select {
 	padding: 8px 16px;
 	background-color: #222;
 	color: white;
 	font-size: large;
 }
-div {
+#gameArea {
 	position: relative;
 	width: 950px;
 	height: 600px;
 	margin: auto;
-	background: linear-gradient(0deg, rgba(139, 110, 134, 1) 0%, rgba(188, 128, 131, 1) 10%,
-		rgba(255, 151, 128, 1) 20%, rgba(207, 213, 245, 1) 45%, rgba(120, 169, 245, 1) 95%);
 }
 canvas {
 	position: absolute;
@@ -37,14 +39,22 @@ canvas {
 		</style>
 	</head>
 	<body>
-		<button>Recomeçar</button>
 		<div>
+			<button>Recomeçar</button>
+			<select>
+				<option value="overcast">15:00 ☁️</option>
+				<option value="twilight" selected>17:30 🌆</option>
+				<option value="nighttime">19:00 🌕</option>
+			</select>
+		</div>
+		<div id="gameArea">
 			<canvas id="backgroundCanvas" width="950" height="600"></canvas>
 			<canvas id="foregroundCanvas"></canvas>
 		</div>
 		<script>
 "use strict";
-const containerDiv = document.querySelector("div");
+const timeSelect = document.querySelector("select");
+const gameAreaDiv = document.getElementById("gameArea");
 const backgroundCanvasCtx = document.getElementById("backgroundCanvas").getContext("2d");
 const {Composite, Composites, Constraint, Bodies, Body, Events, Render, Engine, Runner, Vector, Sleeping} = Matter;
 const height = 600, width = 950,
@@ -54,12 +64,20 @@ const height = 600, width = 950,
 	areaWidth = rimCenterXDist + areaLineDistFromCenterRim,
 	ballRadius = 12, playerHeight = 180, playerJump = 50;
 const mapNum = (n, min, max, min2, max2) => (n - min) / (max - min) * (max2 - min2) + min2;
-let meterPixel = 50, basketMade = false, throwStarted = false, ballBehindBasket = true, shotTime = null,
+let meterPixel = 50, basketMade = false, throwStarted = false, ballBehindBasket = true, throwTime = null,
 	pointsMade = 0, possessions = 0, fieldGoalsMade = 0, fieldGoalsTried = 0,
 	fieldGoals3Made = 0, fieldGoals3Tried = 0, freeThrowsMade = 0, freeThrowsTried = 0;
 document.querySelector("button").onclick = function() {
 	pointsMade = 0, possessions = 0, fieldGoalsMade = 0, fieldGoalsTried = 0,
 	fieldGoals3Made = 0, fieldGoals3Tried = 0, freeThrowsMade = 0, freeThrowsTried = 0;
+};
+timeSelect.onchange = () => gameAreaDiv.style.background = getBackground(timeSelect.value, throwLocation);
+const getBackground = function(selectedBackground, throwLocation) {
+	switch(selectedBackground) {
+		case "overcast": return "#C3BEBD";
+		case "twilight": return `linear-gradient(${throwLocation=="c3"?5:0}deg,rgba(139,110,134,1) 0%,rgba(188,128,131,1) 10%,rgba(255,151,128,1) 20%,rgba(207,213,245,1) 45%,rgba(120, 169, 245, 1) 95%)`;
+		case "nighttime": return "linear-gradient(0deg,rgba(29, 26, 27, 1) 0%,rgba(6,6,4,1)"; //"#1D1A1B";
+	}
 };
 const throwLocations = ["ft", "fin", "cr", "mr", "lr", "c3", "beh"];
 const randomThrowLocation = () => throwLocations[Math.random() * throwLocations.length | 0];
@@ -87,7 +105,7 @@ const meterGreens = {
 	"lr": [[19.1,19.4], [20,20.3]], "c3": [[19,19.3]], "beh": [[11.9,13]]
 };
 let throwLocation = randomThrowLocation();
-if(throwLocation == "c3") containerDiv.style.background = "linear-gradient(5deg, rgba(139, 110, 134, 1) 0%, rgba(188, 128, 131, 1) 10%, rgba(255, 151, 128, 1) 20%, rgba(207, 213, 245, 1) 45%, rgba(120, 169, 245, 1) 95%)";
+gameAreaDiv.style.background = getBackground(timeSelect.value, throwLocation);
 
 const engine = Engine.create();
 const ball = Bodies.circle(throwLocationsX[throwLocation], throwLocationsY(throwLocation), ballRadius, {
@@ -173,6 +191,18 @@ Events.on(render, "beforeRender", function() {
 	const ctx = backgroundCanvasCtx;
 	ctx.clearRect(0, 0, width, height);
 	if(throwLocation == "c3") {
+		if(timeSelect.value == "nighttime") {
+			// diphda
+			let grad = ctx.createRadialGradient(300, 200, 0, 300, 200, 5);
+			grad.addColorStop(0, "rgba(255, 255, 255, 1)");
+			grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+			ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+			// fomalhaut
+			grad = ctx.createRadialGradient(600, 350, 0, 600, 350, 6);
+			grad.addColorStop(0, "rgba(255, 255, 255, 1)");
+			grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+			ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+		}
 		ctx.fillStyle = "#fff";
 		ctx.fillRect(width-rimCenterXDist-200/2, height-backboardYDist, 200, -backboardHeight);
 		ctx.fillStyle = "#F00";
@@ -180,6 +210,29 @@ Events.on(render, "beforeRender", function() {
 		ctx.fillStyle = "#fff";
 		ctx.fillRect(width-rimCenterXDist-(59-8)/2, height-rimCenterYDist, 59-8, -2*rimRadius+4); // backboard's inner square
 		ctx.fillRect(width-rimCenterXDist-8/4, height, 8, -backboardYDist); // basket "support"
+	} else if(timeSelect.value == "nighttime") {
+		// moon
+		let grad = ctx.createRadialGradient(300, 100, 8, 300, 100, 70);
+		grad.addColorStop(0, "rgba(255, 255, 255, 0.8)");
+		grad.addColorStop(0.2, "rgba(255, 255, 255, 0.45)");
+		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+		ctx.fillStyle = "#fff"; ctx.arc(300, 100, 8, 0, 7); ctx.fill();
+		// aldebaran
+		grad = ctx.createRadialGradient(450, 150, 1, 450, 150, 6);
+		grad.addColorStop(0, "rgba(255, 200, 200, 1)");
+		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+		// betelgeuse
+		grad = ctx.createRadialGradient(400, 400, 1, 400, 400, 6);
+		grad.addColorStop(0, "rgba(255, 200, 200, 1)");
+		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+		// rigel
+		grad = ctx.createRadialGradient(650, 450, 1, 650, 450, 6);
+		grad.addColorStop(0, "rgba(255, 255, 255, 1)");
+		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
 	}
 });
 Events.on(render, "afterRender", function() {
@@ -203,14 +256,15 @@ Events.on(render, "afterRender", function() {
 	} else {
 		ctx.fillRect(width-backboardXDist-backboardWidth, height-rimCenterYDist-rimHeight/2, -rimCenterXDist-rimRadius-rimWidth+backboardXDist+backboardWidth, rimHeight); // rim
 	}
-	ctx.lineWidth = 1; ctx.strokeStyle = "#000"; ctx.beginPath();
+	ctx.lineWidth = 1; ctx.beginPath();
+	ctx.strokeStyle = timeSelect.value == "nighttime" ? "#fff" : "#000";
 	ctx.moveTo(throwLocationsX[throwLocation], throwLocationsY(throwLocation));
 	ctx.lineTo(throwLocationsX[throwLocation]+Math.cos(throwAngles[throwLocation])*20,
 		throwLocationsY(throwLocation)-Math.sin(throwAngles[throwLocation])*20);
 	ctx.stroke(); // throw location
 
 	// throw meter
-	ctx.fillStyle = "#000";
+	ctx.fillStyle = /*timeSelect.value == "nighttime" ? "#fff" :*/ "#000";
 	ctx.fillRect(width/2-2, height-48, 24, -104); // outline
 	ctx.fillStyle = "#555";
 	ctx.fillRect(width/2, height-50, 20, -100);
@@ -234,10 +288,11 @@ Events.on(render, "afterRender", function() {
 	}
 
 	// scores
-	ctx.fillStyle = "#000"; ctx.textBaseline = "top"; ctx.direction = "ltr"; ctx.font = "normal 30px sans-serif";
-	ctx.fillText(`FG ${fieldGoalsMade}/${fieldGoalsTried} ${!fieldGoalsTried ? "–" : 100 * fieldGoalsMade / fieldGoalsTried | 0}%`, 5, 5);
-	ctx.fillText(`3P ${fieldGoals3Made}/${fieldGoals3Tried} ${!fieldGoals3Tried ? "–" : 100 * fieldGoals3Made / fieldGoals3Tried | 0}%`, 5, 35);
-	ctx.fillText(`FT ${freeThrowsMade}/${freeThrowsTried} ${!freeThrowsTried ? "–" : 100 * freeThrowsMade / freeThrowsTried | 0}%`, 5, 65);
+	ctx.fillStyle = timeSelect.value == "nighttime" ? "#fff" : "#000";
+	ctx.textBaseline = "top"; ctx.direction = "ltr"; ctx.font = "normal 30px sans-serif";
+	ctx.fillText(`FG ${fieldGoalsMade}/${fieldGoalsTried} ${!fieldGoalsTried ? "‒" : 100 * fieldGoalsMade / fieldGoalsTried | 0}%`, 5, 5);
+	ctx.fillText(`3P ${fieldGoals3Made}/${fieldGoals3Tried} ${!fieldGoals3Tried ? "‒" : 100 * fieldGoals3Made / fieldGoals3Tried | 0}%`, 5, 35);
+	ctx.fillText(`FT ${freeThrowsMade}/${freeThrowsTried} ${!freeThrowsTried ? "‒" : 100 * freeThrowsMade / freeThrowsTried | 0}%`, 5, 65);
 	if(basketMade) {
 		let points;
 		switch(throwLocation) {
@@ -250,7 +305,7 @@ Events.on(render, "afterRender", function() {
 	}
 	ctx.direction = "rtl"; ctx.font = "bold 40px sans-serif";
 	ctx.fillText(`${pointsMade}/${possessions}`, width-10, 5);
-	ctx.fillText(!possessions ? "––" : (pointsMade/possessions).toFixed(2), width-10, 50);
+	ctx.fillText(!possessions ? "‒‒.‒" : (pointsMade/possessions).toFixed(2), width-10, 50);
 });
 
 //let scriptedVel = 8;
@@ -263,7 +318,7 @@ render.canvas.onclick = function() {
 		Sleeping.set(ball, false);
 
 		throwStarted = true;
-		shotTime = engine.timing.timestamp;
+		throwTime = engine.timing.timestamp;
 	}
 };
 
@@ -294,7 +349,7 @@ const endThrow = function() {
 	possessions += throwLocation == "ft" ? 0.5 : 1;
 	basketMade = false;
 	throwStarted = false;
-	shotTime = null;
+	throwTime = null;
 
 	throwLocation = Number.isInteger(possessions) ? randomThrowLocation() : "ft";
 	Sleeping.set(ball, true);
@@ -305,12 +360,12 @@ const endThrow = function() {
 	Body.setPosition(backboard, Vector.create(
 		Math.abs(backboard.position.x) * (throwLocation=="c3"?-1:1), backboard.position.y
 	));
-	containerDiv.style.background = throwLocation == "c3" ? "linear-gradient(5deg, rgba(139, 110, 134, 1) 0%, rgba(188, 128, 131, 1) 10%, rgba(255, 151, 128, 1) 20%, rgba(207, 213, 245, 1) 45%, rgba(120, 169, 245, 1) 95%)" : "";
+	gameAreaDiv.style.background = getBackground(timeSelect.value, throwLocation);
 };
 Events.on(engine, "afterUpdate", function() {
 	if(throwStarted && (ball.position.x > width + ballRadius || ball.position.x < -ballRadius ||
 		(ball.speed < 0.1 && ball.position.y > height-groundHeigth-ballRadius-20) ||
-		engine.timing.timestamp > shotTime + 8000
+		engine.timing.timestamp > throwTime + 8000
 	)) {
 		endThrow();
 	} else {
