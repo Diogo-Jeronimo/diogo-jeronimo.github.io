@@ -74,8 +74,8 @@ document.querySelector("button").onclick = function() {
 timeSelect.onchange = () => drawBeforeRender();
 const getBackground = function(selectedBackground, throwLocation) {
 	switch(selectedBackground) {
-		case "overcast": return "#C3BEBD";
-		case "twilight": return `linear-gradient(${throwLocation=="c3"?5:0}deg,rgba(139,110,134,1) 0%,rgba(188,128,131,1) 10%,rgba(255,151,128,1) 20%,rgba(207,213,245,1) 45%,rgba(120, 169, 245, 1) 95%)`;
+		case "overcast": return "linear-gradient(0deg, rgba(169, 172, 178, 1) 0%, rgba(216, 220, 229, 1) 100%)";
+		case "twilight": return `linear-gradient(${throwLocation=="c3"?5:0}deg, rgba(139,110,134,1) 0%,rgba(188,128,131,1) 10%,rgba(255,151,128,1) 20%,rgba(207,213,245,1) 45%,rgba(120, 169, 245, 1) 95%)`;
 		case "nighttime": return "linear-gradient(0deg,rgba(29, 26, 27, 1) 0%,rgba(6,6,4,1)"; //"#1D1A1B";
 	}
 };
@@ -260,19 +260,6 @@ Events.on(render, "afterRender", function() {
 	ctx.fillText(!possessions ? "‒‒.‒" : (pointsMade/possessions).toFixed(2), width-10, 50);
 });
 
-//let scriptedVel = 8;
-render.canvas.onclick = function() {
-	if(!throwStarted) {
-		let vel = Vector.rotate(Vector.create(1, 0), -throwAngles[throwLocation]);
-		vel = Vector.mult(vel, mapNum(meterPixel, 50, 150, meterLows[throwLocation], meterHighs[throwLocation]));
-		Body.setVelocity(ball, vel);
-		Body.setAngularVelocity(ball, angularVelocities(throwLocation));
-		Sleeping.set(ball, false);
-
-		throwStarted = true;
-		throwTime = engine.timing.timestamp;
-	}
-};
 const drawBeforeRender = function() {
 	gameAreaDiv.style.background = getBackground(timeSelect.value, throwLocation);
 	const ctx = backgroundCanvasCtx;
@@ -384,6 +371,18 @@ Events.on(engine, "afterUpdate", function() {
 		}
 	}
 });
+render.canvas.onclick = function() {
+	if(!throwStarted) {
+		let vel = Vector.rotate(Vector.create(1, 0), -throwAngles[throwLocation]);
+		vel = Vector.mult(vel, mapNum(meterPixel, 50, 150, meterLows[throwLocation], meterHighs[throwLocation]));
+		Body.setVelocity(ball, vel);
+		Body.setAngularVelocity(ball, angularVelocities(throwLocation));
+		Sleeping.set(ball, false);
+
+		throwStarted = true;
+		throwTime = engine.timing.timestamp;
+	}
+};
 
 const runner = Runner.create();
 
