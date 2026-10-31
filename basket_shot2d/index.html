@@ -71,7 +71,7 @@ document.querySelector("button").onclick = function() {
 	pointsMade = 0, possessions = 0, fieldGoalsMade = 0, fieldGoalsTried = 0,
 	fieldGoals3Made = 0, fieldGoals3Tried = 0, freeThrowsMade = 0, freeThrowsTried = 0;
 };
-timeSelect.onchange = () => gameAreaDiv.style.background = getBackground(timeSelect.value, throwLocation);
+timeSelect.onchange = () => drawBeforeRender();
 const getBackground = function(selectedBackground, throwLocation) {
 	switch(selectedBackground) {
 		case "overcast": return "#C3BEBD";
@@ -187,54 +187,6 @@ const render = Render.create({
 	engine: engine,
 	options: {hasBounds: true, height: height, width: width, wireframes: false, background: "transparent", showAngleIndicator: true}
 });
-Events.on(render, "beforeRender", function() {
-	const ctx = backgroundCanvasCtx;
-	ctx.clearRect(0, 0, width, height);
-	if(throwLocation == "c3") {
-		if(timeSelect.value == "nighttime") {
-			// diphda
-			let grad = ctx.createRadialGradient(300, 200, 0, 300, 200, 5);
-			grad.addColorStop(0, "rgba(255, 255, 255, 1)");
-			grad.addColorStop(1, "rgba(0, 0, 0, 0)");
-			ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
-			// fomalhaut
-			grad = ctx.createRadialGradient(600, 350, 0, 600, 350, 6);
-			grad.addColorStop(0, "rgba(255, 255, 255, 1)");
-			grad.addColorStop(1, "rgba(0, 0, 0, 0)");
-			ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
-		}
-		ctx.fillStyle = "#fff";
-		ctx.fillRect(width-rimCenterXDist-200/2, height-backboardYDist, 200, -backboardHeight);
-		ctx.fillStyle = "#F00";
-		ctx.fillRect(width-rimCenterXDist-59/2, height-rimCenterYDist, 59, -2*rimRadius); // backboard's square
-		ctx.fillStyle = "#fff";
-		ctx.fillRect(width-rimCenterXDist-(59-8)/2, height-rimCenterYDist, 59-8, -2*rimRadius+4); // backboard's inner square
-		ctx.fillRect(width-rimCenterXDist-8/4, height, 8, -backboardYDist); // basket "support"
-	} else if(timeSelect.value == "nighttime") {
-		// moon
-		let grad = ctx.createRadialGradient(300, 100, 8, 300, 100, 70);
-		grad.addColorStop(0, "rgba(255, 255, 255, 0.8)");
-		grad.addColorStop(0.2, "rgba(255, 255, 255, 0.45)");
-		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
-		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
-		ctx.fillStyle = "#fff"; ctx.arc(300, 100, 8, 0, 7); ctx.fill();
-		// aldebaran
-		grad = ctx.createRadialGradient(450, 150, 1, 450, 150, 6);
-		grad.addColorStop(0, "rgba(255, 200, 200, 1)");
-		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
-		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
-		// betelgeuse
-		grad = ctx.createRadialGradient(400, 400, 1, 400, 400, 6);
-		grad.addColorStop(0, "rgba(255, 200, 200, 1)");
-		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
-		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
-		// rigel
-		grad = ctx.createRadialGradient(650, 450, 1, 650, 450, 6);
-		grad.addColorStop(0, "rgba(255, 255, 255, 1)");
-		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
-		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
-	}
-});
 Events.on(render, "afterRender", function() {
 	const ctx = render.context;
 	ctx.fillStyle = "#fff";
@@ -321,7 +273,55 @@ render.canvas.onclick = function() {
 		throwTime = engine.timing.timestamp;
 	}
 };
-
+const drawBeforeRender = function() {
+	gameAreaDiv.style.background = getBackground(timeSelect.value, throwLocation);
+	const ctx = backgroundCanvasCtx;
+	ctx.clearRect(0, 0, width, height);
+	if(throwLocation == "c3") {
+		if(timeSelect.value == "nighttime") {
+			// diphda
+			let grad = ctx.createRadialGradient(300, 200, 0, 300, 200, 5);
+			grad.addColorStop(0, "rgba(255, 255, 255, 1)");
+			grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+			ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+			// fomalhaut
+			grad = ctx.createRadialGradient(600, 350, 0, 600, 350, 6);
+			grad.addColorStop(0, "rgba(255, 255, 255, 1)");
+			grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+			ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+		}
+		ctx.fillStyle = "#fff";
+		ctx.fillRect(width-rimCenterXDist-200/2, height-backboardYDist, 200, -backboardHeight);
+		ctx.fillStyle = "#F00";
+		ctx.fillRect(width-rimCenterXDist-59/2, height-rimCenterYDist, 59, -2*rimRadius); // backboard's square
+		ctx.fillStyle = "#fff";
+		ctx.fillRect(width-rimCenterXDist-(59-8)/2, height-rimCenterYDist, 59-8, -2*rimRadius+4); // backboard's inner square
+		ctx.fillRect(width-rimCenterXDist-8/4, height, 8, -backboardYDist); // basket "support"
+	} else if(timeSelect.value == "nighttime") {
+		// moon
+		let grad = ctx.createRadialGradient(300, 100, 8, 300, 100, 70);
+		grad.addColorStop(0, "rgba(255, 255, 255, 0.8)");
+		grad.addColorStop(0.2, "rgba(255, 255, 255, 0.45)");
+		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+		ctx.fillStyle = "#fff"; ctx.arc(300, 100, 8, 0, 7); ctx.fill();
+		// aldebaran
+		grad = ctx.createRadialGradient(450, 150, 1, 450, 150, 6);
+		grad.addColorStop(0, "rgba(255, 200, 200, 1)");
+		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+		// betelgeuse
+		grad = ctx.createRadialGradient(400, 400, 1, 400, 400, 6);
+		grad.addColorStop(0, "rgba(255, 200, 200, 1)");
+		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+		// rigel
+		grad = ctx.createRadialGradient(650, 450, 1, 650, 450, 6);
+		grad.addColorStop(0, "rgba(255, 255, 255, 1)");
+		grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+		ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+	}
+};
 const endThrow = function() {
 	if(basketMade) {
 		switch(throwLocation) {
@@ -360,7 +360,7 @@ const endThrow = function() {
 	Body.setPosition(backboard, Vector.create(
 		Math.abs(backboard.position.x) * (throwLocation=="c3"?-1:1), backboard.position.y
 	));
-	gameAreaDiv.style.background = getBackground(timeSelect.value, throwLocation);
+	drawBeforeRender();
 };
 Events.on(engine, "afterUpdate", function() {
 	if(throwStarted && (ball.position.x > width + ballRadius || ball.position.x < -ballRadius ||
@@ -387,6 +387,7 @@ Events.on(engine, "afterUpdate", function() {
 
 const runner = Runner.create();
 
+drawBeforeRender();
 Render.run(render);
 Runner.run(runner, engine);
 		</script>
